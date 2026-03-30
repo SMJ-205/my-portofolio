@@ -259,6 +259,7 @@
       "items": [
         { "name": "ChatGPT", "icon": "chatgpt" },
         { "name": "Claude", "icon": "claude" },
+        { "name": "NotebookLM", "icon": "notebooklm" },
         { "name": "Gemini", "icon": "gemini" },
         { "name": "Google Antigravity", "icon": "antigravity" }
       ]

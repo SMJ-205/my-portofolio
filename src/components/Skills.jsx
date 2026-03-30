@@ -6,7 +6,7 @@ import {
 } from 'react-icons/si'
 import { FaAws, FaDatabase, FaChartBar as FaTableau, FaProjectDiagram } from 'react-icons/fa'
 import { TbBrandGoogleBigQuery, TbWindmill } from 'react-icons/tb'
-import { HiSparkles, HiChartBar, HiCog, HiTable, HiCode, HiLightningBolt, HiPhotograph, HiTerminal } from 'react-icons/hi'
+import { HiSparkles, HiChartBar, HiCog, HiTable, HiCode, HiLightningBolt, HiPhotograph, HiTerminal, HiBookOpen } from 'react-icons/hi'
 import ScrollReveal from './ScrollReveal'
 
 // Map icon names from config to actual icon components
@@ -39,6 +39,7 @@ const iconMap = {
   smartpls: FaProjectDiagram,
   powerquery: HiLightningBolt,
   powerpivot: HiTable,
+  notebooklm: HiBookOpen,
 }
 
 const categoryIcons = {
