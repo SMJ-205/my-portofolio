@@ -78,8 +78,9 @@ export default function MatrixBackground({ theme, enabled = true }) {
         }
 
         for (let row = 0; row < rows; row++) {
+          const offsetY = (col % 2 === 1) ? spacingY / 2 : 0
           const x = col * spacingX + (spacingX - capWidth) / 2
-          const y = row * spacingY + (spacingY - capHeight) / 2
+          const y = row * spacingY + (spacingY - capHeight) / 2 + offsetY
 
           // Calculate highlight intensity based on distance to pulse head
           let intensity = 0
@@ -160,9 +161,10 @@ export default function MatrixBackground({ theme, enabled = true }) {
         : `rgba(45, 212, 191, ${baseAlpha})`
 
       for (let col = 0; col < c; col++) {
+        const offsetY = (col % 2 === 1) ? spacingY / 2 : 0
         for (let row = 0; row < rw; row++) {
           const x = col * spacingX + (spacingX - capW) / 2
-          const y = row * spacingY + (spacingY - capH) / 2
+          const y = row * spacingY + (spacingY - capH) / 2 + offsetY
           ctx.beginPath()
           ctx.moveTo(x + r, y)
           ctx.lineTo(x + capW - r, y)
