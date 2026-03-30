@@ -4,8 +4,8 @@ import {
   SiGooglesheets, SiSnowflake, SiCanva,
   SiGithub, SiN8N, SiDbt, SiGooglebigquery, SiOpenai
 } from 'react-icons/si'
-import { FaAws, FaDatabase, FaChartBar as FaTableau } from 'react-icons/fa'
-import { TbBrandGoogleBigQuery, TbWindmill, TbChartNodes } from 'react-icons/tb'
+import { FaAws, FaDatabase, FaChartBar as FaTableau, FaProjectDiagram } from 'react-icons/fa'
+import { TbBrandGoogleBigQuery, TbWindmill } from 'react-icons/tb'
 import { HiSparkles, HiChartBar, HiCog, HiTable, HiCode, HiLightningBolt, HiPhotograph, HiTerminal } from 'react-icons/hi'
 import ScrollReveal from './ScrollReveal'
 
@@ -36,7 +36,7 @@ const iconMap = {
   dbt: SiDbt,
   bigquery: SiGooglebigquery,
   chatgpt: SiOpenai,
-  smartpls: TbChartNodes,
+  smartpls: FaProjectDiagram,
 }
 
 const categoryIcons = {
