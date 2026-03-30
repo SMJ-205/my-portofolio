@@ -57,7 +57,7 @@ export default function Hero({ config }) {
           {/* Spinning outer radar ring */}
           <div style={{
             position: 'absolute',
-            inset: '-16px',
+            inset: '-12px',
             borderRadius: '50%',
             background: 'conic-gradient(from 0deg, var(--accent), transparent, transparent, var(--accent))',
             animation: 'spin 4s linear infinite',
@@ -65,7 +65,7 @@ export default function Hero({ config }) {
           {/* Gap to separate outer and inner circles */}
           <div style={{
             position: 'absolute',
-            inset: '-6px',
+            inset: '-4px',
             borderRadius: '50%',
             background: 'var(--bg-primary)',
           }} />
