@@ -1,0 +1,293 @@
+{
+  "meta": {
+    "title": "Sarif Mubdi Jantika",
+    "description": "Data Analyst & Accountant — Searching for Treasure in Data",
+    "siteUrl": "https://smj-205.github.io/my-portofolio/"
+  },
+  "profile": {
+    "name": "Sarif Mubdi Jantika",
+    "shortName": "Sarif MJ",
+    "title": "Data Analyst & Accountant",
+    "tagline": "Searching for Treasure in Data",
+    "photo": "assets/profile.png",
+    "bio": "Data Analyst with 12+ years of experience in accounting and tax reporting — now leveraging that deep financial background to build reliable, decision-ready data products. Currently working at Evermos, where I focus on creating a trusted SSOT for finance operations. I design and automate data pipelines using tools like Airflow, transform business requirements into scalable models with SQL, DBT and Python. I also help enforce data standards and conventions to ensure our datasets remain clean, consistent, and reliable.",
+    "bioExtended": "My years as an accountant taught me how businesses think — and now I translate those needs into data solutions that actually work for stakeholders. Passionate about connecting the dots between raw data and real business impact, and always looking to grow as a modern data professional.",
+    "resumeUrl": "assets/resume.pdf",
+    "social": {
+      "email": "sarif.mj@gmail.com",
+      "github": "https://github.com/SMJ-205",
+      "linkedin": "https://linkedin.com/in/sarifmj"
+    }
+  },
+  "navigation": [
+    { "id": "about", "label": "About Me" },
+    { "id": "experience", "label": "Experiences" },
+    { "id": "projects", "label": "Projects" },
+    { "id": "education", "label": "Education" },
+    { "id": "skills", "label": "Skills" },
+    { "id": "contact", "label": "Contact" }
+  ],
+  "experience": [
+    {
+      "company": "Evermos",
+      "logo": null,
+      "roles": [
+        {
+          "title": "Data Analyst",
+          "type": "Full-time",
+          "location": "Bandung, West Java, Indonesia",
+          "workMode": "Hybrid",
+          "startDate": "Oct 2023",
+          "endDate": "Present",
+          "duration": "1 yr 9 mos",
+          "description": [
+            "Enable informed decision-making for top management and investors by transforming complex data into high-level corporate insights and integrated financial reporting."
+          ],
+          "skills": ["SQL", "DBT", "Airflow", "Python", "Snowflake", "Metabase", "AppScript", "Looker"]
+        }
+      ]
+    },
+    {
+      "company": "PT Murakabi Talenta Cala",
+      "logo": null,
+      "roles": [
+        {
+          "title": "Accounting Supervisor",
+          "type": "Part-time",
+          "location": "Bandung, West Java, Indonesia",
+          "workMode": "On-site",
+          "startDate": "Mar 2018",
+          "endDate": "Present",
+          "duration": "7 yrs 4 mos",
+          "description": [
+            "Supervise financial reporting, tax compliance, and payroll systems.",
+            "Analyze financial data for budgeting and forecasting.",
+            "Advise leadership with financial insights and develop dashboards to support decision-making."
+          ],
+          "skills": ["Financial Analysis", "Reporting", "Taxation"]
+        }
+      ]
+    },
+    {
+      "company": "RevoU",
+      "logo": null,
+      "roles": [
+        {
+          "title": "Team Lead",
+          "type": "Part-time",
+          "location": "Remote",
+          "workMode": "Remote",
+          "startDate": "Aug 2022",
+          "endDate": "Feb 2025",
+          "duration": "2 yrs 11 mos",
+          "description": [
+            "Guide a team of 12 students through the Data Analytics program via simulations and 1-on-1 sessions.",
+            "Mentor students on data cleaning, analysis, and visualization.",
+            "Provide additional learning support beyond the core curriculum."
+          ],
+          "skills": ["SQL", "Python", "Data Visualization"]
+        },
+        {
+          "title": "Vertical Mentor – RevoU x AWS Kampus Merdeka Program CendekiAwan",
+          "type": "Part-time",
+          "location": "Remote",
+          "workMode": "Remote",
+          "startDate": "Jan 2024",
+          "endDate": "Jun 2024",
+          "duration": "6 mos",
+          "description": [
+            "Mentored students on cloud-based analytics solutions in collaboration with AWS."
+          ],
+          "skills": ["AWS"]
+        },
+        {
+          "title": "Data Analytics Mentor – RevoU x Kampus Merdeka Program",
+          "type": "Part-time",
+          "location": "Remote",
+          "workMode": "Remote",
+          "startDate": "Aug 2023",
+          "endDate": "Dec 2023",
+          "duration": "5 mos",
+          "description": [
+            "Led simulations and mentoring sessions in data analytics.",
+            "Reviewed capstone projects and provided actionable feedback."
+          ],
+          "skills": ["SQL", "Python", "Data Analysis"]
+        },
+        {
+          "title": "Data Analyst Associate – RevoU Virtual Labs",
+          "type": "Freelance",
+          "location": "Remote",
+          "workMode": "Remote",
+          "startDate": "Sep 2022",
+          "endDate": "Dec 2022",
+          "duration": "4 mos",
+          "description": [
+            "Conducted feature prioritization, customer segmentation, churn analysis, and KPI monitoring for a stealth startup."
+          ],
+          "skills": ["SQL", "Python", "Data Analysis", "Storytelling", "Visualization", "Team Management"]
+        }
+      ]
+    },
+    {
+      "company": "Koperasi Pegawai Indosat",
+      "logo": null,
+      "roles": [
+        {
+          "title": "Senior Accountant",
+          "type": "Full-time",
+          "location": "Bandung, West Java, Indonesia",
+          "workMode": "On-site",
+          "startDate": "Jan 2012",
+          "endDate": "Feb 2022",
+          "duration": "10 yrs 2 mos",
+          "description": [
+            "Managed financial reporting and reconciliation for the West Java region.",
+            "Provided strategic advice to regional leaders.",
+            "Led system migration to ODOO and resolved complex accounting discrepancies."
+          ],
+          "skills": ["Financial Analysis", "Reporting", "Taxation", "ERP Migration (ODOO)"]
+        }
+      ]
+    },
+    {
+      "company": "Satuan Tugas Penanganan COVID-19 Nasional",
+      "logo": null,
+      "roles": [
+        {
+          "title": "Data Administrator",
+          "type": "Contract",
+          "location": "Jakarta, Indonesia",
+          "workMode": "On-site",
+          "startDate": "Oct 2020",
+          "endDate": "Mar 2021",
+          "duration": "6 mos",
+          "description": [
+            "Cleaned user data and tracked budget realization for COVID-19 response.",
+            "Designed SOPs and supervised application usage in the field."
+          ],
+          "skills": ["Data Cleaning", "Documentation", "SOP Design"]
+        }
+      ]
+    },
+    {
+      "company": "PT Plaza Indonesia Realty, Tbk",
+      "logo": null,
+      "roles": [
+        {
+          "title": "Finance Ops - Accounts Payable",
+          "type": "Full-time",
+          "location": "Jakarta, Indonesia",
+          "workMode": "On-site",
+          "startDate": "Jul 2010",
+          "endDate": "Oct 2011",
+          "duration": "1 yr 4 mos",
+          "description": [
+            "Handled AP processes, collection and payment reconciliation."
+          ],
+          "skills": ["Accounts Payable", "Reconciliation"]
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Demand Planning Analysis",
+      "description": "Conducted demand planning analysis using dummy data from Astro. Applied forecasting methods including 4-Week Moving Average, Holt-Winters Exponential Smoothing, and Decomposition techniques. Holt-Winters proved most accurate based on MAPE evaluation. Results presented via an interactive Google Sheets dashboard.",
+      "tags": ["Python", "Data Analysis", "Forecasting", "Google Sheets"],
+      "link": "https://docs.google.com/spreadsheets/d/1kt40nTtKpuGvBIjNW22Yic4fz76HnNb9peKe2_ygIaA/edit?gid=1168121026#gid=1168121026",
+      "linkLabel": "View Dashboard",
+      "image": "assets/projects/demand-planning.jpg",
+      "sneakPeekLabel": "Sneak Peek to Analytical Dashboard"
+    },
+    {
+      "title": "Google Sheet Convention Script",
+      "description": "Developed a validation system using Google Apps Script to prevent data entry errors in shared spreadsheets. Each sheet includes a 'Schema' tab defining expected data types per column. Invalid inputs trigger automatic error notifications and are immediately removed, significantly improving data quality and ETL pipeline reliability.",
+      "tags": ["Google Apps Script", "Data Quality", "ETL", "Automation"],
+      "link": null,
+      "linkLabel": null,
+      "image": "assets/projects/gsheet-convention.jpg",
+      "sneakPeekLabel": "Sneak Peek of Schema Validation Scenario"
+    }
+  ],
+  "education": [
+    {
+      "institution": "Institut Teknologi Bandung",
+      "logo": "assets/logos/itb.png",
+      "degree": "Master's degree",
+      "field": "Engineering / Industrial Management",
+      "startYear": "2013",
+      "endYear": "2017",
+      "description": "Taking the program concentration for enterprise systems that focuses on developing the design and improvement of enterprise system integration using information technology. The thesis is carried out by conducting multi-variate statistical research.",
+      "thesis": "Influence of Intellectual Capital, Knowledge Sharing, and Innovation on Indonesian Startup Companies"
+    },
+    {
+      "institution": "Universitas Padjadjaran",
+      "logo": "assets/logos/unpad.png",
+      "degree": "Bachelor's degree",
+      "field": "Accounting",
+      "startYear": "2004",
+      "endYear": "2009",
+      "description": "The curriculum facilitates essential knowledge related to accounting process, including but not limited to arranging all data and documents that support a financial statement and financial ratio analysis for providing valid and insightful information.",
+      "thesis": "The Effect of Six Sigma Implementation on Company Financial Performance"
+    }
+  ],
+  "skills": [
+    {
+      "category": "Languages & Databases",
+      "items": [
+        { "name": "Python", "icon": "python" },
+        { "name": "SQL", "icon": "sql" },
+        { "name": "PostgreSQL", "icon": "postgresql" },
+        { "name": "MySQL", "icon": "mysql" },
+        { "name": "Snowflake", "icon": "snowflake" }
+      ]
+    },
+    {
+      "category": "Spreadsheet & Scripting",
+      "items": [
+        { "name": "Excel", "icon": "excel" },
+        { "name": "Google Sheets", "icon": "googlesheets" },
+        { "name": "AppScript", "icon": "appscript" }
+      ]
+    },
+    {
+      "category": "AI & Assistants",
+      "items": [
+        { "name": "Claude", "icon": "claude" },
+        { "name": "Gemini", "icon": "gemini" },
+        { "name": "Google Antigravity", "icon": "antigravity" }
+      ]
+    },
+    {
+      "category": "DevOps & Cloud",
+      "items": [
+        { "name": "GitHub", "icon": "github" },
+        { "name": "Docker", "icon": "docker" },
+        { "name": "AWS", "icon": "aws" },
+        { "name": "Apache Airflow", "icon": "airflow" }
+      ]
+    },
+    {
+      "category": "Visualization & BI",
+      "items": [
+        { "name": "Looker", "icon": "looker" },
+        { "name": "Tableau", "icon": "tableau" },
+        { "name": "Metabase", "icon": "metabase" }
+      ]
+    },
+    {
+      "category": "Tools & Automation",
+      "items": [
+        { "name": "VS Code", "icon": "vscode" },
+        { "name": "Adobe Photoshop", "icon": "photoshop" },
+        { "name": "Canva", "icon": "canva" },
+        { "name": "n8n", "icon": "n8n" }
+      ]
+    }
+  ],
+  "contact": {
+    "heading": "Get In Touch",
+    "message": "I'm always open to discussing data, analytics, or collaboration opportunities. Feel free to reach out!"
+  }
+}
