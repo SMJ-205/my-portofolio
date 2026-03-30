@@ -59,8 +59,8 @@ export default function Hero({ config }) {
             position: 'absolute',
             inset: '-12px',
             borderRadius: '50%',
-            background: 'conic-gradient(from 0deg, var(--accent), transparent, transparent, var(--accent))',
-            animation: 'spin 4s linear infinite',
+            background: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, var(--accent) 100%)',
+            animation: 'spin 3s linear infinite',
           }} />
           {/* Gap to separate outer and inner circles */}
           <div style={{

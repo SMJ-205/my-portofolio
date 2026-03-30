@@ -65,15 +65,21 @@ export default function MatrixBackground({ theme, enabled = true }) {
       for (let col = 0; col < cols; col++) {
         const pulse = pulses[col]
 
+        // Wake up dormant pulses
+        if (!pulse.active && frame > pulse.delay) {
+          pulse.active = true
+          pulse.y = -pulse.length
+        }
+
         // Advance pulse head
-        if (pulse.active && frame > pulse.delay) {
+        if (pulse.active) {
           pulse.y += pulse.speed
           if (pulse.y > rows + pulse.length) {
             pulse.y = -pulse.length
             pulse.speed = 0.04 + Math.random() * 0.04
             pulse.length = 5 + Math.random() * 7
             pulse.active = Math.random() > 0.2
-            pulse.delay = frame + Math.random() * 200
+            pulse.delay = frame + Math.random() * 400
           }
         }
 

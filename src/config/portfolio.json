@@ -240,7 +240,8 @@
         { "name": "SQL", "icon": "sql" },
         { "name": "PostgreSQL", "icon": "postgresql" },
         { "name": "MySQL", "icon": "mysql" },
-        { "name": "Snowflake", "icon": "snowflake" }
+        { "name": "Snowflake", "icon": "snowflake" },
+        { "name": "BigQuery", "icon": "bigquery" }
       ]
     },
     {
@@ -254,6 +255,7 @@
     {
       "category": "AI & Assistants",
       "items": [
+        { "name": "ChatGPT", "icon": "chatgpt" },
         { "name": "Claude", "icon": "claude" },
         { "name": "Gemini", "icon": "gemini" },
         { "name": "Google Antigravity", "icon": "antigravity" }
@@ -273,12 +275,14 @@
       "items": [
         { "name": "Looker", "icon": "looker" },
         { "name": "Tableau", "icon": "tableau" },
-        { "name": "Metabase", "icon": "metabase" }
+        { "name": "Metabase", "icon": "metabase" },
+        { "name": "SmartPLS", "icon": "smartpls" }
       ]
     },
     {
       "category": "Tools & Automation",
       "items": [
+        { "name": "dbt", "icon": "dbt" },
         { "name": "VS Code", "icon": "vscode" },
         { "name": "Adobe Photoshop", "icon": "photoshop" },
         { "name": "Canva", "icon": "canva" },

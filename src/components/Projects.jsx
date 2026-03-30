@@ -79,8 +79,9 @@ export default function Projects({ config }) {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ duration: 0.4 }}
+                  style={{ height: '100%' }}
                 >
-                  <ScrollReveal delay={idx * 0.1}>
+                  <ScrollReveal delay={idx * 0.1} style={{ height: '100%' }}>
                     <motion.div
                       className="glass-card"
                       style={{

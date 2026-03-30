@@ -2,10 +2,10 @@ import { motion } from 'framer-motion'
 import {
   SiPython, SiPostgresql, SiMysql, SiDocker,
   SiGooglesheets, SiSnowflake, SiCanva,
-  SiGithub, SiN8N,
+  SiGithub, SiN8N, SiDbt, SiGooglebigquery, SiOpenai
 } from 'react-icons/si'
 import { FaAws, FaDatabase, FaChartBar as FaTableau } from 'react-icons/fa'
-import { TbBrandGoogleBigQuery, TbWindmill } from 'react-icons/tb'
+import { TbBrandGoogleBigQuery, TbWindmill, TbChartNodes } from 'react-icons/tb'
 import { HiSparkles, HiChartBar, HiCog, HiTable, HiCode, HiLightningBolt, HiPhotograph, HiTerminal } from 'react-icons/hi'
 import ScrollReveal from './ScrollReveal'
 
@@ -33,6 +33,10 @@ const iconMap = {
   photoshop: HiPhotograph,
   canva: SiCanva,
   n8n: SiN8N,
+  dbt: SiDbt,
+  bigquery: SiGooglebigquery,
+  chatgpt: SiOpenai,
+  smartpls: TbChartNodes,
 }
 
 const categoryIcons = {
