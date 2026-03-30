@@ -37,6 +37,8 @@ const iconMap = {
   bigquery: SiGooglebigquery,
   chatgpt: SiOpenai,
   smartpls: FaProjectDiagram,
+  powerquery: HiLightningBolt,
+  powerpivot: HiTable,
 }
 
 const categoryIcons = {

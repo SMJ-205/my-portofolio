@@ -61,7 +61,20 @@ export default function Hero({ config }) {
             borderRadius: '50%',
             background: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, var(--accent) 100%)',
             animation: 'spin 3s linear infinite',
-          }} />
+          }}>
+            {/* Rounded Head Cap (located exactly at the 12 o'clock end of the gradient) */}
+            <div style={{
+              position: 'absolute',
+              top: '4px', // Centers precisely within the 8px visible ring thickness (12px - 4px = 8px wide)
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '8px',
+              height: '8px',
+              backgroundColor: 'var(--accent)',
+              borderRadius: '50%',
+              boxShadow: '0 0 10px var(--accent-glow)'
+            }} />
+          </div>
           {/* Gap to separate outer and inner circles */}
           <div style={{
             position: 'absolute',

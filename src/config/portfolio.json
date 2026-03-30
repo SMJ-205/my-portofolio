@@ -249,7 +249,9 @@
       "items": [
         { "name": "Excel", "icon": "excel" },
         { "name": "Google Sheets", "icon": "googlesheets" },
-        { "name": "AppScript", "icon": "appscript" }
+        { "name": "AppScript", "icon": "appscript" },
+        { "name": "Power Query", "icon": "powerquery" },
+        { "name": "Power Pivot", "icon": "powerpivot" }
       ]
     },
     {
