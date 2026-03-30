@@ -10,7 +10,7 @@
     "title": "Data Analyst & Accountant",
     "tagline": "Searching for Treasure in Data",
     "photo": "assets/profile.png",
-    "bio": "Data Analyst with 12+ years of experience in accounting and tax reporting — now leveraging that deep financial background to build reliable, decision-ready data products. Currently working at Evermos, where I focus on creating a trusted SSOT for finance operations. I design and automate data pipelines using tools like Airflow, transform business requirements into scalable models with SQL, DBT and Python. I also help enforce data standards and conventions to ensure our datasets remain clean, consistent, and reliable.",
+    "bio": "Data Analyst with 12+ years of experience in accounting and tax reporting — now leveraging that deep financial background to build reliable, decision-ready data products. Currently working at Evermos, where I focus on creating a trusted SSOT for finance operations. I design and automate data pipelines using tools like Airflow and transform business requirements into scalable models using SQL, dbt and Python, while also utilizing AI models. I also help enforce data standards and conventions to ensure our datasets remain clean, consistent, and reliable.",
     "bioExtended": "My years as an accountant taught me how businesses think — and now I translate those needs into data solutions that actually work for stakeholders. Passionate about connecting the dots between raw data and real business impact, and always looking to grow as a modern data professional.",
     "resumeUrl": "assets/resume.pdf",
     "social": {

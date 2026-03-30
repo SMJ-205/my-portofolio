@@ -54,22 +54,30 @@ export default function Hero({ config }) {
           variants={itemVariants}
           style={{ position: 'relative', width: '180px', height: '180px' }}
         >
-          {/* Spinning border ring */}
+          {/* Spinning outer radar ring */}
           <div style={{
             position: 'absolute',
-            inset: '-4px',
+            inset: '-16px',
             borderRadius: '50%',
-            background: 'conic-gradient(from 0deg, var(--accent), var(--accent-dim), transparent, var(--accent))',
+            background: 'conic-gradient(from 0deg, var(--accent), transparent, transparent, var(--accent))',
             animation: 'spin 4s linear infinite',
           }} />
-          {/* Static image container */}
+          {/* Gap to separate outer and inner circles */}
+          <div style={{
+            position: 'absolute',
+            inset: '-6px',
+            borderRadius: '50%',
+            background: 'var(--bg-primary)',
+          }} />
+          {/* Static image container (inner circle) */}
           <div style={{
             position: 'relative',
             width: '100%',
             height: '100%',
             borderRadius: '50%',
             overflow: 'hidden',
-            border: '3px solid var(--bg-primary)',
+            border: '3px solid var(--accent)',
+            background: 'var(--bg-primary)',
           }}>
             <img
               src={`${BASE}${profile.photo}`}
