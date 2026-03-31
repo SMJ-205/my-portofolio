@@ -328,33 +328,35 @@ export default function Projects({ config }) {
                 <FiX />
               </button>
 
-              {/* Massive Hero Image */}
+              {/* Massive Hero Image Background */}
               {selectedProject.image && (
-                <div style={{ width: '100%', maxHeight: '450px', borderBottom: '1px solid var(--border)', background: '#080808', display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
-                  <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                <div style={{ position: 'relative', width: '100%', height: '400px', display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
+                  <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.7 }} />
+                  {/* Dark Gradient Overlay Fade */}
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.85) 60%, var(--bg) 100%)' }} />
                 </div>
               )}
 
               {/* Modal Body */}
-              <div style={{ padding: '2.5rem', flex: 1 }}>
+              <div style={{ padding: '0.5rem 2.5rem 2.5rem 2.5rem', flex: 1, position: 'relative', zIndex: 1 }}>
                 
-                {/* Header Row */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+                {/* Header Row (Shifted up to hover over the image fade) */}
+                <div style={{ marginTop: selectedProject.image ? '-140px' : '0', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', position: 'relative' }}>
                   <div>
-                    <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+                    <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#fff', textShadow: '0 2px 15px rgba(0,0,0,0.9)', marginBottom: '0.75rem' }}>
                       {selectedProject.title}
                     </h2>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      {selectedProject.tags.map(tag => <span key={tag} className="skill-tag">{tag}</span>)}
+                      {selectedProject.tags.map(tag => <span key={tag} className="skill-tag" style={{ background: 'rgba(0,0,0,0.4)', borderColor: 'rgba(255,255,255,0.15)' }}>{tag}</span>)}
                     </div>
                   </div>
 
                   {/* External Action Links (Dashboard/Tableau/Github) */}
                   <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                    {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (
+                    {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
                       <motion.a 
                         href={selectedProject.link} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', border: '1px solid var(--accent)', padding: '0.5rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none' }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', border: '1px solid var(--accent)', padding: '0.5rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.5)' }}
                         whileHover={{ background: 'var(--accent)', color: 'var(--bg)' }}
                       >
                         <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
@@ -363,16 +365,16 @@ export default function Projects({ config }) {
                     {selectedProject.tableauLink && (
                       <motion.a 
                         href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#e97b33', color: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #e97b33' }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#e97b33', color: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #e97b33', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}
                         whileHover={{ filter: 'brightness(1.1)' }}
                       >
-                        <FaTableau /> View on Tableau
+                        <FaTableau /> {selectedProject.linkLabel || 'View Vizzes'}
                       </motion.a>
                     )}
                     {selectedProject.githubRepo && (
                       <motion.a 
                         href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#333', color: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #444' }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#333', color: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #444', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}
                         whileHover={{ filter: 'brightness(1.2)' }}
                       >
                         <FiGithub /> Source Code
@@ -382,7 +384,7 @@ export default function Projects({ config }) {
                 </div>
 
                 {/* Description */}
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '2.5rem', position: 'relative' }}>
                   {selectedProject.description}
                 </p>
 
