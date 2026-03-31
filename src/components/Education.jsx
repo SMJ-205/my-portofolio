@@ -68,15 +68,16 @@ export default function Education({ config }) {
 
                   <div style={{
                     display: 'flex',
-                    alignItems: 'center',
+                    alignItems: 'flex-start',
                     gap: '0.4rem',
                     marginBottom: '0.25rem',
                     color: 'var(--accent)',
                     fontSize: '0.9rem',
                     fontWeight: 500,
+                    minHeight: '2.8rem',
                   }}>
-                    <FiAward style={{ fontSize: '0.85rem' }} />
-                    {edu.degree}, {edu.field}
+                    <FiAward style={{ fontSize: '0.85rem', marginTop: '0.25rem', flexShrink: 0 }} />
+                    <span style={{ lineHeight: 1.4 }}>{edu.degree}, {edu.field}</span>
                   </div>
 
                   <div style={{

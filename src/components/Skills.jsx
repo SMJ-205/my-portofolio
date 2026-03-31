@@ -68,9 +68,10 @@ export default function Skills({ config }) {
           {config.skills.map((category, catIdx) => {
             const CategoryIcon = categoryIcons[category.category] || HiCog
             return (
-              <ScrollReveal key={catIdx} delay={catIdx * 0.1}>
+              <ScrollReveal key={catIdx} delay={catIdx * 0.1} style={{ height: '100%' }}>
                 <motion.div
                   className="glass-card"
+                  style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
                   whileHover={{
                     borderColor: 'var(--border-hover)',
                     boxShadow: 'var(--shadow), var(--shadow-glow)',
