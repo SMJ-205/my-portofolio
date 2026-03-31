@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiExternalLink, FiTag, FiEye, FiEyeOff, FiChevronDown, FiFolder, FiFileText, FiCornerUpLeft, FiCode } from 'react-icons/fi'
+import { FiExternalLink, FiTag, FiEye, FiEyeOff, FiChevronDown, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub } from 'react-icons/fi'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import ScrollReveal from './ScrollReveal'
@@ -42,11 +42,14 @@ export default function Projects({ config }) {
       const response = await fetch(`https://api.github.com/repos/${githubRepo}/contents/${path}`)
       if (!response.ok) throw new Error('API Rate Limit Exceeded or Repo Not Found')
       const data = await response.json()
+      const filteredData = Array.isArray(data) 
+        ? data.filter(item => !/\.(jpeg|jpg|png|gif|svg|webp|ico|mp4|pdf)$/i.test(item.name)) 
+        : []
       
-      const sorted = Array.isArray(data) ? data.sort((a, b) => {
+      const sorted = filteredData.sort((a, b) => {
         if (a.type === b.type) return a.name.localeCompare(b.name)
         return a.type === 'dir' ? -1 : 1
-      }) : []
+      })
       setRepoFiles(sorted)
     } catch (err) {
       setRepoError(err.message)
@@ -434,28 +437,50 @@ export default function Projects({ config }) {
                         ))}
                       </div>
 
-                      {/* Link */}
-                      {project.link && (
-                        <motion.a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.4rem',
-                            color: 'var(--accent)',
-                            fontSize: '0.85rem',
-                            fontFamily: 'var(--font-mono)',
-                            fontWeight: 500,
-                            textDecoration: 'none',
-                          }}
-                          whileHover={{ x: 4 }}
-                        >
-                          <FiExternalLink />
-                          {project.linkLabel || 'View Project'}
-                        </motion.a>
-                      )}
+                      {/* Link & GitHub Icon Footer */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>
+                        {project.link && (project.link !== `https://github.com/${project.githubRepo}`) ? (
+                          <motion.a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.4rem',
+                              color: 'var(--accent)',
+                              fontSize: '0.85rem',
+                              fontFamily: 'var(--font-mono)',
+                              fontWeight: 500,
+                              textDecoration: 'none',
+                            }}
+                            whileHover={{ x: 4 }}
+                          >
+                            <FiExternalLink />
+                            {project.linkLabel || 'View Project'}
+                          </motion.a>
+                        ) : (
+                          <div /> // Spacer if no left link
+                        )}
+
+                        {project.githubRepo && (
+                          <motion.a
+                            href={`https://github.com/${project.githubRepo}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              color: 'var(--text-secondary)',
+                              fontSize: '1.25rem',
+                              display: 'flex',
+                              alignItems: 'center',
+                            }}
+                            whileHover={{ scale: 1.15, color: 'var(--accent)' }}
+                            title="View on GitHub"
+                          >
+                            <FiGithub />
+                          </motion.a>
+                        )}
+                      </div>
                     </motion.div>
                   </ScrollReveal>
                 </motion.div>
