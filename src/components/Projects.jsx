@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiExternalLink, FiTag, FiEye, FiEyeOff, FiChevronDown, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub } from 'react-icons/fi'
+import { FiExternalLink, FiTag, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub, FiX } from 'react-icons/fi'
 import { FaChartBar as FaTableau } from 'react-icons/fa'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -10,10 +10,11 @@ const BASE = import.meta.env.BASE_URL
 
 export default function Projects({ config }) {
   const [activeTag, setActiveTag] = useState('All')
-  const [expandedProject, setExpandedProject] = useState(null)
   
-  // GitHub Browser States
-  const [activeRepo, setActiveRepo] = useState(null)
+  // Modal State
+  const [selectedProject, setSelectedProject] = useState(null)
+  
+  // GitHub Browser States (scoped to the modal)
   const [repoPath, setRepoPath] = useState('')
   const [repoFiles, setRepoFiles] = useState([])
   const [repoLoading, setRepoLoading] = useState(false)
@@ -23,18 +24,22 @@ export default function Projects({ config }) {
   const [fileContent, setFileContent] = useState('')
   const [fileLoading, setFileLoading] = useState(false)
 
+  // Freeze background scrolling when modal is open
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => { document.body.style.overflow = 'unset' }
+  }, [selectedProject])
+
   // Collect all unique tags
   const allTags = ['All', ...new Set(config.projects.flatMap((p) => p.tags))]
 
   const filtered = activeTag === 'All'
     ? config.projects
     : config.projects.filter((p) => p.tags.includes(activeTag))
-
-  const toggleSneakPeek = (title) => {
-    setExpandedProject(prev => prev === title ? null : title)
-    // Close repo if sneak peek is clicked
-    if (activeRepo === title) setActiveRepo(null)
-  }
 
   const fetchRepoContents = async (githubRepo, path = '') => {
     setRepoLoading(true)
@@ -75,18 +80,17 @@ export default function Projects({ config }) {
     }
   }
 
-  const toggleRepoBrowser = (projectTitle, githubRepo) => {
-    if (activeRepo === projectTitle) {
-      setActiveRepo(null)
-      setActiveFile(null)
+  const openProject = (project) => {
+    setSelectedProject(project)
+    if (project.githubRepo) {
       setRepoPath('')
-    } else {
-      setActiveRepo(projectTitle)
-      setExpandedProject(null) // Close sneak peek if open
       setActiveFile(null)
-      setRepoPath('')
-      fetchRepoContents(githubRepo, '')
+      fetchRepoContents(project.githubRepo, '')
     }
+  }
+
+  const closeProject = () => {
+    setSelectedProject(null)
   }
 
   const navigateToDir = (githubRepo, path) => {
@@ -105,425 +109,354 @@ export default function Projects({ config }) {
   }
 
   return (
-    <section id="projects" className="section" style={{ position: 'relative', zIndex: 1 }}>
-      <div className="container">
-        <ScrollReveal>
-          <h2 className="section-title">Projects</h2>
-          <p className="section-subtitle">Data projects and tools I have built.</p>
-        </ScrollReveal>
+    <>
+      <section id="projects" className="section" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="container">
+          <ScrollReveal>
+            <h2 className="section-title">Projects</h2>
+            <p className="section-subtitle">Data projects and tools I have built.</p>
+          </ScrollReveal>
 
-        {/* Tag Filters */}
-        <ScrollReveal delay={0.1}>
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-            marginBottom: '2rem',
-          }}>
-            {allTags.map((tag) => (
-              <motion.button
-                key={tag}
-                onClick={() => setActiveTag(tag)}
-                style={{
-                  padding: '0.4rem 0.85rem',
-                  borderRadius: '8px',
-                  border: '1px solid',
-                  borderColor: activeTag === tag ? 'var(--accent)' : 'var(--border)',
-                  background: activeTag === tag ? 'var(--accent-glow)' : 'transparent',
-                  color: activeTag === tag ? 'var(--accent)' : 'var(--text-muted)',
-                  fontSize: '0.75rem',
-                  fontFamily: 'var(--font-mono)',
-                  cursor: 'pointer',
-                  fontWeight: activeTag === tag ? 600 : 400,
-                }}
-                whileHover={{ scale: 1.05, borderColor: 'var(--accent)' }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <FiTag style={{ marginRight: '0.3rem', verticalAlign: 'middle', fontSize: '0.7rem' }} />
-                {tag}
-              </motion.button>
-            ))}
-          </div>
-        </ScrollReveal>
-
-        {/* Project Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 420px), 1fr))',
-          gap: '1.5rem',
-        }}>
-          <AnimatePresence mode="popLayout">
-            {filtered.map((project, idx) => {
-              const isExpanded = expandedProject === project.title
-              return (
-                <motion.div
-                  key={project.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
-                  style={{ height: '100%' }}
+          {/* Tag Filters */}
+          <ScrollReveal delay={0.1}>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '0.5rem',
+              marginBottom: '2rem',
+            }}>
+              {allTags.map((tag) => (
+                <motion.button
+                  key={tag}
+                  onClick={() => setActiveTag(tag)}
+                  style={{
+                    padding: '0.4rem 0.85rem',
+                    borderRadius: '8px',
+                    border: '1px solid',
+                    borderColor: activeTag === tag ? 'var(--accent)' : 'var(--border)',
+                    background: activeTag === tag ? 'var(--accent-glow)' : 'transparent',
+                    color: activeTag === tag ? 'var(--accent)' : 'var(--text-muted)',
+                    fontSize: '0.75rem',
+                    fontFamily: 'var(--font-mono)',
+                    cursor: 'pointer',
+                    fontWeight: activeTag === tag ? 600 : 400,
+                  }}
+                  whileHover={{ scale: 1.05, borderColor: 'var(--accent)' }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <ScrollReveal delay={idx * 0.1} style={{ height: '100%' }}>
-                    <motion.div
-                      className="glass-card"
-                      style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        height: '100%',
-                        cursor: 'default',
-                      }}
-                      whileHover={{
-                        borderColor: 'var(--border-hover)',
-                        boxShadow: 'var(--shadow), var(--shadow-glow)',
-                        y: -6,
-                      }}
-                    >
-                      {/* Project Number */}
-                      <div style={{
-                        fontFamily: 'var(--font-mono)',
-                        fontSize: '0.75rem',
-                        color: 'var(--accent)',
-                        opacity: 0.5,
-                        marginBottom: '0.5rem',
-                      }}>
-                        {'// project-'}{String(idx + 1).padStart(2, '0')}
-                      </div>
+                  <FiTag style={{ marginRight: '0.3rem', verticalAlign: 'middle', fontSize: '0.7rem' }} />
+                  {tag}
+                </motion.button>
+              ))}
+            </div>
+          </ScrollReveal>
 
-                      <h3 style={{
-                        fontSize: '1.15rem',
-                        fontWeight: 700,
-                        color: 'var(--text-primary)',
-                        marginBottom: '0.75rem',
-                      }}>
-                        {project.title}
-                      </h3>
-
-                      <p style={{
-                        color: 'var(--text-secondary)',
-                        fontSize: '0.9rem',
-                        lineHeight: 1.7,
-                        flex: 1,
-                        marginBottom: '1rem',
-                      }}>
-                        {project.description}
-                      </p>
-
-                      {/* Sneak Peek Toggle */}
-                      {project.image && (
-                        <div style={{ marginBottom: '1rem' }}>
-                          <motion.button
-                            onClick={() => toggleSneakPeek(project.title)}
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.4rem',
-                              padding: '0.4rem 0.85rem',
-                              borderRadius: '8px',
-                              border: '1px solid',
-                              borderColor: isExpanded ? 'var(--accent)' : 'var(--border)',
-                              background: isExpanded ? 'var(--accent-glow)' : 'transparent',
-                              color: 'var(--accent)',
-                              fontSize: '0.78rem',
-                              fontFamily: 'var(--font-mono)',
-                              fontWeight: 500,
-                              cursor: 'pointer',
-                              width: '100%',
-                              justifyContent: 'center',
-                            }}
-                            whileHover={{
-                              borderColor: 'var(--accent)',
-                              boxShadow: '0 0 10px var(--accent-glow)',
-                            }}
-                            whileTap={{ scale: 0.97 }}
-                          >
-                            {isExpanded ? <FiEyeOff /> : <FiEye />}
-                            {project.sneakPeekLabel || 'Sneak Peek'}
-                            <motion.span
-                              animate={{ rotate: isExpanded ? 180 : 0 }}
-                              transition={{ duration: 0.3 }}
-                              style={{ display: 'flex' }}
-                            >
-                              <FiChevronDown />
-                            </motion.span>
-                          </motion.button>
-                        </div>
-                      )}
-
-                      {/* GitHub Browser Toggle */}
-                      {project.githubRepo && (
-                        <div style={{ marginBottom: '1rem' }}>
-                          <motion.button
-                            onClick={() => toggleRepoBrowser(project.title, project.githubRepo)}
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.4rem',
-                              padding: '0.4rem 0.85rem',
-                              borderRadius: '8px',
-                              border: '1px solid',
-                              borderColor: activeRepo === project.title ? 'var(--accent)' : 'var(--border)',
-                              background: activeRepo === project.title ? 'var(--accent-glow)' : 'transparent',
-                              color: 'var(--accent)',
-                              fontSize: '0.78rem',
-                              fontFamily: 'var(--font-mono)',
-                              fontWeight: 500,
-                              cursor: 'pointer',
-                              width: '100%',
-                              justifyContent: 'center',
-                            }}
-                            whileHover={{
-                              borderColor: 'var(--accent)',
-                              boxShadow: '0 0 10px var(--accent-glow)',
-                            }}
-                            whileTap={{ scale: 0.97 }}
-                          >
-                            <FiCode />
-                            {activeRepo === project.title ? 'Close Code Browser' : 'Browse Repository Files'}
-                            <motion.span
-                              animate={{ rotate: activeRepo === project.title ? 180 : 0 }}
-                              transition={{ duration: 0.3 }}
-                              style={{ display: 'flex' }}
-                            >
-                              <FiChevronDown />
-                            </motion.span>
-                          </motion.button>
-                        </div>
-                      )}
-
-                      {/* Expandable Sneak Peek Image */}
-                      <AnimatePresence>
-                        {isExpanded && !activeRepo && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            style={{ overflow: 'hidden', marginBottom: '1rem' }}
-                          >
-                            <div style={{
-                              marginTop: '0.25rem',
-                              borderRadius: '10px',
-                              overflow: 'hidden',
-                              border: '1px solid var(--border)',
-                              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-                            }}>
-                              <img
-                                src={`${BASE}${project.image}`}
-                                alt={`${project.title} preview`}
-                                style={{
-                                  width: '100%',
-                                  height: 'auto',
-                                  display: 'block',
-                                }}
-                              />
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      {/* Expandable GitHub File Browser */}
-                      <AnimatePresence>
-                        {activeRepo === project.title && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            style={{ overflow: 'hidden', marginBottom: '1rem' }}
-                          >
-                            <div style={{
-                              marginTop: '0.25rem',
-                              borderRadius: '8px',
-                              border: '1px solid var(--border)',
-                              background: '#1a1f2c', // Dark IDE-like background
-                              overflow: 'hidden',
-                              maxHeight: '400px',
-                              display: 'flex',
-                              flexDirection: 'column',
-                            }}>
-                              {/* IDE Header */}
-                              <div style={{
-                                padding: '0.5rem 0.75rem',
-                                background: 'rgba(0,0,0,0.3)',
-                                borderBottom: '1px solid var(--border)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem',
-                                fontSize: '0.75rem',
-                                fontFamily: 'var(--font-mono)',
-                                color: 'var(--text-muted)'
-                              }}>
-                                <span>{project.githubRepo}</span>
-                                {repoPath && <span>/ {repoPath}</span>}
-                              </div>
-
-                              {/* IDE Content Area */}
-                              <div style={{ overflowY: 'auto', flex: 1, padding: '0.5rem 0' }}>
-                                {repoLoading ? (
-                                  <div style={{ padding: '1rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>
-                                    Loading IDE...
-                                  </div>
-                                ) : repoError ? (
-                                  <div style={{ padding: '1rem', textAlign: 'center', color: '#ff6b6b', fontSize: '0.8rem' }}>
-                                    {repoError}
-                                  </div>
-                                ) : activeFile ? (
-                                  <div>
-                                    <button 
-                                      onClick={() => setActiveFile(null)}
-                                      style={{
-                                        background: 'transparent', border: 'none', color: 'var(--text-secondary)',
-                                        padding: '0.5rem 1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem',
-                                        fontFamily: 'var(--font-mono)', fontSize: '0.75rem', width: '100%', textAlign: 'left',
-                                        borderBottom: '1px solid var(--border)'
-                                      }}
-                                    >
-                                      <FiCornerUpLeft /> Back to Files ({activeFile})
-                                    </button>
-                                    {fileLoading ? (
-                                       <div style={{ padding: '1rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}>Reading File...</div>
-                                    ) : (
-                                       <SyntaxHighlighter
-                                        language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
-                                        style={atomDark}
-                                        customStyle={{ margin: 0, padding: '1rem', fontSize: '0.75rem', background: 'transparent' }}
-                                      >
-                                        {fileContent}
-                                      </SyntaxHighlighter>
-                                    )}
-                                  </div>
-                                ) : (
-                                  <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                                    {repoPath && (
-                                      <li 
-                                        onClick={() => navigateUp(project.githubRepo)}
-                                        style={{ padding: '0.4rem 1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)', fontSize: '0.85rem' }}
-                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-                                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                                      >
-                                        <FiCornerUpLeft color="var(--accent)" /> ..
-                                      </li>
-                                    )}
-                                    {repoFiles.map((item) => (
-                                      <li
-                                        key={item.sha}
-                                        onClick={() => item.type === 'dir' ? navigateToDir(project.githubRepo, item.path) : fetchFileContent(item.download_url, item.name)}
-                                        style={{ padding: '0.4rem 1rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)', fontSize: '0.85rem' }}
-                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-                                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                                      >
-                                        {item.type === 'dir' ? <FiFolder color="var(--accent)" /> : <FiFileText color="var(--text-secondary)" />}
-                                        {item.name}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )}
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      {/* Tags */}
-                      <div style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '0.4rem',
-                        marginBottom: '1rem',
-                      }}>
-                        {project.tags.map((tag) => (
-                          <span key={tag} className="skill-tag">{tag}</span>
-                        ))}
-                      </div>
-
-                      {/* Link & GitHub Icon Footer */}
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>
-                        {project.link && (project.link !== `https://github.com/${project.githubRepo}`) ? (
-                          <motion.a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.4rem',
-                              color: 'var(--accent)',
-                              fontSize: '0.85rem',
-                              fontFamily: 'var(--font-mono)',
-                              fontWeight: 500,
-                              textDecoration: 'none',
-                            }}
-                            whileHover={{ x: 4 }}
-                          >
-                            <FiExternalLink />
-                            {project.linkLabel || 'View Project'}
-                          </motion.a>
-                        ) : (
-                          <div /> // Spacer if no left link
-                        )}
-
-                        {/* Footer Right Side Links (GitHub/Tableau) */}
-                        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                          {project.githubRepo && (
-                            <motion.a
-                              href={`https://github.com/${project.githubRepo}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{
-                                color: 'var(--text-secondary)',
-                                fontSize: '1.25rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                              }}
-                              whileHover={{ scale: 1.15, color: 'var(--accent)' }}
-                              title="View on GitHub"
-                            >
-                              <FiGithub />
-                            </motion.a>
-                          )}
-                          {project.tableauLink && (
-                            <motion.a
-                              href={project.tableauLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              style={{
-                                color: 'var(--text-secondary)',
-                                fontSize: '1.25rem',
-                                display: 'flex',
-                                alignItems: 'center',
-                              }}
-                              whileHover={{ scale: 1.15, color: 'var(--accent)' }}
-                              title="View on Tableau"
-                            >
-                              <FaTableau />
-                            </motion.a>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  </ScrollReveal>
-                </motion.div>
-              )
-            })}
-          </AnimatePresence>
-        </div>
-
-        {/* Hint for adding more */}
-        <ScrollReveal delay={0.3}>
-          <p style={{
-            textAlign: 'center',
-            marginTop: '2rem',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.8rem',
-            color: 'var(--text-muted)',
-            opacity: 0.5,
+          {/* Project Grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 420px), 1fr))',
+            gap: '1.5rem',
           }}>
-            {'// More projects coming soon...'}
-          </p>
-        </ScrollReveal>
-      </div>
-    </section>
+            <AnimatePresence mode="popLayout">
+              {filtered.map((project, idx) => {
+                return (
+                  <motion.div
+                    key={project.title}
+                    layoutId={`card-wrapper-${project.title}`}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4 }}
+                    style={{ height: '100%' }}
+                  >
+                    <ScrollReveal delay={idx * 0.1} style={{ height: '100%' }}>
+                      <motion.div
+                        className="glass-card"
+                        onClick={() => openProject(project)}
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          height: '100%',
+                          cursor: 'pointer',
+                          position: 'relative'
+                        }}
+                        whileHover={{
+                          borderColor: 'var(--border-hover)',
+                          boxShadow: 'var(--shadow), var(--shadow-glow)',
+                          y: -6,
+                        }}
+                      >
+                        {/* Project Number */}
+                        <div style={{
+                          fontFamily: 'var(--font-mono)',
+                          fontSize: '0.75rem',
+                          color: 'var(--accent)',
+                          opacity: 0.5,
+                          marginBottom: '0.5rem',
+                        }}>
+                          {'// project-'}{String(idx + 1).padStart(2, '0')}
+                        </div>
+
+                        <h3 style={{
+                          fontSize: '1.2rem',
+                          fontWeight: 700,
+                          color: 'var(--text-primary)',
+                          marginBottom: '0.75rem',
+                        }}>
+                          {project.title}
+                        </h3>
+
+                        <p style={{
+                          color: 'var(--text-secondary)',
+                          fontSize: '0.9rem',
+                          lineHeight: 1.6,
+                          flex: 1,
+                          marginBottom: '1.5rem',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}>
+                          {project.description}
+                        </p>
+
+                        {/* Top-level Tags Preview */}
+                        <div style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '0.4rem',
+                          marginBottom: '1rem',
+                        }}>
+                          {project.tags.slice(0, 3).map((tag) => (
+                            <span key={tag} className="skill-tag" style={{ fontSize: '0.65rem', padding: '0.2rem 0.6rem' }}>{tag}</span>
+                          ))}
+                          {project.tags.length > 3 && (
+                            <span className="skill-tag" style={{ fontSize: '0.65rem', padding: '0.2rem 0.6rem' }}>+{project.tags.length - 3}</span>
+                          )}
+                        </div>
+
+                        {/* Link & Integration Icons Preview (Footer) */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>Click to explore →</span>
+                          
+                          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                            {project.githubRepo && <FiGithub style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
+                            {project.tableauLink && <FaTableau style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </ScrollReveal>
+                  </motion.div>
+                )
+              })}
+            </AnimatePresence>
+          </div>
+
+          <ScrollReveal delay={0.3}>
+            <p style={{
+              textAlign: 'center',
+              marginTop: '3rem',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.8rem',
+              color: 'var(--text-muted)',
+              opacity: 0.5,
+            }}>
+              {'// More projects coming soon...'}
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Massive Project Popup Overlay */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0, 0, 0, 0.85)',
+              backdropFilter: 'blur(10px)',
+              zIndex: 9999,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '2rem'
+            }}
+            onClick={closeProject}
+          >
+            <motion.div
+              layoutId={`card-wrapper-${selectedProject.title}`}
+              onClick={(e) => e.stopPropagation()} // Stop bubbling so click doesn't close modal
+              style={{
+                background: 'var(--bg)',
+                border: '1px solid var(--border)',
+                borderRadius: '16px',
+                width: '100%',
+                maxWidth: '1100px',
+                maxHeight: '90vh',
+                overflowY: 'auto',
+                position: 'relative',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.8)'
+              }}
+            >
+              {/* Floating Close Button */}
+              <button
+                onClick={closeProject}
+                style={{
+                  position: 'absolute',
+                  top: '1.5rem',
+                  right: '1.5rem',
+                  background: 'var(--accent-glow)',
+                  color: 'var(--accent)',
+                  border: '1px solid var(--accent)',
+                  borderRadius: '50%',
+                  width: '36px',
+                  height: '36px',
+                  cursor: 'pointer',
+                  zIndex: 10,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.2rem'
+                }}
+              >
+                <FiX />
+              </button>
+
+              {/* Massive Hero Image */}
+              {selectedProject.image && (
+                <div style={{ width: '100%', maxHeight: '450px', borderBottom: '1px solid var(--border)', background: '#080808', display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
+                  <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </div>
+              )}
+
+              {/* Modal Body */}
+              <div style={{ padding: '2.5rem', flex: 1 }}>
+                
+                {/* Header Row */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
+                  <div>
+                    <h2 style={{ fontSize: '2.2rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+                      {selectedProject.title}
+                    </h2>
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      {selectedProject.tags.map(tag => <span key={tag} className="skill-tag">{tag}</span>)}
+                    </div>
+                  </div>
+
+                  {/* External Action Links (Dashboard/Tableau/Github) */}
+                  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                    {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (
+                      <motion.a 
+                        href={selectedProject.link} target="_blank" rel="noopener noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', border: '1px solid var(--accent)', padding: '0.5rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none' }}
+                        whileHover={{ background: 'var(--accent)', color: 'var(--bg)' }}
+                      >
+                        <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
+                      </motion.a>
+                    )}
+                    {selectedProject.tableauLink && (
+                      <motion.a 
+                        href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#e97b33', color: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #e97b33' }}
+                        whileHover={{ filter: 'brightness(1.1)' }}
+                      >
+                        <FaTableau /> View on Tableau
+                      </motion.a>
+                    )}
+                    {selectedProject.githubRepo && (
+                      <motion.a 
+                        href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: '#333', color: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #444' }}
+                        whileHover={{ filter: 'brightness(1.2)' }}
+                      >
+                        <FiGithub /> Source Code
+                      </motion.a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
+                  {selectedProject.description}
+                </p>
+
+                {/* Live IDE Repo Explorer */}
+                {selectedProject.githubRepo && (
+                  <div style={{ border: '1px solid var(--border)', borderRadius: '12px', background: '#0e1117', overflow: 'hidden' }}>
+                    {/* IDE Header */}
+                    <div style={{ padding: '0.75rem 1rem', background: '#161b22', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
+                      <FiCode color="var(--accent)" />
+                      <span>{selectedProject.githubRepo}</span>
+                      {repoPath && <span style={{ color: 'var(--accent)' }}>/ {repoPath}</span>}
+                    </div>
+
+                    {/* IDE Content Provider */}
+                    <div style={{ overflowY: 'auto', minHeight: '300px', maxHeight: '500px', padding: '0.5rem 0' }}>
+                      {repoLoading ? (
+                        <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Loading GitHub Environment...</div>
+                      ) : repoError ? (
+                        <div style={{ padding: '2rem', textAlign: 'center', color: '#ff6b6b', fontSize: '0.9rem' }}>{repoError}</div>
+                      ) : activeFile ? (
+                        <div>
+                          <button 
+                            onClick={() => setActiveFile(null)}
+                            style={{ background: '#1f242d', border: 'none', color: 'var(--text-primary)', padding: '0.75rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', width: '100%', textAlign: 'left', borderBottom: '1px solid var(--border)' }}
+                          >
+                            <FiCornerUpLeft color="var(--accent)" /> Back to Files ({activeFile})
+                          </button>
+                          {fileLoading ? (
+                              <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Reading Deep Storage File...</div>
+                          ) : (
+                              <SyntaxHighlighter
+                              language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
+                              style={atomDark}
+                              customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.85rem', background: 'transparent' }}
+                            >
+                              {fileContent}
+                            </SyntaxHighlighter>
+                          )}
+                        </div>
+                      ) : (
+                        <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                          {repoPath && (
+                            <li 
+                              onClick={() => navigateUp(selectedProject.githubRepo)}
+                              style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            >
+                              <FiCornerUpLeft color="var(--accent)" /> ..
+                            </li>
+                          )}
+                          {repoFiles.map((item) => (
+                            <li
+                              key={item.sha}
+                              onClick={() => item.type === 'dir' ? navigateToDir(selectedProject.githubRepo, item.path) : fetchFileContent(item.download_url, item.name)}
+                              style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                            >
+                              {item.type === 'dir' ? <FiFolder color="var(--accent)" size={16} /> : <FiFileText color="var(--text-secondary)" size={16} />}
+                              {item.name}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
