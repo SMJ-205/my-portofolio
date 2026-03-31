@@ -224,8 +224,9 @@
       "title": "Google Sheet Convention Script",
       "description": "Developed a validation system using Google Apps Script to prevent data entry errors in shared spreadsheets. Each sheet includes a 'Schema' tab defining expected data types per column. Invalid inputs trigger automatic error notifications and are immediately removed, significantly improving data quality and ETL pipeline reliability.",
       "tags": ["Google Apps Script", "Data Quality", "ETL", "Automation"],
-      "link": null,
-      "linkLabel": null,
+      "link": "https://github.com/SMJ-205/google-sheet-convention-script",
+      "linkLabel": "View Repository",
+      "githubRepo": "SMJ-205/google-sheet-convention-script",
       "image": "assets/projects/gsheet-convention-v2.jpg",
       "sneakPeekLabel": "Sneak Peek of Schema Validation Scenario"
     }
