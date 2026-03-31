@@ -330,10 +330,10 @@ export default function Projects({ config }) {
 
               {/* Massive Hero Image Background */}
               {selectedProject.image && (
-                <div style={{ position: 'relative', width: '100%', height: '400px', display: 'flex', justifyContent: 'center', overflow: 'hidden' }}>
-                  <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.7 }} />
+                <div style={{ position: 'relative', width: '100%', height: '400px', display: 'flex', justifyContent: 'center', overflow: 'hidden', backgroundColor: '#000' }}>
+                  <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
                   {/* Dark Gradient Overlay Fade */}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.85) 60%, var(--bg) 100%)' }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)' }} />
                 </div>
               )}
 
