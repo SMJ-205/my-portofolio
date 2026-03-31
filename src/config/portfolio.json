@@ -192,6 +192,16 @@
   ],
   "projects": [
     {
+      "title": "Customer Profiling Analysis",
+      "description": "Leveraging Astro's customer dataset, I engineered a behavioral segmentation model using unsupervised machine learning. By utilizing RFM (Recency, Frequency, Monetary) analysis as the feature engineering backbone, I implemented K-Means clustering to identify distinct customer personas. The project concludes with data-driven recommendations and strategic interventions tailored to the specific behavioral patterns uncovered during the analysis.",
+      "tags": ["Python", "Machine Learning", "Clustering", "Data Analysis"],
+      "link": "https://github.com/SMJ-205/customer-profiling-analysis",
+      "linkLabel": "View Repository",
+      "image": "assets/projects/k-means-4-cluster.jpeg",
+      "sneakPeekLabel": "Sneak Peek of Cluster Analysis",
+      "githubRepo": "SMJ-205/customer-profiling-analysis"
+    },
+    {
       "title": "Demand Planning Analysis",
       "description": "Conducted demand planning analysis using dummy data from Astro. Applied forecasting methods including 4-Week Moving Average, Holt-Winters Exponential Smoothing, and Decomposition techniques. Holt-Winters proved most accurate based on MAPE evaluation. Results presented via an interactive Google Sheets dashboard.",
       "tags": ["Python", "Data Analysis", "Forecasting", "Google Sheets"],
