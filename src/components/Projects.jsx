@@ -384,7 +384,7 @@ export default function Projects({ config }) {
                 </div>
 
                 {/* Description */}
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '2.5rem', position: 'relative' }}>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '2.5rem', marginTop: selectedProject.image ? '3rem' : '0', position: 'relative' }}>
                   {selectedProject.description}
                 </p>
 

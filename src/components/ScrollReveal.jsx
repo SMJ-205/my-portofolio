@@ -1,18 +1,14 @@
 import { motion } from 'framer-motion'
 
-const variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: [0.25, 0.46, 0.45, 0.94],
+export default function ScrollReveal({ children, className = '', delay = 0, style = {}, direction = 'up' }) {
+  const variants = {
+    hidden: { opacity: 0, y: direction === 'down' ? -40 : 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
     },
-  },
-}
+  }
 
-export default function ScrollReveal({ children, className = '', delay = 0, style = {} }) {
   return (
     <motion.div
       initial="hidden"
@@ -23,7 +19,8 @@ export default function ScrollReveal({ children, className = '', delay = 0, styl
         visible: {
           ...variants.visible,
           transition: {
-            ...variants.visible.transition,
+            duration: 0.6,
+            ease: [0.25, 0.46, 0.45, 0.94],
             delay,
           },
         },

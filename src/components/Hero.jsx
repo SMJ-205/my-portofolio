@@ -14,7 +14,7 @@ export default function Hero({ config }) {
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: -30 },
     visible: {
       opacity: 1,
       y: 0,
