@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiExternalLink, FiTag, FiEye, FiEyeOff, FiChevronDown, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub } from 'react-icons/fi'
+import { FaChartBar as FaTableau } from 'react-icons/fa'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import ScrollReveal from './ScrollReveal'
@@ -463,23 +464,43 @@ export default function Projects({ config }) {
                           <div /> // Spacer if no left link
                         )}
 
-                        {project.githubRepo && (
-                          <motion.a
-                            href={`https://github.com/${project.githubRepo}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                              color: 'var(--text-secondary)',
-                              fontSize: '1.25rem',
-                              display: 'flex',
-                              alignItems: 'center',
-                            }}
-                            whileHover={{ scale: 1.15, color: 'var(--accent)' }}
-                            title="View on GitHub"
-                          >
-                            <FiGithub />
-                          </motion.a>
-                        )}
+                        {/* Footer Right Side Links (GitHub/Tableau) */}
+                        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                          {project.githubRepo && (
+                            <motion.a
+                              href={`https://github.com/${project.githubRepo}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                color: 'var(--text-secondary)',
+                                fontSize: '1.25rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                              }}
+                              whileHover={{ scale: 1.15, color: 'var(--accent)' }}
+                              title="View on GitHub"
+                            >
+                              <FiGithub />
+                            </motion.a>
+                          )}
+                          {project.tableauLink && (
+                            <motion.a
+                              href={project.tableauLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                color: 'var(--text-secondary)',
+                                fontSize: '1.25rem',
+                                display: 'flex',
+                                alignItems: 'center',
+                              }}
+                              whileHover={{ scale: 1.15, color: 'var(--accent)' }}
+                              title="View on Tableau"
+                            >
+                              <FaTableau />
+                            </motion.a>
+                          )}
+                        </div>
                       </div>
                     </motion.div>
                   </ScrollReveal>
