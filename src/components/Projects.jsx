@@ -307,22 +307,12 @@ export default function Projects({ config }) {
               {/* Floating Close Button */}
               <button
                 onClick={closeProject}
+                className="absolute top-3 right-3 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center cursor-pointer z-50 text-base md:text-xl"
                 style={{
-                  position: 'absolute',
-                  top: '1.5rem',
-                  right: '1.5rem',
                   background: 'var(--accent-glow)',
                   color: 'var(--accent)',
                   border: '1px solid var(--accent)',
-                  borderRadius: '50%',
-                  width: '36px',
-                  height: '36px',
-                  cursor: 'pointer',
-                  zIndex: 50,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.2rem'
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
                 }}
               >
                 <FiX />
@@ -330,7 +320,7 @@ export default function Projects({ config }) {
 
               {/* Massive Hero Image Background */}
               {selectedProject.image && (
-                <div className="hidden md:flex relative w-full h-[400px] justify-center overflow-hidden bg-black">
+                <div className="flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black">
                   <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
                   {/* Dark Gradient Overlay Fade */}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)' }} />
@@ -338,10 +328,10 @@ export default function Projects({ config }) {
               )}
 
               {/* Modal Body */}
-              <div className="p-6 md:px-10 md:pt-2 md:pb-10 flex-1 relative z-10" style={{ background: 'var(--bg)', borderRadius: '0 0 16px 16px' }}>
+              <div className="p-5 md:px-10 md:pt-2 md:pb-10 flex-1 relative z-10" style={{ background: 'var(--bg)', borderRadius: '0 0 16px 16px' }}>
                 
                 {/* Header Row (Shifted up robustly via Tailwind on Desktop only) */}
-                <div className={`flex justify-between items-start flex-wrap gap-4 mb-6 relative ${selectedProject.image ? 'md:-mt-36 mt-0' : 'mt-0'}`}>
+                <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-end flex-wrap gap-5 mb-6 relative ${selectedProject.image ? 'md:-mt-36 mt-4' : 'mt-4'}`}>
                   <div>
                     <h2 style={{ fontSize: 'var(--font-xl, 2.2rem)', fontWeight: 800, color: '#fff', textShadow: '0 2px 15px rgba(0,0,0,0.9)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
                       {selectedProject.title}
@@ -384,7 +374,7 @@ export default function Projects({ config }) {
                 </div>
 
                 {/* Description */}
-                <p className={`text-[var(--text-secondary)] text-[1.05rem] leading-[1.8] mb-[2.5rem] relative ${selectedProject.image ? 'md:mt-10 mt-2' : 'mt-2'}`}>
+                <p className={`text-[var(--text-secondary)] text-[1.05rem] leading-[1.8] mb-[2.5rem] relative ${selectedProject.image ? 'md:mt-10 mt-4' : 'mt-4'}`}>
                   {selectedProject.description}
                 </p>
 
