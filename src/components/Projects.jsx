@@ -328,7 +328,14 @@ export default function Projects({ config }) {
               )}
 
               {/* Modal Body */}
-              <div className="p-7 pb-10 md:p-12 flex-1 relative z-10" style={{ background: 'var(--bg)', borderRadius: '0 0 16px 16px' }}>
+              <div 
+                className="flex-1 relative z-10" 
+                style={{ 
+                  background: 'var(--bg)', 
+                  borderRadius: '0 0 16px 16px',
+                  padding: 'clamp(2.5rem, 5vw, 4rem)' 
+                }}
+              >
                 
                 {/* Header Row */}
                 <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-8 relative mt-0`}>
@@ -374,7 +381,16 @@ export default function Projects({ config }) {
                 </div>
 
                 {/* Description */}
-                <p className={`text-[var(--text-secondary)] text-[1.05rem] leading-[1.8] mb-[2.5rem] relative mt-2 text-justify`}>
+                <p style={{
+                  color: 'var(--text-secondary)',
+                  fontSize: '1.05rem',
+                  lineHeight: 1.8,
+                  marginBottom: '2.5rem',
+                  marginTop: '0.5rem',
+                  position: 'relative',
+                  textAlign: 'justify',
+                  textJustify: 'inter-word'
+                }}>
                   {selectedProject.description}
                 </p>
 
