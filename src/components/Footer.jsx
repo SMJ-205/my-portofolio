@@ -24,7 +24,7 @@ export default function Footer({ config }) {
         opacity: 0.5,
         marginTop: '0.3rem',
       }}>
-        Built with React + Framer Motion
+        Built with React, Framer Motion and Morning Coffee
       </p>
     </footer>
   )
