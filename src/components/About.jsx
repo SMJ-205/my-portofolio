@@ -23,6 +23,7 @@ export default function About({ config }) {
                 fontSize: '1rem',
                 lineHeight: 1.8,
                 marginBottom: '1rem',
+                textAlign: 'justify',
               }}>
                 {profile.bio}
               </p>
@@ -30,6 +31,7 @@ export default function About({ config }) {
                 color: 'var(--text-secondary)',
                 fontSize: '1rem',
                 lineHeight: 1.8,
+                textAlign: 'justify',
               }}>
                 {profile.bioExtended}
               </p>

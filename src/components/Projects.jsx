@@ -328,7 +328,7 @@ export default function Projects({ config }) {
               )}
 
               {/* Modal Body */}
-              <div className="p-5 md:px-12 md:pt-6 md:pb-12 flex-1 relative z-10" style={{ background: 'var(--bg)', borderRadius: '0 0 16px 16px' }}>
+              <div className="p-7 pb-10 md:p-12 flex-1 relative z-10" style={{ background: 'var(--bg)', borderRadius: '0 0 16px 16px' }}>
                 
                 {/* Header Row */}
                 <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-8 relative mt-0`}>
@@ -374,7 +374,7 @@ export default function Projects({ config }) {
                 </div>
 
                 {/* Description */}
-                <p className={`text-[var(--text-secondary)] text-[1.05rem] leading-[1.8] mb-[2.5rem] relative mt-2`}>
+                <p className={`text-[var(--text-secondary)] text-[1.05rem] leading-[1.8] mb-[2.5rem] relative mt-2 text-justify`}>
                   {selectedProject.description}
                 </p>
 
