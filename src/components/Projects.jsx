@@ -318,7 +318,7 @@ export default function Projects({ config }) {
                   width: '36px',
                   height: '36px',
                   cursor: 'pointer',
-                  zIndex: 10,
+                  zIndex: 50,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
