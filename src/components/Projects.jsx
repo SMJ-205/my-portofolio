@@ -330,7 +330,7 @@ export default function Projects({ config }) {
 
               {/* Massive Hero Image Background */}
               {selectedProject.image && (
-                <div style={{ position: 'relative', width: '100%', height: '400px', display: 'flex', justifyContent: 'center', overflow: 'hidden', backgroundColor: '#000' }}>
+                <div className="hidden md:flex relative w-full h-[400px] justify-center overflow-hidden bg-black">
                   <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
                   {/* Dark Gradient Overlay Fade */}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)' }} />
@@ -338,12 +338,12 @@ export default function Projects({ config }) {
               )}
 
               {/* Modal Body */}
-              <div style={{ padding: '0.5rem 2.5rem 2.5rem 2.5rem', flex: 1, position: 'relative', zIndex: 1 }}>
+              <div className="p-6 md:px-10 md:pt-2 md:pb-10 flex-1 relative z-10" style={{ background: 'var(--bg)', borderRadius: '0 0 16px 16px' }}>
                 
-                {/* Header Row (Shifted up to hover over the image fade) */}
-                <div style={{ marginTop: selectedProject.image ? '-140px' : '0', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', position: 'relative' }}>
+                {/* Header Row (Shifted up robustly via Tailwind on Desktop only) */}
+                <div className={`flex justify-between items-start flex-wrap gap-4 mb-6 relative ${selectedProject.image ? 'md:-mt-36 mt-0' : 'mt-0'}`}>
                   <div>
-                    <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#fff', textShadow: '0 2px 15px rgba(0,0,0,0.9)', marginBottom: '0.75rem' }}>
+                    <h2 style={{ fontSize: 'var(--font-xl, 2.2rem)', fontWeight: 800, color: '#fff', textShadow: '0 2px 15px rgba(0,0,0,0.9)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
                       {selectedProject.title}
                     </h2>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -351,7 +351,7 @@ export default function Projects({ config }) {
                     </div>
                   </div>
 
-                  {/* External Action Links (Dashboard/Tableau/Github) */}
+                  {/* External Action Links */}
                   <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                     {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
                       <motion.a 
@@ -384,7 +384,7 @@ export default function Projects({ config }) {
                 </div>
 
                 {/* Description */}
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.8, marginBottom: '2.5rem', marginTop: selectedProject.image ? '3rem' : '0', position: 'relative' }}>
+                <p className={`text-[var(--text-secondary)] text-[1.05rem] leading-[1.8] mb-[2.5rem] relative ${selectedProject.image ? 'md:mt-10 mt-2' : 'mt-2'}`}>
                   {selectedProject.description}
                 </p>
 
