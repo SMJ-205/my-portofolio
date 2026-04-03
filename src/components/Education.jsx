@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { FiBookOpen, FiAward } from 'react-icons/fi'
+import { FiBookOpen, FiAward, FiExternalLink } from 'react-icons/fi'
 import ScrollReveal from './ScrollReveal'
 
 const BASE = import.meta.env.BASE_URL
@@ -100,42 +100,68 @@ export default function Education({ config }) {
 
                   {/* Thesis */}
                   {edu.thesis && (
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.5rem',
-                      padding: '0.75rem',
-                      borderRadius: '10px',
-                      background: 'var(--accent-glow)',
-                      border: '1px solid var(--border)',
-                    }}>
-                      <FiBookOpen style={{
-                        color: 'var(--accent)',
-                        fontSize: '0.9rem',
-                        marginTop: '3px',
-                        flexShrink: 0,
-                      }} />
-                      <div>
-                        <div style={{
-                          fontSize: '0.7rem',
-                          fontFamily: 'var(--font-mono)',
-                          color: 'var(--accent)',
-                          textTransform: 'uppercase',
-                          letterSpacing: '0.05em',
-                          marginBottom: '0.2rem',
-                        }}>
-                          Thesis
-                        </div>
-                        <div style={{
-                          fontSize: '0.82rem',
-                          color: 'var(--text-secondary)',
-                          fontStyle: 'italic',
-                          lineHeight: 1.5,
-                        }}>
-                          "{edu.thesis}"
-                        </div>
-                      </div>
-                    </div>
+                    <motion.div 
+                      whileHover={edu.thesisLink ? { y: -2, background: 'rgba(56, 189, 248, 0.1)' } : {}}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '0.5rem',
+                        padding: '0.75rem',
+                        borderRadius: '10px',
+                        background: 'var(--accent-glow)',
+                        border: '1px solid var(--border)',
+                        cursor: edu.thesisLink ? 'pointer' : 'default',
+                      }}
+                    >
+                      {edu.thesisLink ? (
+                        <a 
+                          href={edu.thesisLink} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          style={{
+                            textDecoration: 'none',
+                            color: 'inherit',
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '0.5rem',
+                            flex: 1
+                          }}
+                        >
+                          <FiBookOpen style={{ color: 'var(--accent)', fontSize: '0.9rem', marginTop: '3px', flexShrink: 0 }} />
+                          <div style={{ flex: 1 }}>
+                            <div style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              fontSize: '0.7rem',
+                              fontFamily: 'var(--font-mono)',
+                              color: 'var(--accent)',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.05em',
+                              marginBottom: '0.2rem',
+                            }}>
+                              <span>Thesis</span>
+                              <FiExternalLink style={{ fontSize: '0.85rem', opacity: 0.9 }} title="View Publication" />
+                            </div>
+                            <div style={{ fontSize: '0.82rem', color: 'var(--text-primary)', fontStyle: 'italic', lineHeight: 1.5 }}>
+                              "{edu.thesis}"
+                            </div>
+                          </div>
+                        </a>
+                      ) : (
+                        <>
+                          <FiBookOpen style={{ color: 'var(--accent)', fontSize: '0.9rem', marginTop: '3px', flexShrink: 0 }} />
+                          <div>
+                            <div style={{ fontSize: '0.7rem', fontFamily: 'var(--font-mono)', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>
+                              Thesis
+                            </div>
+                            <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', fontStyle: 'italic', lineHeight: 1.5 }}>
+                              "{edu.thesis}"
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </motion.div>
                   )}
                 </div>
               </motion.div>
