@@ -407,12 +407,15 @@ export default function Projects({ config }) {
                 style={{ 
                   background: 'var(--bg)', 
                   borderRadius: '0 0 16px 16px',
-                  padding: 'clamp(2.5rem, 5vw, 4rem)' 
+                  paddingTop: '1rem',
+                  paddingBottom: 'clamp(2.5rem, 5vw, 4rem)',
+                  paddingLeft: 'clamp(2.5rem, 5vw, 4rem)',
+                  paddingRight: 'clamp(2.5rem, 5vw, 4rem)'
                 }}
               >
                 
                 {/* Header Row */}
-                <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-8 relative mt-0`}>
+                <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-6 relative mt-0`}>
                   <div>
                     <h2 style={{ fontSize: 'var(--font-xl, 2.2rem)', fontWeight: 800, color: '#fff', textShadow: '0 2px 15px rgba(0,0,0,0.9)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
                       {selectedProject.title}
