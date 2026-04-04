@@ -8,39 +8,35 @@ import ScrollReveal from './ScrollReveal'
 
 const BASE = import.meta.env.BASE_URL
 
+const projectImageMapGlob = import.meta.glob('/public/assets/projects/*')
+const availableImageKeys = Object.keys(projectImageMapGlob)
+
 const ProjectSlideshow = ({ baseImagePath, title }) => {
   const [images, setImages] = useState([`${BASE}${baseImagePath}`])
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     if (!baseImagePath) return
-    const filenameExp = baseImagePath.split('/').pop().split('.')[0]
-    const ext = baseImagePath.split('.').pop()
-    const folder = baseImagePath.split('/').slice(0, -1).join('/')
-
-    // We proactively check for up to 4 extra non-standard extensions
-    const candidates = [
-      `${folder}/${filenameExp} - 2.${ext}`,
-      `${folder}/${filenameExp} - 3.${ext}`,
-      `${folder}/${filenameExp} - 4.${ext}`,
-      `${folder}/${filenameExp} - 5.${ext}`
-    ]
-
-    const validImages = [`${BASE}${baseImagePath}`]
+    // Clean string dynamically: "demand-planning.jpg" -> "demandplanning"
+    const cleanBaseName = baseImagePath.split('/').pop().split('.')[0].replace(/[-_ \.]/g, '').toLowerCase()
     
-    Promise.all(candidates.map(async (path) => {
-      try {
-        const res = await fetch(`${BASE}${path}`, { method: 'HEAD' })
-        if (res.ok) {
-          validImages.push(`${BASE}${path}`)
-        }
-      } catch (e) {
-        // Failed fetching cleanly ignored
-      }
-    })).then(() => {
-      // String sort neatly clusters numerical suffixes
-      setImages(validImages.sort())
+    // Scan local workspace statically bypassing browser fetch misses due to strange user-uploaded file naming
+    const matched = availableImageKeys.filter(key => {
+      // Converts "demand planning - 2 .jpeg" -> "demandplanning2"
+      const keyBase = key.split('/').pop().split('.')[0].replace(/[-_ \.]/g, '').toLowerCase()
+      return keyBase.startsWith(cleanBaseName)
     })
+
+    if (matched.length > 0) {
+      // String sort neatly clusters numerical suffixes sequentially
+      const sortedKeys = matched.sort()
+      // Map back to absolute hosted server URL formats bypassing /public/ structural folder
+      const finalUrls = sortedKeys.map(key => `${BASE}${key.replace('/public/', '')}`)
+      setImages(finalUrls)
+    } else {
+      // Fallback
+      setImages([`${BASE}${baseImagePath}`])
+    }
   }, [baseImagePath])
 
   useEffect(() => {
