@@ -8,6 +8,72 @@ import ScrollReveal from './ScrollReveal'
 
 const BASE = import.meta.env.BASE_URL
 
+const ProjectSlideshow = ({ baseImagePath, title }) => {
+  const [images, setImages] = useState([`${BASE}${baseImagePath}`])
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  useEffect(() => {
+    if (!baseImagePath) return
+    const filenameExp = baseImagePath.split('/').pop().split('.')[0]
+    const ext = baseImagePath.split('.').pop()
+    const folder = baseImagePath.split('/').slice(0, -1).join('/')
+
+    // We proactively check for up to 4 extra non-standard extensions
+    const candidates = [
+      `${folder}/${filenameExp} - 2.${ext}`,
+      `${folder}/${filenameExp} - 3.${ext}`,
+      `${folder}/${filenameExp} - 4.${ext}`,
+      `${folder}/${filenameExp} - 5.${ext}`
+    ]
+
+    const validImages = [`${BASE}${baseImagePath}`]
+    
+    Promise.all(candidates.map(async (path) => {
+      try {
+        const res = await fetch(`${BASE}${path}`, { method: 'HEAD' })
+        if (res.ok) {
+          validImages.push(`${BASE}${path}`)
+        }
+      } catch (e) {
+        // Failed fetching cleanly ignored
+      }
+    })).then(() => {
+      // String sort neatly clusters numerical suffixes
+      setImages(validImages.sort())
+    })
+  }, [baseImagePath])
+
+  useEffect(() => {
+    if (images.length <= 1) return
+    const timer = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % images.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [images])
+
+  return (
+    <div className="flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black">
+      <AnimatePresence initial={false}>
+        <motion.img
+          key={images[currentIndex]}
+          src={images[currentIndex]}
+          alt={`${title} - slide ${currentIndex + 1}`}
+          initial={{ opacity: 0, scale: 1 }}
+          animate={{ opacity: 0.35, scale: 1.15 }}
+          exit={{ opacity: 0 }}
+          transition={{ 
+            opacity: { duration: 1.5, ease: 'easeInOut' },
+            scale: { duration: 6, ease: 'linear' }
+          }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </AnimatePresence>
+      {/* Dark Gradient Overlay Fade */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)', zIndex: 1 }} />
+    </div>
+  )
+}
+
 export default function Projects({ config }) {
   const [activeTag, setActiveTag] = useState('All')
   
@@ -23,6 +89,15 @@ export default function Projects({ config }) {
   const [activeFile, setActiveFile] = useState(null)
   const [fileContent, setFileContent] = useState('')
   const [fileLoading, setFileLoading] = useState(false)
+
+  // Desktop check for Conditional Slideshow
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   // Freeze background scrolling when modal is open
   useEffect(() => {
@@ -320,11 +395,14 @@ export default function Projects({ config }) {
 
               {/* Massive Hero Image Background */}
               {selectedProject.image && (
-                <div className="flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black">
-                  <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
-                  {/* Dark Gradient Overlay Fade */}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)' }} />
-                </div>
+                isDesktop ? (
+                  <ProjectSlideshow baseImagePath={selectedProject.image} title={selectedProject.title} />
+                ) : (
+                  <div className="flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black">
+                    <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)' }} />
+                  </div>
+                )
               )}
 
               {/* Modal Body */}
