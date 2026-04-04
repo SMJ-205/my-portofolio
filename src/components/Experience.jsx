@@ -8,8 +8,8 @@ import ScrollReveal from './ScrollReveal'
  */
 function calcDuration(startStr, endStr) {
   const months = [
-    'Jan','Feb','Mar','Apr','May','Jun',
-    'Jul','Aug','Sep','Oct','Nov','Dec'
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
   ]
 
   const parse = (str) => {
@@ -43,7 +43,7 @@ export default function Experience({ config }) {
       <div className="container">
         <ScrollReveal>
           <h2 className="section-title">Experiences</h2>
-          <p className="section-subtitle">My professional journey across data, finance, and mentoring.</p>
+          <p className="section-subtitle">My professional journey across data, finance and mentoring.</p>
         </ScrollReveal>
 
         {/* Timeline */}
