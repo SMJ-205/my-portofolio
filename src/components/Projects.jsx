@@ -348,7 +348,7 @@ export default function Projects({ config }) {
             style={{
               position: 'fixed',
               inset: 0,
-              background: 'rgba(0, 0, 0, 0.85)',
+              background: 'rgba(10, 13, 20, 0.75)',
               backdropFilter: 'blur(10px)',
               zIndex: 9999,
               display: 'flex',
