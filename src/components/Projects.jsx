@@ -65,7 +65,7 @@ const ProjectSlideshow = ({ baseImagePath, title }) => {
         />
       </AnimatePresence>
       {/* Dark Gradient Overlay Fade */}
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)', zIndex: 1 }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)', zIndex: 1 }} />
     </div>
   )
 }
@@ -362,7 +362,7 @@ export default function Projects({ config }) {
               layoutId={`card-wrapper-${selectedProject.title}`}
               onClick={(e) => e.stopPropagation()} // Stop bubbling so click doesn't close modal
               style={{
-                background: 'var(--bg)',
+                background: 'var(--bg-secondary)',
                 border: '1px solid var(--border)',
                 borderRadius: '16px',
                 width: '100%',
@@ -396,7 +396,7 @@ export default function Projects({ config }) {
                 ) : (
                   <div className="flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black">
                     <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(10, 13, 19, 0) 0%, rgba(10, 13, 19, 0.95) 75%, var(--bg) 100%)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)' }} />
                   </div>
                 )
               )}
@@ -405,7 +405,7 @@ export default function Projects({ config }) {
               <div 
                 className="flex-1 relative z-10" 
                 style={{ 
-                  background: 'var(--bg)', 
+                  background: 'var(--bg-secondary)', 
                   borderRadius: '0 0 16px 16px',
                   paddingTop: '1rem',
                   paddingBottom: 'clamp(2.5rem, 5vw, 4rem)',
@@ -417,7 +417,7 @@ export default function Projects({ config }) {
                 {/* Header Row */}
                 <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-6 relative mt-0`}>
                   <div>
-                    <h2 style={{ fontSize: 'var(--font-xl, 2.2rem)', fontWeight: 800, color: '#fff', textShadow: '0 2px 15px rgba(0,0,0,0.9)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
+                    <h2 style={{ fontSize: 'var(--font-xl, 2.2rem)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
                       {selectedProject.title}
                     </h2>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -430,8 +430,8 @@ export default function Projects({ config }) {
                     {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
                       <motion.a 
                         href={selectedProject.link} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.5)', marginRight: '0.5rem' }}
-                        whileHover={{ background: 'var(--accent)', color: 'var(--bg)' }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
+                        whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
                       >
                         <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
                       </motion.a>
