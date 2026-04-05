@@ -290,7 +290,7 @@
     },
     {
       "title": "Demand Planning Analysis",
-      "description": "Conducted demand planning analysis using dummy data from Astro. Applied forecasting methods including 4-Week Moving Average, Holt-Winters Exponential Smoothing, and Decomposition techniques. Holt-Winters proved most accurate based on MAPE evaluation. Results presented via an interactive Google Sheets dashboard.",
+      "description": "Tasked with demand planning analysis for Astro, I developed a system to optimize inventory procurement and warehouse management through data-driven forecasting. After evaluating several methodologies—including Moving Averages, Decomposition, and Trend Analysis—I identified Holt-Winters Exponential Smoothing as the most reliable model based on its superior MAPE performance. The final solution is delivered via an interactive Google Sheets dashboard, transforming these projections into actionable insights for streamlined inventory planning.",
       "tags": [
         "Python",
         "Data Analysis",
