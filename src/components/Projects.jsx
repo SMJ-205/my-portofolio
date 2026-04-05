@@ -251,11 +251,7 @@ export default function Projects({ config }) {
                           cursor: 'pointer',
                           position: 'relative'
                         }}
-                        whileHover={{
-                          borderColor: 'var(--border-hover)',
-                          boxShadow: 'var(--shadow), var(--shadow-glow)',
-                          y: -6,
-                        }}
+                        // Let native CSS `.glass-card:hover` handle the translateY and shadow rendering perfectly without layout-id collision
                       >
                         {/* Project Number */}
                         <div style={{
@@ -421,7 +417,7 @@ export default function Projects({ config }) {
                       {selectedProject.title}
                     </h2>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      {selectedProject.tags.map(tag => <span key={tag} className="skill-tag" style={{ background: 'rgba(0,0,0,0.4)', borderColor: 'rgba(255,255,255,0.15)' }}>{tag}</span>)}
+                      {selectedProject.tags.map(tag => <span key={tag} className="skill-tag">{tag}</span>)}
                     </div>
                   </div>
 
