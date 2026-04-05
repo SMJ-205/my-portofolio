@@ -433,8 +433,8 @@ export default function Projects({ config }) {
                     {selectedProject.tableauLink && (
                       <motion.a 
                         href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', background: '#e97b33', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #e97b33', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', marginRight: '0.5rem' }}
-                        whileHover={{ filter: 'brightness(1.1)' }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
+                        whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
                       >
                         <FaTableau /> {selectedProject.linkLabel || 'View Vizzes'}
                       </motion.a>
@@ -442,8 +442,8 @@ export default function Projects({ config }) {
                     {selectedProject.githubRepo && (
                       <motion.a 
                         href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', background: '#333', color: '#fff', padding: '0.6rem 1.25rem', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', border: '1px solid #444', boxShadow: '0 4px 10px rgba(0,0,0,0.3)', marginRight: '1rem' }}
-                        whileHover={{ filter: 'brightness(1.2)' }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '1rem' }}
+                        whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
                       >
                         <FiGithub /> Source Code
                       </motion.a>
