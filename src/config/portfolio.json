@@ -316,6 +316,22 @@
       "githubRepo": "SMJ-205/google-sheet-convention-script",
       "image": "assets/projects/gsheet-convention-v2.jpg",
       "sneakPeekLabel": "Sneak Peek of Schema Validation Scenario"
+    },
+    {
+      "title": "Automated Weather Report Pipeline",
+      "description": "This automated weather intelligence pipeline serves as a blueprint for my production-ready data workflows, bridging the gap between raw external data and actionable insights. Orchestrated by Airflow, the system fetches real-time data from the Open-Meteo API via Python, processing it through a local ETL engine that utilizes Pandas to transform raw CSVs into refined datasets. The final output is automatically pushed to the Google Sheets API, enabling seamless integration with Looker Studio to deliver a ready-to-use dashboard.",
+      "tags": [
+        "Python",
+        "Airflow",
+        "ETL",
+        "Google Sheets",
+        "Looker Studio"
+      ],
+      "link": "https://github.com/SMJ-205/project-weather-forecast",
+      "linkLabel": "View Repository",
+      "image": "assets/projects/weather-pipeline.jpg",
+      "sneakPeekLabel": "Sneak Peek of Airflow DAG Pipeline",
+      "githubRepo": "SMJ-205/project-weather-forecast"
     }
   ],
   "education": [
