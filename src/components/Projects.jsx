@@ -469,9 +469,9 @@ export default function Projects({ config }) {
 
                 {/* Live IDE Repo Explorer */}
                 {selectedProject.githubRepo && (
-                  <div style={{ border: '1px solid var(--border)', borderRadius: '12px', background: '#0e1117', overflow: 'hidden' }}>
+                  <div style={{ border: '1px solid var(--border)', borderRadius: '12px', background: 'var(--bg-tertiary)', overflow: 'hidden' }}>
                     {/* IDE Header */}
-                    <div style={{ padding: '0.75rem 1rem', background: '#161b22', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-muted)' }}>
+                    <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
                       <FiCode color="var(--accent)" />
                       <span>{selectedProject.githubRepo}</span>
                       {repoPath && <span style={{ color: 'var(--accent)' }}>/ {repoPath}</span>}
@@ -487,7 +487,7 @@ export default function Projects({ config }) {
                         <div>
                           <button 
                             onClick={() => setActiveFile(null)}
-                            style={{ background: '#1f242d', border: 'none', color: 'var(--text-primary)', padding: '0.75rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', width: '100%', textAlign: 'left', borderBottom: '1px solid var(--border)' }}
+                            style={{ background: 'var(--bg-primary)', border: 'none', color: 'var(--text-primary)', padding: '0.75rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', width: '100%', textAlign: 'left', borderBottom: '1px solid var(--border)' }}
                           >
                             <FiCornerUpLeft color="var(--accent)" /> Back to Files ({activeFile})
                           </button>
