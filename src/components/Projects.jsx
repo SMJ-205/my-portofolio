@@ -233,7 +233,6 @@ export default function Projects({ config }) {
                 return (
                   <motion.div
                     key={project.title}
-                    layoutId={`card-wrapper-${project.title}`}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.9 }}
@@ -354,8 +353,7 @@ export default function Projects({ config }) {
             }}
             onClick={closeProject}
           >
-            <motion.div
-              layoutId={`card-wrapper-${selectedProject.title}`}
+              <motion.div
               onClick={(e) => e.stopPropagation()} // Stop bubbling so click doesn't close modal
               style={{
                 background: 'var(--bg-secondary)',
@@ -497,7 +495,7 @@ export default function Projects({ config }) {
                               <SyntaxHighlighter
                               language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
                               style={atomDark}
-                              customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.85rem', background: 'transparent' }}
+                              customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.85rem', background: '#1a1b26', borderRadius: '0 0 12px 12px' }}
                             >
                               {fileContent}
                             </SyntaxHighlighter>
