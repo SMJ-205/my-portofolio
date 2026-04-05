@@ -260,7 +260,7 @@
   "projects": [
     {
       "title": "Tableau Vizzes",
-      "description": "A showcase of specialized visualizations engineered to assist in broad-spectrum data analysis and evidence-based storytelling. These projects feature custom-designed UI elements that enhance data accessibility and visual impact, ensuring a seamless experience for the end-user. From intricate behavioral modeling to global performance tracking, this portfolio reflects a commitment to delivering high-fidelity dashboards that make any dataset actionable and easy to navigate.",
+      "description": "Data is only as good as the decisions it inspires. This showcase features a collection of Tableau dashboards where I’ve turned complex datasets—from behavioral modeling to global performance—into clear, interactive stories. By blending rigorous data analysis with custom UI/UX, I build tools that don’t just show numbers; they make navigating deep insights feel effortless and intuitive.",
       "tags": [
         "Tableau",
         "Data Visualization",
