@@ -476,7 +476,7 @@ export default function Projects({ config }) {
                     </div>
 
                     {/* IDE Content Provider */}
-                    <div style={{ overflowY: 'auto', minHeight: '80px', maxHeight: '135px', padding: '0.5rem 0' }}>
+                    <div style={{ overflowY: 'auto', minHeight: '80px', maxHeight: '140px', padding: '0.5rem 0' }}>
                       {repoLoading ? (
                         <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Loading GitHub Environment...</div>
                       ) : repoError ? (
