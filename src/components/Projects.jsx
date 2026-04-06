@@ -19,7 +19,7 @@ const ProjectSlideshow = ({ baseImagePath, title }) => {
     if (!baseImagePath) return
     // Clean string dynamically: "demand-planning.jpg" -> "demandplanning"
     const cleanBaseName = baseImagePath.split('/').pop().split('.')[0].replace(/[-_ \.]/g, '').toLowerCase()
-    
+
     // Scan local workspace statically bypassing browser fetch misses due to strange user-uploaded file naming
     const matched = availableImageKeys.filter(key => {
       // Converts "demand planning - 2 .jpeg" -> "demandplanning2"
@@ -57,7 +57,7 @@ const ProjectSlideshow = ({ baseImagePath, title }) => {
           initial={{ opacity: 0, scale: 1 }}
           animate={{ opacity: 0.35, scale: 1.15 }}
           exit={{ opacity: 0 }}
-          transition={{ 
+          transition={{
             opacity: { duration: 1.5, ease: 'easeInOut' },
             scale: { duration: 6, ease: 'linear' }
           }}
@@ -72,16 +72,16 @@ const ProjectSlideshow = ({ baseImagePath, title }) => {
 
 export default function Projects({ config }) {
   const [activeTag, setActiveTag] = useState('All')
-  
+
   // Modal State
   const [selectedProject, setSelectedProject] = useState(null)
-  
+
   // GitHub Browser States (scoped to the modal)
   const [repoPath, setRepoPath] = useState('')
   const [repoFiles, setRepoFiles] = useState([])
   const [repoLoading, setRepoLoading] = useState(false)
   const [repoError, setRepoError] = useState(null)
-  
+
   const [activeFile, setActiveFile] = useState(null)
   const [fileContent, setFileContent] = useState('')
   const [fileLoading, setFileLoading] = useState(false)
@@ -119,10 +119,10 @@ export default function Projects({ config }) {
       const response = await fetch(`https://api.github.com/repos/${githubRepo}/contents/${path}`)
       if (!response.ok) throw new Error('API Rate Limit Exceeded or Repo Not Found')
       const data = await response.json()
-      const filteredData = Array.isArray(data) 
-        ? data.filter(item => !/\.(jpeg|jpg|png|gif|svg|webp|ico|mp4|pdf)$/i.test(item.name)) 
+      const filteredData = Array.isArray(data)
+        ? data.filter(item => !/\.(jpeg|jpg|png|gif|svg|webp|ico|mp4|pdf)$/i.test(item.name))
         : []
-      
+
       const sorted = filteredData.sort((a, b) => {
         if (a.type === b.type) return a.name.localeCompare(b.name)
         return a.type === 'dir' ? -1 : 1
@@ -250,7 +250,7 @@ export default function Projects({ config }) {
                           cursor: 'pointer',
                           position: 'relative'
                         }}
-                        // Let native CSS `.glass-card:hover` handle the translateY and shadow rendering perfectly without layout-id collision
+                      // Let native CSS `.glass-card:hover` handle the translateY and shadow rendering perfectly without layout-id collision
                       >
                         {/* Project Number */}
                         <div style={{
@@ -304,7 +304,7 @@ export default function Projects({ config }) {
                         {/* Link & Integration Icons Preview (Footer) */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
                           <span style={{ fontSize: '0.8rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>Click to explore →</span>
-                          
+
                           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                             {project.githubRepo && <FiGithub style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
                             {project.tableauLink && <FaTableau style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
@@ -353,7 +353,7 @@ export default function Projects({ config }) {
             }}
             onClick={closeProject}
           >
-              <motion.div
+            <motion.div
               onClick={(e) => e.stopPropagation()} // Stop bubbling so click doesn't close modal
               style={{
                 background: 'var(--bg-secondary)',
@@ -396,10 +396,10 @@ export default function Projects({ config }) {
               )}
 
               {/* Modal Body */}
-              <div 
-                className="flex-1 relative z-10" 
-                style={{ 
-                  background: 'var(--bg-secondary)', 
+              <div
+                className="flex-1 relative z-10"
+                style={{
+                  background: 'var(--bg-secondary)',
                   borderRadius: '0 0 16px 16px',
                   paddingTop: '1rem',
                   paddingBottom: 'clamp(2.5rem, 5vw, 4rem)',
@@ -407,7 +407,7 @@ export default function Projects({ config }) {
                   paddingRight: 'clamp(2.5rem, 5vw, 4rem)'
                 }}
               >
-                
+
                 {/* Header Row */}
                 <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-6 relative mt-0`}>
                   <div>
@@ -422,7 +422,7 @@ export default function Projects({ config }) {
                   {/* External Action Links */}
                   <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                     {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
-                      <motion.a 
+                      <motion.a
                         href={selectedProject.link} target="_blank" rel="noopener noreferrer"
                         style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
                         whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -431,7 +431,7 @@ export default function Projects({ config }) {
                       </motion.a>
                     )}
                     {selectedProject.tableauLink && (
-                      <motion.a 
+                      <motion.a
                         href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
                         style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
                         whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -440,7 +440,7 @@ export default function Projects({ config }) {
                       </motion.a>
                     )}
                     {selectedProject.githubRepo && (
-                      <motion.a 
+                      <motion.a
                         href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
                         style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '1rem' }}
                         whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -476,23 +476,23 @@ export default function Projects({ config }) {
                     </div>
 
                     {/* IDE Content Provider */}
-                    <div style={{ overflowY: 'auto', minHeight: '80px', maxHeight: '130px', padding: '0.5rem 0' }}>
+                    <div style={{ overflowY: 'auto', minHeight: '80px', maxHeight: '135px', padding: '0.5rem 0' }}>
                       {repoLoading ? (
                         <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Loading GitHub Environment...</div>
                       ) : repoError ? (
                         <div style={{ padding: '2rem', textAlign: 'center', color: '#ff6b6b', fontSize: '0.9rem' }}>{repoError}</div>
                       ) : activeFile ? (
                         <div>
-                          <button 
+                          <button
                             onClick={() => setActiveFile(null)}
                             style={{ background: 'var(--bg-primary)', border: 'none', color: 'var(--text-primary)', padding: '0.75rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', width: '100%', textAlign: 'left', borderBottom: '1px solid var(--border)' }}
                           >
                             <FiCornerUpLeft color="var(--accent)" /> Back to Files ({activeFile})
                           </button>
                           {fileLoading ? (
-                              <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Reading Deep Storage File...</div>
+                            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Reading Deep Storage File...</div>
                           ) : (
-                              <SyntaxHighlighter
+                            <SyntaxHighlighter
                               language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
                               style={atomDark}
                               customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.85rem', background: '#1a1b26', borderRadius: '0 0 12px 12px' }}
@@ -504,7 +504,7 @@ export default function Projects({ config }) {
                       ) : (
                         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
                           {repoPath && (
-                            <li 
+                            <li
                               onClick={() => navigateUp(selectedProject.githubRepo)}
                               style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
                               onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
