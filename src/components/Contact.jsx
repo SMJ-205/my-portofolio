@@ -85,7 +85,9 @@ export default function Contact({ config }) {
 
             {/* CTA Button */}
             <motion.a
-              href={`mailto:${profile.social.email}`}
+              href="https://wa.me/6282218246688"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
