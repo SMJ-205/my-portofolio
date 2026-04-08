@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { HiMenu, HiX } from 'react-icons/hi'
 import { FiSun, FiMoon } from 'react-icons/fi'
@@ -8,7 +8,7 @@ import useScrollSpy from '../hooks/useScrollSpy'
 export default function Navbar({ config, theme, toggleTheme, matrixEnabled, toggleMatrix }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const sectionIds = config.navigation.map((nav) => nav.id)
+  const sectionIds = useMemo(() => config.navigation.map((nav) => nav.id), [config.navigation])
   const activeSection = useScrollSpy(sectionIds)
 
   useEffect(() => {
