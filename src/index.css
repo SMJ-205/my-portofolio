@@ -243,3 +243,13 @@ a:hover {
   }
   html { scroll-behavior: auto; }
 }
+
+/* ========================================
+   GLOBAL ZOOM ADJUSTMENT (CHROME 90% ALIGNMENT)
+   ======================================== */
+@media screen and (min-width: 1024px) {
+  html {
+    zoom: 0.9;
+  }
+}
+
