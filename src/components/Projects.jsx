@@ -50,7 +50,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
         ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden bg-black"
         : "flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black"
     }>
-      <AnimatePresence initial={false}>
+      <AnimatePresence>
         <motion.img
           key={images[currentIndex]}
           src={images[currentIndex]}
