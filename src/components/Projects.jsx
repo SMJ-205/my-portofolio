@@ -49,7 +49,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false }) =
 
   return (
     <div className={
-      isMobileFullBlock 
+      isMobileFullBlock
         ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden bg-black"
         : "flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black"
     }>
@@ -70,7 +70,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false }) =
       </AnimatePresence>
       {/* Dark Gradient Overlay Fade */}
       {isMobileFullBlock ? (
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 14, 20, 0.85)', zIndex: 1 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 14, 20, 0.70)', zIndex: 1 }} />
       ) : (
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)', zIndex: 1 }} />
       )}
@@ -423,136 +423,136 @@ export default function Projects({ config }) {
                   }}
                 >
 
-                {/* Header Row */}
-                <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-6 relative mt-0`}>
-                  <div>
-                    <h2 style={{ fontSize: 'var(--font-xl, 2.2rem)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
-                      {selectedProject.title}
-                    </h2>
-                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      {selectedProject.tags.map(tag => <span key={tag} className="skill-tag">{tag}</span>)}
-                    </div>
-                  </div>
-
-                  {/* External Action Links */}
-                  <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                    {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
-                      <motion.a
-                        href={selectedProject.link} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
-                        whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                      >
-                        <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
-                      </motion.a>
-                    )}
-                    {selectedProject.tableauLink && (
-                      <motion.a
-                        href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
-                        whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                      >
-                        <FaTableau /> {selectedProject.linkLabel || 'View Vizzes'}
-                      </motion.a>
-                    )}
-                    {selectedProject.githubRepo && (
-                      <motion.a
-                        href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
-                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '1rem' }}
-                        whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                      >
-                        <FiGithub /> Source Code
-                      </motion.a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p style={{
-                  color: 'var(--text-secondary)',
-                  fontSize: '1.05rem',
-                  lineHeight: 1.8,
-                  marginBottom: '2.5rem',
-                  marginTop: '0.5rem',
-                  position: 'relative',
-                  textAlign: 'justify',
-                  textJustify: 'inter-word'
-                }}>
-                  {selectedProject.description}
-                </p>
-
-                {/* Live IDE Repo Explorer */}
-                {selectedProject.githubRepo && (
-                  <div style={{ border: '1px solid var(--border)', borderRadius: '12px', background: 'var(--bg-tertiary)', overflow: 'hidden' }}>
-                    {/* IDE Header */}
-                    <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
-                      <FiCode color="var(--accent)" />
-                      <span>{selectedProject.githubRepo}</span>
-                      {repoPath && <span style={{ color: 'var(--accent)' }}>/ {repoPath}</span>}
+                  {/* Header Row */}
+                  <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-6 relative mt-0`}>
+                    <div>
+                      <h2 style={{ fontSize: 'var(--font-xl, 2.2rem)', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
+                        {selectedProject.title}
+                      </h2>
+                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        {selectedProject.tags.map(tag => <span key={tag} className="skill-tag">{tag}</span>)}
+                      </div>
                     </div>
 
-                    {/* IDE Content Provider */}
-                    <div style={{ 
-                      overflowY: 'auto', 
-                      minHeight: '80px', 
-                      maxHeight: activeFile ? '300px' : '140px', 
-                      padding: '0.5rem 0',
-                      transition: 'max-height var(--transition-medium)'
-                    }}>
-                      {repoLoading ? (
-                        <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Loading GitHub Environment...</div>
-                      ) : repoError ? (
-                        <div style={{ padding: '2rem', textAlign: 'center', color: '#ff6b6b', fontSize: '0.9rem' }}>{repoError}</div>
-                      ) : activeFile ? (
-                        <div>
-                          <button
-                            onClick={() => setActiveFile(null)}
-                            style={{ background: 'var(--bg-primary)', border: 'none', color: 'var(--text-primary)', padding: '0.75rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', width: '100%', textAlign: 'left', borderBottom: '1px solid var(--border)' }}
-                          >
-                            <FiCornerUpLeft color="var(--accent)" /> Back to Files ({activeFile})
-                          </button>
-                          {fileLoading ? (
-                            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Reading Deep Storage File...</div>
-                          ) : (
-                            <SyntaxHighlighter
-                              language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
-                              style={atomDark}
-                              customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.85rem', background: '#1a1b26', borderRadius: '0 0 12px 12px' }}
-                            >
-                              {fileContent}
-                            </SyntaxHighlighter>
-                          )}
-                        </div>
-                      ) : (
-                        <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                          {repoPath && (
-                            <li
-                              onClick={() => navigateUp(selectedProject.githubRepo)}
-                              style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
-                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                            >
-                              <FiCornerUpLeft color="var(--accent)" /> ..
-                            </li>
-                          )}
-                          {repoFiles.map((item) => (
-                            <li
-                              key={item.sha}
-                              onClick={() => item.type === 'dir' ? navigateToDir(selectedProject.githubRepo, item.path) : fetchFileContent(item.download_url, item.name)}
-                              style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
-                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
-                            >
-                              {item.type === 'dir' ? <FiFolder color="var(--accent)" size={16} /> : <FiFileText color="var(--text-secondary)" size={16} />}
-                              {item.name}
-                            </li>
-                          ))}
-                        </ul>
+                    {/* External Action Links */}
+                    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                      {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
+                        <motion.a
+                          href={selectedProject.link} target="_blank" rel="noopener noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
+                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+                        >
+                          <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
+                        </motion.a>
+                      )}
+                      {selectedProject.tableauLink && (
+                        <motion.a
+                          href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
+                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+                        >
+                          <FaTableau /> {selectedProject.linkLabel || 'View Vizzes'}
+                        </motion.a>
+                      )}
+                      {selectedProject.githubRepo && (
+                        <motion.a
+                          href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: '0.6rem 1.25rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '1rem' }}
+                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+                        >
+                          <FiGithub /> Source Code
+                        </motion.a>
                       )}
                     </div>
                   </div>
-                )}
 
-              </div>
+                  {/* Description */}
+                  <p style={{
+                    color: 'var(--text-secondary)',
+                    fontSize: '1.05rem',
+                    lineHeight: 1.8,
+                    marginBottom: '2.5rem',
+                    marginTop: '0.5rem',
+                    position: 'relative',
+                    textAlign: 'justify',
+                    textJustify: 'inter-word'
+                  }}>
+                    {selectedProject.description}
+                  </p>
+
+                  {/* Live IDE Repo Explorer */}
+                  {selectedProject.githubRepo && (
+                    <div style={{ border: '1px solid var(--border)', borderRadius: '12px', background: 'var(--bg-tertiary)', overflow: 'hidden' }}>
+                      {/* IDE Header */}
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
+                        <FiCode color="var(--accent)" />
+                        <span>{selectedProject.githubRepo}</span>
+                        {repoPath && <span style={{ color: 'var(--accent)' }}>/ {repoPath}</span>}
+                      </div>
+
+                      {/* IDE Content Provider */}
+                      <div style={{
+                        overflowY: 'auto',
+                        minHeight: '80px',
+                        maxHeight: activeFile ? '300px' : '140px',
+                        padding: '0.5rem 0',
+                        transition: 'max-height var(--transition-medium)'
+                      }}>
+                        {repoLoading ? (
+                          <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Loading GitHub Environment...</div>
+                        ) : repoError ? (
+                          <div style={{ padding: '2rem', textAlign: 'center', color: '#ff6b6b', fontSize: '0.9rem' }}>{repoError}</div>
+                        ) : activeFile ? (
+                          <div>
+                            <button
+                              onClick={() => setActiveFile(null)}
+                              style={{ background: 'var(--bg-primary)', border: 'none', color: 'var(--text-primary)', padding: '0.75rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.8rem', width: '100%', textAlign: 'left', borderBottom: '1px solid var(--border)' }}
+                            >
+                              <FiCornerUpLeft color="var(--accent)" /> Back to Files ({activeFile})
+                            </button>
+                            {fileLoading ? (
+                              <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Reading Deep Storage File...</div>
+                            ) : (
+                              <SyntaxHighlighter
+                                language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
+                                style={atomDark}
+                                customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.85rem', background: '#1a1b26', borderRadius: '0 0 12px 12px' }}
+                              >
+                                {fileContent}
+                              </SyntaxHighlighter>
+                            )}
+                          </div>
+                        ) : (
+                          <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                            {repoPath && (
+                              <li
+                                onClick={() => navigateUp(selectedProject.githubRepo)}
+                                style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                              >
+                                <FiCornerUpLeft color="var(--accent)" /> ..
+                              </li>
+                            )}
+                            {repoFiles.map((item) => (
+                              <li
+                                key={item.sha}
+                                onClick={() => item.type === 'dir' ? navigateToDir(selectedProject.githubRepo, item.path) : fetchFileContent(item.download_url, item.name)}
+                                style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
+                                onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+                                onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                              >
+                                {item.type === 'dir' ? <FiFolder color="var(--accent)" size={16} /> : <FiFileText color="var(--text-secondary)" size={16} />}
+                                {item.name}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                </div>
               </div>
             </motion.div>
           </motion.div>
