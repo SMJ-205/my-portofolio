@@ -70,7 +70,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false }) =
       </AnimatePresence>
       {/* Dark Gradient Overlay Fade */}
       {isMobileFullBlock ? (
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 14, 20, 0.70)', zIndex: 1 }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 14, 20, 0.65)', zIndex: 1 }} />
       ) : (
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)', zIndex: 1 }} />
       )}
