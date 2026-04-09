@@ -11,7 +11,7 @@ const BASE = import.meta.env.BASE_URL
 const projectImageMapGlob = import.meta.glob('/public/assets/projects/*')
 const availableImageKeys = Object.keys(projectImageMapGlob)
 
-const ProjectSlideshow = ({ baseImagePath, title }) => {
+const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false }) => {
   const [images, setImages] = useState([`${BASE}${baseImagePath}`])
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -48,14 +48,18 @@ const ProjectSlideshow = ({ baseImagePath, title }) => {
   }, [images])
 
   return (
-    <div className="flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black">
+    <div className={
+      isMobileFullBlock 
+        ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden bg-black"
+        : "flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black"
+    }>
       <AnimatePresence initial={false}>
         <motion.img
           key={images[currentIndex]}
           src={images[currentIndex]}
           alt={`${title} - slide ${currentIndex + 1}`}
           initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: 0.35, scale: 1.15 }}
+          animate={{ opacity: isMobileFullBlock ? 0.35 : 0.35, scale: 1.15 }}
           exit={{ opacity: 0 }}
           transition={{
             opacity: { duration: 1.5, ease: 'easeInOut' },
@@ -65,7 +69,11 @@ const ProjectSlideshow = ({ baseImagePath, title }) => {
         />
       </AnimatePresence>
       {/* Dark Gradient Overlay Fade */}
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)', zIndex: 1 }} />
+      {isMobileFullBlock ? (
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 14, 20, 0.85)', zIndex: 1 }} />
+      ) : (
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)', zIndex: 1 }} />
+      )}
     </div>
   )
 }
@@ -356,13 +364,13 @@ export default function Projects({ config }) {
             <motion.div
               onClick={(e) => e.stopPropagation()} // Stop bubbling so click doesn't close modal
               style={{
-                background: 'var(--bg-secondary)',
+                background: isDesktop ? 'var(--bg-secondary)' : '#05070a',
                 border: '1px solid var(--border)',
                 borderRadius: '16px',
                 width: '100%',
                 maxWidth: '1100px',
                 maxHeight: '90vh',
-                overflowY: 'auto',
+                overflow: 'hidden',
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
@@ -383,30 +391,37 @@ export default function Projects({ config }) {
                 <FiX />
               </button>
 
-              {/* Massive Hero Image Background */}
-              {selectedProject.image && (
-                isDesktop ? (
-                  <ProjectSlideshow baseImagePath={selectedProject.image} title={selectedProject.title} />
-                ) : (
-                  <div className="flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black">
-                    <img src={`${BASE}${selectedProject.image}`} alt={selectedProject.title} style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.35 }} />
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)' }} />
-                  </div>
-                )
+              {/* Mobile Fixed Background Slideshow */}
+              {!isDesktop && selectedProject.image && (
+                <ProjectSlideshow baseImagePath={selectedProject.image} title={selectedProject.title} isMobileFullBlock={true} />
               )}
 
-              {/* Modal Body */}
-              <div
-                className="flex-1 relative z-10"
-                style={{
-                  background: 'var(--bg-secondary)',
-                  borderRadius: '0 0 16px 16px',
-                  paddingTop: '1rem',
-                  paddingBottom: 'clamp(2.5rem, 5vw, 4rem)',
-                  paddingLeft: 'clamp(2.5rem, 5vw, 4rem)',
-                  paddingRight: 'clamp(2.5rem, 5vw, 4rem)'
-                }}
-              >
+              {/* Inner Scrolling Container */}
+              <div style={{
+                flex: 1,
+                overflowY: 'auto',
+                position: 'relative',
+                zIndex: 10,
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
+                {/* Desktop Header Image */}
+                {isDesktop && selectedProject.image && (
+                  <ProjectSlideshow baseImagePath={selectedProject.image} title={selectedProject.title} />
+                )}
+
+                {/* Modal Body */}
+                <div
+                  className="flex-1 relative z-10"
+                  style={{
+                    background: isDesktop ? 'var(--bg-secondary)' : 'transparent',
+                    borderRadius: '0 0 16px 16px',
+                    paddingTop: isDesktop ? '1rem' : '4rem',
+                    paddingBottom: 'clamp(2.5rem, 5vw, 4rem)',
+                    paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
+                    paddingRight: 'clamp(1.5rem, 5vw, 4rem)'
+                  }}
+                >
 
                 {/* Header Row */}
                 <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-6 relative mt-0`}>
@@ -537,6 +552,7 @@ export default function Projects({ config }) {
                   </div>
                 )}
 
+              </div>
               </div>
             </motion.div>
           </motion.div>
