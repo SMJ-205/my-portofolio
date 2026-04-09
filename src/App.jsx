@@ -60,7 +60,7 @@ function App() {
         <Hero config={config} />
         <About config={config} />
         <Experience config={config} />
-        <Projects config={config} />
+        <Projects config={config} theme={theme} />
         <Education config={config} />
         <Skills config={config} />
         <Contact config={config} />

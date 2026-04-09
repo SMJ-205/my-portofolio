@@ -11,32 +11,29 @@ const BASE = import.meta.env.BASE_URL
 const projectImageMapGlob = import.meta.glob('/public/assets/projects/*')
 const availableImageKeys = Object.keys(projectImageMapGlob)
 
-const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false }) => {
-  const [images, setImages] = useState([`${BASE}${baseImagePath}`])
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  useEffect(() => {
-    if (!baseImagePath) return
+const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, theme }) => {
+  const images = useMemo(() => {
+    if (!baseImagePath) return [`${BASE}${baseImagePath}`]
     // Clean string dynamically: "demand-planning.jpg" -> "demandplanning"
     const cleanBaseName = baseImagePath.split('/').pop().split('.')[0].replace(/[-_ \.]/g, '').toLowerCase()
 
-    // Scan local workspace statically bypassing browser fetch misses due to strange user-uploaded file naming
+    // Scan local workspace statically
     const matched = availableImageKeys.filter(key => {
-      // Converts "demand planning - 2 .jpeg" -> "demandplanning2"
       const keyBase = key.split('/').pop().split('.')[0].replace(/[-_ \.]/g, '').toLowerCase()
       return keyBase.startsWith(cleanBaseName)
     })
 
     if (matched.length > 0) {
-      // String sort neatly clusters numerical suffixes sequentially
-      const sortedKeys = matched.sort()
-      // Map back to absolute hosted server URL formats bypassing /public/ structural folder
-      const finalUrls = sortedKeys.map(key => `${BASE}${key.replace('/public/', '')}`)
-      setImages(finalUrls)
-    } else {
-      // Fallback
-      setImages([`${BASE}${baseImagePath}`])
+      return matched.sort().map(key => `${BASE}${key.replace('/public/', '')}`)
     }
+    return [`${BASE}${baseImagePath}`]
+  }, [baseImagePath])
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  // Reset index when path changes
+  useEffect(() => {
+    setCurrentIndex(0)
   }, [baseImagePath])
 
   useEffect(() => {
@@ -70,7 +67,12 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false }) =
       </AnimatePresence>
       {/* Dark Gradient Overlay Fade */}
       {isMobileFullBlock ? (
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(10, 14, 20, 0.65)', zIndex: 1 }} />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: theme === 'light' ? 'rgba(241, 245, 249, 0.85)' : 'rgba(10, 14, 20, 0.8)',
+          zIndex: 1
+        }} />
       ) : (
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)', zIndex: 1 }} />
       )}
@@ -78,7 +80,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false }) =
   )
 }
 
-export default function Projects({ config }) {
+export default function Projects({ config, theme }) {
   const [activeTag, setActiveTag] = useState('All')
 
   // Modal State
@@ -364,7 +366,7 @@ export default function Projects({ config }) {
             <motion.div
               onClick={(e) => e.stopPropagation()} // Stop bubbling so click doesn't close modal
               style={{
-                background: isDesktop ? 'var(--bg-secondary)' : '#05070a',
+                background: isDesktop ? 'var(--bg-secondary)' : 'var(--bg-primary)',
                 border: '1px solid var(--border)',
                 borderRadius: '16px',
                 width: '100%',
@@ -393,7 +395,7 @@ export default function Projects({ config }) {
 
               {/* Mobile Fixed Background Slideshow */}
               {!isDesktop && selectedProject.image && (
-                <ProjectSlideshow baseImagePath={selectedProject.image} title={selectedProject.title} isMobileFullBlock={true} />
+                <ProjectSlideshow theme={theme} baseImagePath={selectedProject.image} title={selectedProject.title} isMobileFullBlock={true} />
               )}
 
               {/* Inner Scrolling Container */}
@@ -407,7 +409,7 @@ export default function Projects({ config }) {
               }}>
                 {/* Desktop Header Image */}
                 {isDesktop && selectedProject.image && (
-                  <ProjectSlideshow baseImagePath={selectedProject.image} title={selectedProject.title} />
+                  <ProjectSlideshow theme={theme} baseImagePath={selectedProject.image} title={selectedProject.title} />
                 )}
 
                 {/* Modal Body */}
