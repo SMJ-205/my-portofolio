@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiExternalLink, FiTag, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub, FiX } from 'react-icons/fi'
 import { FaChartBar as FaTableau } from 'react-icons/fa'
+import { SiGooglesheets } from 'react-icons/si'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import ScrollReveal from './ScrollReveal'
@@ -318,6 +319,7 @@ export default function Projects({ config, theme }) {
                           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                             {project.githubRepo && <FiGithub style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
                             {project.tableauLink && <FaTableau style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
+                            {project.link?.includes('docs.google.com/spreadsheets') && <SiGooglesheets style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }} />}
                           </div>
                         </div>
                       </motion.div>
