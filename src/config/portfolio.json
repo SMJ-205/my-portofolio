@@ -311,10 +311,10 @@
         "ETL",
         "Automation"
       ],
-      "link": "https://github.com/SMJ-205/google-sheet-convention-script",
+      "link": "https://github.com/SMJ-205/google-sheet-convention-script-v.2",
       "linkLabel": "View Repository",
-      "githubRepo": "SMJ-205/google-sheet-convention-script",
-      "image": "assets/projects/gsheet-convention-v2.jpg",
+      "githubRepo": "SMJ-205/google-sheet-convention-script-v.2",
+      "image": "assets/projects/gsheet-convention-v2.jpeg",
       "sneakPeekLabel": "Sneak Peek of Schema Validation Scenario"
     },
     {
