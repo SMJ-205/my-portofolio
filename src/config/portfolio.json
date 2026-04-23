@@ -357,6 +357,22 @@
       "image": "assets/projects/weather-pipeline.jpg",
       "sneakPeekLabel": "Sneak Peek of Airflow DAG Pipeline",
       "githubRepo": "SMJ-205/project-weather-forecast"
+    },
+    {
+      "title": "OCR Expense Tracker",
+      "description": "Built a lightweight web-based expense tracker deployed on Vercel, where users upload bill images through a simple interface and instantly convert them into structured transaction logs in Google Sheets. The app processes images using OCR (Google Cloud Vision), extracts key details like date, merchant and total and stores both parsed data or raw images for traceability. Designed for low-volume, free-tier usage, it focuses on fast input, clean automation and minimal infrastructure while keeping the system reliable and easy to maintain.",
+      "tags": [
+        "Web App",
+        "OCR",
+        "Google Cloud Vision",
+        "Google Sheets",
+        "Automation"
+      ],
+      "link": "https://github.com/SMJ-205/expense-tracker",
+      "linkLabel": "View Repository",
+      "image": "assets/projects/ocr-expense-tracker.jpg",
+      "sneakPeekLabel": "Sneak Peek of App Interface",
+      "githubRepo": "SMJ-205/expense-tracker"
     }
   ],
   "education": [
