@@ -51,13 +51,38 @@
       "logo": null,
       "roles": [
         {
+          "title": "Senior Data Analyst",
+          "type": "Full-time",
+          "location": "Bandung, West Java, Indonesia",
+          "workMode": "Hybrid",
+          "startDate": "Apr 2026",
+          "endDate": "Present",
+          "duration": "1 mos",
+          "description": [
+            "Integrate AI tools (LLMs, automation agents, etc.) into daily workflows to accelerate analysis and reduce manual effort.",
+            "Proactively identify risks, inefficiencies and growth opportunities across the business.",
+            "Build and maintain a clear task tracking system to ensure visibility and accountability."
+          ],
+          "skills": [
+            "SQL",
+            "DBT",
+            "Airflow",
+            "Python",
+            "Snowflake",
+            "Metabase",
+            "AppScript",
+            "Looker",
+            "LLMs"
+          ]
+        },
+        {
           "title": "Data Analyst",
           "type": "Full-time",
           "location": "Bandung, West Java, Indonesia",
           "workMode": "Hybrid",
           "startDate": "Oct 2023",
-          "endDate": "Present",
-          "duration": "1 yr 9 mos",
+          "endDate": "Mar 2026",
+          "duration": "2 yrs 6 mos",
           "description": [
             "Delivered decision-making for top management and investors by transforming complex data into high-level corporate insights and integrated financial reporting.",
             "Supported finance operations and audit through data-driven insights and automation to improve efficiency and accuracy.",
