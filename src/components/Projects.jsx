@@ -115,68 +115,60 @@ const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
   // ── Mobile: tag filter hidden entirely ───────────────────────────────────
   if (!isDesktop) return null
 
-  // ── Desktop: 1-row collapsed by default, toggle to expand ────────────────
-  // GLOW-BLEED FIX: overflow:hidden clips button borders/shadows.
-  // Solution: outer container has negative margins on all sides, inner flex
-  // row has equal padding — so borders/glows render inside the padding zone
-  // and are never clipped, while the layout stays perfectly flush.
-  const BLEED = 8   // px of breathing room on each side for border + glow
-  // One row of buttons is ~34px; add BLEED top+bottom for the active border.
-  const ONE_ROW_H = `${34 + BLEED * 2}px`
+  // ── Desktop: slice-based collapse — no overflow:hidden, no clipping ───────
+  // Show first COLLAPSED_COUNT tags by default; show all when expanded.
+  // This completely avoids overflow clipping of borders/glows.
+  const COLLAPSED_COUNT = 6
+  const hiddenCount = allTags.length - COLLAPSED_COUNT
+  const visibleTags = expanded ? allTags : allTags.slice(0, COLLAPSED_COUNT)
+
+  // Always ensure the active tag is visible even when collapsed
+  const activeIsHidden = !expanded && activeTag !== 'All' && !visibleTags.includes(activeTag)
+  const displayTags = activeIsHidden
+    ? [...visibleTags.slice(0, COLLAPSED_COUNT - 1), activeTag]
+    : visibleTags
 
   return (
     <div style={{ marginBottom: '2rem' }}>
-      {/* Outer: negative margin to compensate for inner padding */}
       <div style={{
-        margin: `-${BLEED}px`,
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '0.5rem',
+        marginBottom: '0.5rem',
       }}>
-        {/* Clipping container */}
-        <div style={{
-          overflow: 'hidden',
-          maxHeight: expanded ? '500px' : ONE_ROW_H,
-          transition: 'max-height 0.4s ease',
-        }}>
-          {/* Inner flex row with padding so glow/border isn't clipped */}
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.5rem',
-            padding: `${BLEED}px`,
-          }}>
-            {allTags.map(tag => (
-              <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
-            ))}
-          </div>
-        </div>
+        {displayTags.map(tag => (
+          <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
+        ))}
       </div>
 
-
-      {/* Toggle button */}
-      <motion.button
-        onClick={() => setExpanded(e => !e)}
-        style={{
-          marginTop: '0.5rem',
-          padding: '0.25rem 0.7rem',
-          borderRadius: '6px',
-          border: '1px dashed var(--border)',
-          background: 'transparent',
-          color: 'var(--text-muted)',
-          fontSize: '0.7rem',
-          fontFamily: 'var(--font-mono)',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.3rem',
-        }}
-        whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
-        whileTap={{ scale: 0.95 }}
-      >
-        {expanded ? '▴ less tags' : `▾ more tags (+${Math.max(0, allTags.length - 1)})`}
-      </motion.button>
+      {/* Toggle button — only shown if there are hidden tags */}
+      {hiddenCount > 0 && (
+        <motion.button
+          onClick={() => setExpanded(e => !e)}
+          style={{
+            padding: '0.25rem 0.7rem',
+            borderRadius: '6px',
+            border: '1px dashed var(--border)',
+            background: 'transparent',
+            color: 'var(--text-muted)',
+            fontSize: '0.7rem',
+            fontFamily: 'var(--font-mono)',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.3rem',
+          }}
+          whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {expanded ? '▴ less tags' : `▾ more tags (+${hiddenCount})`}
+        </motion.button>
+      )}
     </div>
   )
 }
 // ──────────────────────────────────────────────────────────────────────────────
+
 
 
 
