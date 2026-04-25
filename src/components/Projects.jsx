@@ -110,50 +110,64 @@ const TagButton = ({ tag, activeTag, setActiveTag }) => (
 )
 
 const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
-  if (isDesktop) {
-    // ── Desktop: single scrollable row ──────────────────────────────────────
-    // Wrapper clips overflow-x but NOT overflow-y, so hover glow isn't cut.
-    // Inner row has vertical padding so the glow has room; negative margin
-    // on the wrapper pulls that padding back into the layout.
-    return (
+  const [expanded, setExpanded] = useState(false)
+
+  // ── Mobile: tag filter hidden entirely ───────────────────────────────────
+  if (!isDesktop) return null
+
+  // ── Desktop: 1-row collapsed by default, toggle to expand ────────────────
+  // Use overflow:hidden + maxHeight to clip to a single row (~42px).
+  // Padding inside the tag row gives the glow/scale animation breathing room
+  // without being clipped by the parent overflow.
+  const ONE_ROW_H = '42px'
+
+  return (
+    <div style={{ marginBottom: '2rem' }}>
+      {/* Tag row — clipped to 1 row when collapsed */}
       <div style={{
-        overflowX: 'auto',
-        overflowY: 'visible',
-        marginBottom: '2rem',
-        marginLeft: '-6px',
-        marginRight: '-6px',
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-      }} className="hide-scrollbar">
+        overflow: 'hidden',
+        maxHeight: expanded ? '300px' : ONE_ROW_H,
+        transition: 'max-height 0.35s ease',
+      }}>
         <div style={{
           display: 'flex',
-          flexWrap: 'nowrap',
+          flexWrap: 'wrap',
           gap: '0.5rem',
-          padding: '6px 6px',          // breathing room for the glow on all sides
+          padding: '4px 2px',   // breathing room so scale glow isn't clipped
         }}>
           {allTags.map(tag => (
             <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
           ))}
         </div>
       </div>
-    )
-  }
 
-  // ── Mobile: all tags, always visible, simple wrap ────────────────────────
-  return (
-    <div style={{
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: '0.5rem',
-      marginBottom: '2rem',
-    }}>
-      {allTags.map(tag => (
-        <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
-      ))}
+      {/* Toggle button */}
+      <motion.button
+        onClick={() => setExpanded(e => !e)}
+        style={{
+          marginTop: '0.5rem',
+          padding: '0.25rem 0.7rem',
+          borderRadius: '6px',
+          border: '1px dashed var(--border)',
+          background: 'transparent',
+          color: 'var(--text-muted)',
+          fontSize: '0.7rem',
+          fontFamily: 'var(--font-mono)',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.3rem',
+        }}
+        whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {expanded ? '▴ less tags' : `▾ more tags (+${Math.max(0, allTags.length - 1)})`}
+      </motion.button>
     </div>
   )
 }
 // ──────────────────────────────────────────────────────────────────────────────
+
 
 
 export default function Projects({ config, theme }) {
