@@ -116,30 +116,40 @@ const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
   if (!isDesktop) return null
 
   // ── Desktop: 1-row collapsed by default, toggle to expand ────────────────
-  // Use overflow:hidden + maxHeight to clip to a single row (~42px).
-  // Padding inside the tag row gives the glow/scale animation breathing room
-  // without being clipped by the parent overflow.
-  const ONE_ROW_H = '42px'
+  // GLOW-BLEED FIX: overflow:hidden clips button borders/shadows.
+  // Solution: outer container has negative margins on all sides, inner flex
+  // row has equal padding — so borders/glows render inside the padding zone
+  // and are never clipped, while the layout stays perfectly flush.
+  const BLEED = 8   // px of breathing room on each side for border + glow
+  // One row of buttons is ~34px; add BLEED top+bottom for the active border.
+  const ONE_ROW_H = `${34 + BLEED * 2}px`
 
   return (
     <div style={{ marginBottom: '2rem' }}>
-      {/* Tag row — clipped to 1 row when collapsed */}
+      {/* Outer: negative margin to compensate for inner padding */}
       <div style={{
-        overflow: 'hidden',
-        maxHeight: expanded ? '300px' : ONE_ROW_H,
-        transition: 'max-height 0.35s ease',
+        margin: `-${BLEED}px`,
       }}>
+        {/* Clipping container */}
         <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '0.5rem',
-          padding: '4px 2px',   // breathing room so scale glow isn't clipped
+          overflow: 'hidden',
+          maxHeight: expanded ? '500px' : ONE_ROW_H,
+          transition: 'max-height 0.4s ease',
         }}>
-          {allTags.map(tag => (
-            <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
-          ))}
+          {/* Inner flex row with padding so glow/border isn't clipped */}
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.5rem',
+            padding: `${BLEED}px`,
+          }}>
+            {allTags.map(tag => (
+              <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
+            ))}
+          </div>
         </div>
       </div>
+
 
       {/* Toggle button */}
       <motion.button
