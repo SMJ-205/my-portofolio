@@ -253,3 +253,9 @@ a:hover {
   }
 }
 
+
+
+/* ── Hide scrollbar utility ───────────────────────── */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

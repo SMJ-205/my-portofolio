@@ -81,7 +81,107 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
   )
 }
 
+
+// ─── Tag Filter Bar ────────────────────────────────────────────────────────────
+const TAG_BUTTON_HEIGHT = 34   // px – approximate height of one button row incl. gap
+const MOBILE_MAX_ROWS  = 3
+const MOBILE_GAP       = 8    // px – gap between rows (0.5rem)
+
+const TagButton = ({ tag, activeTag, setActiveTag }) => (
+  <motion.button
+    key={tag}
+    onClick={() => setActiveTag(tag)}
+    style={{
+      padding: '0.4rem 0.85rem',
+      borderRadius: '8px',
+      border: '1px solid',
+      borderColor: activeTag === tag ? 'var(--accent)' : 'var(--border)',
+      background: activeTag === tag ? 'var(--accent-glow)' : 'transparent',
+      color: activeTag === tag ? 'var(--accent)' : 'var(--text-muted)',
+      fontSize: '0.75rem',
+      fontFamily: 'var(--font-mono)',
+      cursor: 'pointer',
+      fontWeight: activeTag === tag ? 600 : 400,
+      whiteSpace: 'nowrap',
+      flexShrink: 0,
+    }}
+    whileHover={{ scale: 1.05, borderColor: 'var(--accent)' }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <FiTag style={{ marginRight: '0.3rem', verticalAlign: 'middle', fontSize: '0.7rem' }} />
+    {tag}
+  </motion.button>
+)
+
+const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
+  const [expanded, setExpanded] = useState(false)
+
+  if (isDesktop) {
+    // ── Desktop: single scrollable row ──────────────────────────────────────
+    return (
+      <div style={{
+        display: 'flex',
+        flexWrap: 'nowrap',
+        overflowX: 'auto',
+        gap: '0.5rem',
+        marginBottom: '2rem',
+        paddingBottom: '4px',          // room for scrollbar if visible
+        scrollbarWidth: 'none',        // Firefox – hide scrollbar
+        msOverflowStyle: 'none',       // IE – hide scrollbar
+      }}
+        className="hide-scrollbar"
+      >
+        {allTags.map(tag => (
+          <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
+        ))}
+      </div>
+    )
+  }
+
+  // ── Mobile: collapsible grid, max MOBILE_MAX_ROWS rows ───────────────────
+  const collapsedMaxH = MOBILE_MAX_ROWS * TAG_BUTTON_HEIGHT + (MOBILE_MAX_ROWS - 1) * MOBILE_GAP
+
+  return (
+    <div style={{ marginBottom: '2rem' }}>
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: `${MOBILE_GAP}px`,
+        overflow: 'hidden',
+        maxHeight: expanded ? 'none' : `${collapsedMaxH}px`,
+        transition: 'max-height 0.35s ease',
+      }}>
+        {allTags.map(tag => (
+          <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
+        ))}
+      </div>
+
+      {/* Toggle button – only shown on mobile */}
+      <motion.button
+        onClick={() => setExpanded(e => !e)}
+        style={{
+          marginTop: '0.6rem',
+          padding: '0.3rem 0.75rem',
+          borderRadius: '8px',
+          border: '1px dashed var(--border)',
+          background: 'transparent',
+          color: 'var(--text-muted)',
+          fontSize: '0.72rem',
+          fontFamily: 'var(--font-mono)',
+          cursor: 'pointer',
+        }}
+        whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {expanded ? '← less tags' : `more tags... (+${Math.max(0, allTags.length - 9)})`}
+      </motion.button>
+    </div>
+  )
+}
+// ──────────────────────────────────────────────────────────────────────────────
+
 export default function Projects({ config, theme }) {
+
   const [activeTag, setActiveTag] = useState('All')
 
   // Modal State
@@ -201,36 +301,7 @@ export default function Projects({ config, theme }) {
 
           {/* Tag Filters */}
           <ScrollReveal delay={0.1}>
-            <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '0.5rem',
-              marginBottom: '2rem',
-            }}>
-              {allTags.map((tag) => (
-                <motion.button
-                  key={tag}
-                  onClick={() => setActiveTag(tag)}
-                  style={{
-                    padding: '0.4rem 0.85rem',
-                    borderRadius: '8px',
-                    border: '1px solid',
-                    borderColor: activeTag === tag ? 'var(--accent)' : 'var(--border)',
-                    background: activeTag === tag ? 'var(--accent-glow)' : 'transparent',
-                    color: activeTag === tag ? 'var(--accent)' : 'var(--text-muted)',
-                    fontSize: '0.75rem',
-                    fontFamily: 'var(--font-mono)',
-                    cursor: 'pointer',
-                    fontWeight: activeTag === tag ? 600 : 400,
-                  }}
-                  whileHover={{ scale: 1.05, borderColor: 'var(--accent)' }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FiTag style={{ marginRight: '0.3rem', verticalAlign: 'middle', fontSize: '0.7rem' }} />
-                  {tag}
-                </motion.button>
-              ))}
-            </div>
+            <TagFilterBar allTags={allTags} activeTag={activeTag} setActiveTag={setActiveTag} isDesktop={isDesktop} />
           </ScrollReveal>
 
           {/* Project Grid */}
