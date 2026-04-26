@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiMapPin, FiCalendar, FiBriefcase } from 'react-icons/fi'
+import { FiMapPin, FiCalendar, FiBriefcase, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import ScrollReveal from './ScrollReveal'
 
 /**
@@ -37,7 +38,143 @@ function calcDuration(startStr, endStr) {
   return `${years} yr${years > 1 ? 's' : ''} ${mos} mos`
 }
 
+// ─── Role Card ───────────────────────────────────────────────────────────────
+// Each role gets its own toggle state so they collapse/expand independently.
+function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
+  const [descOpen, setDescOpen] = useState(false)
+  const isLast = roleIdx === totalRoles - 1
+
+  return (
+    <div
+      style={{
+        marginBottom: !isLast ? '1.5rem' : 0,
+        paddingBottom: !isLast ? '1.5rem' : 0,
+        borderBottom: !isLast ? '1px solid var(--border)' : 'none',
+      }}
+    >
+      {/* Role title + type */}
+      <h4 style={{
+        fontSize: '1rem',
+        fontWeight: 600,
+        color: 'var(--text-primary)',
+        marginBottom: '0.4rem',
+      }}>
+        {role.title}
+        <span style={{
+          fontSize: '0.75rem',
+          color: 'var(--text-muted)',
+          fontWeight: 400,
+          marginLeft: '0.5rem',
+          fontFamily: 'var(--font-mono)',
+        }}>
+          ({role.type})
+        </span>
+      </h4>
+
+      {/* Meta: location, date, work mode */}
+      <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '0.75rem',
+        marginBottom: '0.75rem',
+        fontSize: '0.8rem',
+        color: 'var(--text-muted)',
+        fontFamily: 'var(--font-mono)',
+      }}>
+        {role.location && (
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <FiMapPin style={{ color: 'var(--accent)', fontSize: '0.75rem' }} />
+            {role.location}
+          </span>
+        )}
+        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+          <FiCalendar style={{ color: 'var(--accent)', fontSize: '0.75rem' }} />
+          {role.startDate} – {role.endDate} · {calcDuration(role.startDate, role.endDate)}
+        </span>
+        {role.workMode && (
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+            <FiBriefcase style={{ color: 'var(--accent)', fontSize: '0.75rem' }} />
+            {role.workMode}
+          </span>
+        )}
+      </div>
+
+      {/* Mobile: toggle button for description */}
+      {isMobile && (
+        <motion.button
+          onClick={() => setDescOpen(o => !o)}
+          style={{
+            marginBottom: descOpen ? '0.6rem' : '0.75rem',
+            padding: '0.2rem 0.65rem',
+            borderRadius: '6px',
+            border: '1px dashed var(--border)',
+            background: 'transparent',
+            color: 'var(--text-muted)',
+            fontSize: '0.7rem',
+            fontFamily: 'var(--font-mono)',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.3rem',
+          }}
+          whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {descOpen
+            ? <><FiChevronUp size={11} /> hide details</>
+            : <><FiChevronDown size={11} /> show details</>
+          }
+        </motion.button>
+      )}
+
+      {/* Description bullet points — always visible on desktop, toggled on mobile */}
+      {(!isMobile || descOpen) && (
+        <ul style={{
+          listStyle: 'none',
+          padding: 0,
+          margin: '0 0 0.75rem 0',
+        }}>
+          {role.description.map((desc, descIdx) => (
+            <li
+              key={descIdx}
+              style={{
+                position: 'relative',
+                paddingLeft: '1.2rem',
+                marginBottom: '0.4rem',
+                color: 'var(--text-secondary)',
+                fontSize: '0.9rem',
+                lineHeight: 1.6,
+              }}
+            >
+              <span style={{
+                position: 'absolute',
+                left: 0,
+                color: 'var(--accent)',
+                fontFamily: 'var(--font-mono)',
+                fontWeight: 700,
+              }}>
+                ▹
+              </span>
+              {desc}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {/* Skill Tags */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+        {role.skills.map((skill) => (
+          <span key={skill} className="skill-tag">{skill}</span>
+        ))}
+      </div>
+    </div>
+  )
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function Experience({ config }) {
+  const [isMobile] = useState(() => window.innerWidth < 768)
+
   return (
     <section id="experience" className="section" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
@@ -101,97 +238,13 @@ export default function Experience({ config }) {
 
                   {/* Roles */}
                   {company.roles.map((role, roleIdx) => (
-                    <div
+                    <RoleCard
                       key={roleIdx}
-                      style={{
-                        marginBottom: roleIdx < company.roles.length - 1 ? '1.5rem' : 0,
-                        paddingBottom: roleIdx < company.roles.length - 1 ? '1.5rem' : 0,
-                        borderBottom: roleIdx < company.roles.length - 1 ? '1px solid var(--border)' : 'none',
-                      }}
-                    >
-                      <h4 style={{
-                        fontSize: '1rem',
-                        fontWeight: 600,
-                        color: 'var(--text-primary)',
-                        marginBottom: '0.4rem',
-                      }}>
-                        {role.title}
-                        <span style={{
-                          fontSize: '0.75rem',
-                          color: 'var(--text-muted)',
-                          fontWeight: 400,
-                          marginLeft: '0.5rem',
-                          fontFamily: 'var(--font-mono)',
-                        }}>
-                          ({role.type})
-                        </span>
-                      </h4>
-
-                      <div style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '0.75rem',
-                        marginBottom: '0.75rem',
-                        fontSize: '0.8rem',
-                        color: 'var(--text-muted)',
-                        fontFamily: 'var(--font-mono)',
-                      }}>
-                        {role.location && (
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                            <FiMapPin style={{ color: 'var(--accent)', fontSize: '0.75rem' }} />
-                            {role.location}
-                          </span>
-                        )}
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <FiCalendar style={{ color: 'var(--accent)', fontSize: '0.75rem' }} />
-                          {role.startDate} – {role.endDate} · {calcDuration(role.startDate, role.endDate)}
-                        </span>
-                        {role.workMode && (
-                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                            <FiBriefcase style={{ color: 'var(--accent)', fontSize: '0.75rem' }} />
-                            {role.workMode}
-                          </span>
-                        )}
-                      </div>
-
-                      <ul style={{
-                        listStyle: 'none',
-                        padding: 0,
-                        margin: '0 0 0.75rem 0',
-                      }}>
-                        {role.description.map((desc, descIdx) => (
-                          <li
-                            key={descIdx}
-                            style={{
-                              position: 'relative',
-                              paddingLeft: '1.2rem',
-                              marginBottom: '0.4rem',
-                              color: 'var(--text-secondary)',
-                              fontSize: '0.9rem',
-                              lineHeight: 1.6,
-                            }}
-                          >
-                            <span style={{
-                              position: 'absolute',
-                              left: 0,
-                              color: 'var(--accent)',
-                              fontFamily: 'var(--font-mono)',
-                              fontWeight: 700,
-                            }}>
-                              ▹
-                            </span>
-                            {desc}
-                          </li>
-                        ))}
-                      </ul>
-
-                      {/* Skill Tags */}
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                        {role.skills.map((skill) => (
-                          <span key={skill} className="skill-tag">{skill}</span>
-                        ))}
-                      </div>
-                    </div>
+                      role={role}
+                      roleIdx={roleIdx}
+                      totalRoles={company.roles.length}
+                      isMobile={isMobile}
+                    />
                   ))}
                 </motion.div>
               </div>
@@ -202,3 +255,4 @@ export default function Experience({ config }) {
     </section>
   )
 }
+
