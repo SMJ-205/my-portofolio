@@ -192,7 +192,8 @@ export default function Hero({ config }) {
         >
           <motion.a
             href={`${BASE}${profile.resumeUrl}`}
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
