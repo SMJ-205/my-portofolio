@@ -179,6 +179,9 @@ export default function Projects({ config, theme }) {
   // Modal State
   const [selectedProject, setSelectedProject] = useState(null)
 
+  // Cache state for static pre-generated repo data
+  const [cachedRepoData, setCachedRepoData] = useState(null)
+
   // GitHub Browser States (scoped to the modal)
   const [repoPath, setRepoPath] = useState('')
   const [repoFiles, setRepoFiles] = useState([])
@@ -238,10 +241,18 @@ export default function Projects({ config, theme }) {
     }
   }
 
-  const fetchFileContent = async (downloadUrl, fileName) => {
+  const fetchFileContent = async (downloadUrl, fileName, filePath = fileName) => {
     setFileLoading(true)
     setRepoError(null)
     setActiveFile(fileName)
+
+    // Check pre-generated cache first
+    if (cachedRepoData && cachedRepoData.files && cachedRepoData.files[filePath] !== undefined) {
+      setFileContent(cachedRepoData.files[filePath])
+      setFileLoading(false)
+      return
+    }
+
     try {
       const response = await fetch(downloadUrl)
       if (!response.ok) throw new Error('Failed to load file content')
@@ -254,11 +265,33 @@ export default function Projects({ config, theme }) {
     }
   }
 
-  const openProject = (project) => {
+  const openProject = async (project) => {
     setSelectedProject(project)
     if (project.githubRepo) {
       setRepoPath('')
       setActiveFile(null)
+      setRepoLoading(true)
+      setRepoError(null)
+      setRepoFiles([])
+      setCachedRepoData(null)
+
+      const localJsonName = project.githubRepo.replace('/', '_') + '.json'
+      const localJsonUrl = `${BASE}data/repos/${localJsonName}`
+
+      try {
+        const response = await fetch(localJsonUrl)
+        if (response.ok) {
+          const data = await response.json()
+          setCachedRepoData(data)
+          setRepoFiles(data.tree[''] || [])
+          setRepoLoading(false)
+          return
+        }
+      } catch (err) {
+        console.warn(`Local repo bundle not found or failed to load. Falling back to live GitHub API.`, err)
+      }
+
+      // Fallback to Live GitHub API
       fetchRepoContents(project.githubRepo, '')
     }
   }
@@ -270,7 +303,11 @@ export default function Projects({ config, theme }) {
   const navigateToDir = (githubRepo, path) => {
     setRepoPath(path)
     setActiveFile(null)
-    fetchRepoContents(githubRepo, path)
+    if (cachedRepoData && cachedRepoData.tree && cachedRepoData.tree[path] !== undefined) {
+      setRepoFiles(cachedRepoData.tree[path])
+    } else {
+      fetchRepoContents(githubRepo, path)
+    }
   }
 
   const navigateUp = (githubRepo) => {
@@ -279,7 +316,11 @@ export default function Projects({ config, theme }) {
     const newPath = parts.join('/')
     setRepoPath(newPath)
     setActiveFile(null)
-    fetchRepoContents(githubRepo, newPath)
+    if (cachedRepoData && cachedRepoData.tree && cachedRepoData.tree[newPath] !== undefined) {
+      setRepoFiles(cachedRepoData.tree[newPath])
+    } else {
+      fetchRepoContents(githubRepo, newPath)
+    }
   }
 
   return (
@@ -604,7 +645,7 @@ export default function Projects({ config, theme }) {
                             {repoFiles.map((item) => (
                               <li
                                 key={item.sha}
-                                onClick={() => item.type === 'dir' ? navigateToDir(selectedProject.githubRepo, item.path) : fetchFileContent(item.download_url, item.name)}
+                                onClick={() => item.type === 'dir' ? navigateToDir(selectedProject.githubRepo, item.path) : fetchFileContent(item.download_url, item.name, item.path)}
                                 style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}
                                 onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
                                 onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}

@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/download-repos.js",
     "build": "vite build",
+    "download-repos": "node scripts/download-repos.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
