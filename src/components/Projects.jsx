@@ -49,7 +49,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
     <div className={
       isMobileFullBlock
         ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden bg-black"
-        : "flex relative w-full h-[220px] md:h-[400px] justify-center overflow-hidden bg-black"
+        : "flex relative w-full h-[220px] md:h-[430px] justify-center overflow-hidden bg-black"
     }>
       <AnimatePresence>
         <motion.img
@@ -63,7 +63,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
             opacity: { duration: 1.5, ease: 'easeInOut' },
             scale: { duration: 6, ease: 'linear' }
           }}
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }}
         />
       </AnimatePresence>
       {/* Dark Gradient Overlay Fade */}
@@ -477,7 +477,7 @@ export default function Projects({ config, theme }) {
                 borderRadius: '16px',
                 width: '100%',
                 maxWidth: '1100px',
-                maxHeight: '90vh',
+                maxHeight: isDesktop ? 'calc(90vh + 30px)' : '90vh',
                 overflow: 'hidden',
                 position: 'relative',
                 display: 'flex',
