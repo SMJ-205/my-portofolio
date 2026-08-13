@@ -373,6 +373,22 @@
       "image": "assets/projects/ocr-expense-tracker.jpg",
       "sneakPeekLabel": "Sneak Peek of App Interface",
       "githubRepo": "SMJ-205/expense-tracker"
+    },
+    {
+      "title": "AI Qualification Screener",
+      "description": "Built an automated end-to-end recruitment screener and WhatsApp notification system. Orchestrated via n8n, this workflow processes PDF CV applications, runs match evaluations using OpenAI's gpt-4o-mini, logs scores to Airtable CRM, and routes candidates. Applicants with a match score >= 75 receive an automated WhatsApp interview invite via Fonnte and trigger internal recruiter alerts via Telegram, while other profiles receive a polite rejection email. The system cuts manual screening time by 85% and speeds up candidate outreach to less than two minutes.",
+      "tags": [
+        "n8n",
+        "OpenAI",
+        "Airtable",
+        "WhatsApp API",
+        "Automation"
+      ],
+      "link": "https://github.com/SMJ-205/cv-scanner",
+      "linkLabel": "View Repository",
+      "image": "assets/projects/cv-scanner.jpeg",
+      "sneakPeekLabel": "Sneak Peek of Recruiter Dashboard",
+      "githubRepo": "SMJ-205/cv-scanner"
     }
   ],
   "education": [
