@@ -241,71 +241,25 @@ export default function Hero({ config }) {
           {/* Profile Photo */}
           <motion.div
             variants={itemVariants}
-            style={{
-              position: 'relative',
-              width: '180px',
-              height: '180px',
-              margin: '0 auto 1.5rem',
-            }}
+            className="hero-profile-container"
           >
-            {/* Spinning outer radar ring */}
-            <div style={{
-              position: 'absolute',
-              inset: '-12px',
-              borderRadius: '50%',
-              background: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, var(--accent) 100%)',
-              animation: 'spin 3s linear infinite',
-            }}>
-              {/* Rounded Head Cap */}
-              <div style={{
-                position: 'absolute',
-                top: '4px',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '8px',
-                height: '8px',
-                backgroundColor: 'var(--accent)',
-                borderRadius: '50%',
-                boxShadow: '0 0 10px var(--accent-glow)'
-              }} />
+            {/* Background Glow */}
+            <div className="profile-glow" />
+
+            {/* Orbit Path & Satellite */}
+            <div className="orbit-path">
+              <div className="satellite" />
             </div>
-            {/* Gap to separate outer and inner circles */}
-            <div style={{
-              position: 'absolute',
-              inset: '-4px',
-              borderRadius: '50%',
-              background: 'var(--bg-primary)',
-            }} />
-            {/* Static image container (inner circle) */}
-            <div style={{
-              position: 'relative',
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              overflow: 'hidden',
-              border: '3px solid var(--accent)',
-              background: 'var(--bg-primary)',
-            }}>
-              <img
-                src={`${BASE}${profile.photo}`}
-                alt={profile.name}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block',
-                }}
-              />
-            </div>
-            {/* Glow behind */}
-            <div style={{
-              position: 'absolute',
-              inset: '-20px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)',
-              zIndex: -1,
-              filter: 'blur(20px)',
-            }} />
+
+            {/* Profile circle background (tosca sphere) */}
+            <div className="profile-circle-bg" />
+
+            {/* Profile image (overlapping the bottom) */}
+            <img
+              src={`${BASE}${profile.photo}`}
+              alt={profile.name}
+              className="profile-img"
+            />
           </motion.div>
 
           {/* Greeting */}
@@ -615,27 +569,26 @@ export default function Hero({ config }) {
           filter: drop-shadow(0 0 12px var(--accent-glow-strong));
         }
 
-        /* Profile Satellite & Circle styles */
+        /* Profile Satellite & Circle styles (Mobile First) */
         .hero-profile-container {
           position: relative;
-          width: 350px;
-          height: 350px;
-          top: -50px;
-          left: -70px;
+          width: 220px;
+          height: 220px;
+          margin: 0 auto 3.5rem;
         }
 
         .profile-glow {
           position: absolute;
-          inset: -30px;
+          inset: -20px;
           border-radius: 50%;
           background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
           z-index: -1;
-          filter: blur(25px);
+          filter: blur(20px);
         }
 
         .orbit-path {
           position: absolute;
-          inset: -40px;
+          inset: -25px;
           border-radius: 50%;
           animation: orbitRotate 20s linear infinite;
           pointer-events: none;
@@ -661,8 +614,8 @@ export default function Hero({ config }) {
           top: 14.6%;
           left: 14.6%;
           transform: translate(-50%, -50%);
-          width: 12px;
-          height: 12px;
+          width: 10px;
+          height: 10px;
           background-color: var(--accent);
           border-radius: 50%;
           box-shadow: 0 0 10px var(--accent-glow-strong);
@@ -683,7 +636,7 @@ export default function Hero({ config }) {
 
         .profile-img {
           position: absolute;
-          bottom: -60px;
+          bottom: -38px;
           left: 50%;
           transform: translateX(-50%);
           width: 120%;
@@ -701,6 +654,29 @@ export default function Hero({ config }) {
           }
           .mobile-hero-layout {
             display: none;
+          }
+
+          /* Desktop overrides for profile container */
+          .hero-profile-container {
+            width: 350px;
+            height: 350px;
+            margin: 0;
+            top: -50px;
+            left: -70px;
+          }
+          .profile-glow {
+            inset: -30px;
+            filter: blur(25px);
+          }
+          .orbit-path {
+            inset: -40px;
+          }
+          .satellite {
+            width: 12px;
+            height: 12px;
+          }
+          .profile-img {
+            bottom: -60px;
           }
         }
 
