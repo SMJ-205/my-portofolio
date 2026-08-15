@@ -1,9 +1,27 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiMail, FiGithub, FiLinkedin, FiSend } from 'react-icons/fi'
 import ScrollReveal from './ScrollReveal'
 
 export default function Contact({ config }) {
   const { contact, profile } = config
+  const [helloHref, setHelloHref] = useState('#')
+
+  const revealPhone = () => {
+    // Base64 obfuscated segments of "https://wa.me/6282218246688"
+    const encoded = ["aHR0cHM6Ly93", "YS5tZS82Mjgy", "MjE4MjQ2Njg4"]
+    setHelloHref(atob(encoded.join("")))
+  }
+
+  const handleHelloClick = (e) => {
+    if (helloHref === '#') {
+      e.preventDefault()
+      const encoded = ["aHR0cHM6Ly93", "YS5tZS82Mjgy", "MjE4MjQ2Njg4"]
+      const decoded = atob(encoded.join(""))
+      setHelloHref(decoded)
+      window.open(decoded, '_blank', 'noopener,noreferrer')
+    }
+  }
 
   const socials = [
     {
@@ -85,9 +103,13 @@ export default function Contact({ config }) {
 
             {/* CTA Button */}
             <motion.a
-              href="https://wa.me/6282218246688"
+              href={helloHref}
               target="_blank"
               rel="noopener noreferrer"
+              onMouseEnter={revealPhone}
+              onTouchStart={revealPhone}
+              onFocus={revealPhone}
+              onClick={handleHelloClick}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
