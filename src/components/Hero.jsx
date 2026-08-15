@@ -42,247 +42,448 @@ export default function Hero({ config }) {
         style={{
           maxWidth: 'var(--container-max)',
           width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          gap: '1.5rem',
         }}
       >
-        {/* Profile Photo */}
-        <motion.div
-          variants={itemVariants}
-          style={{ position: 'relative', width: '180px', height: '180px' }}
-        >
-          {/* Spinning outer radar ring */}
-          <div style={{
-            position: 'absolute',
-            inset: '-12px',
-            borderRadius: '50%',
-            background: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, var(--accent) 100%)',
-            animation: 'spin 3s linear infinite',
-          }}>
-            {/* Rounded Head Cap (located exactly at the 12 o'clock end of the gradient) */}
-            <div style={{
-              position: 'absolute',
-              top: '4px', // Centers precisely within the 8px visible ring thickness (12px - 4px = 8px wide)
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '8px',
-              height: '8px',
-              backgroundColor: 'var(--accent)',
-              borderRadius: '50%',
-              boxShadow: '0 0 10px var(--accent-glow)'
-            }} />
-          </div>
-          {/* Gap to separate outer and inner circles */}
-          <div style={{
-            position: 'absolute',
-            inset: '-4px',
-            borderRadius: '50%',
-            background: 'var(--bg-primary)',
-          }} />
-          {/* Static image container (inner circle) */}
-          <div style={{
-            position: 'relative',
-            width: '100%',
-            height: '100%',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '3px solid var(--accent)',
-            background: 'var(--bg-primary)',
-          }}>
-            <img
-              src={`${BASE}${profile.photo}`}
-              alt={profile.name}
+        {/* Desktop Layout (visible on 992px+) */}
+        <div className="desktop-hero-layout">
+          {/* Left Column: Bio / Texts */}
+          <div className="hero-left-col">
+            {/* Greeting */}
+            <motion.p
+              variants={itemVariants}
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.95rem',
+                color: 'var(--accent)',
               }}
-            />
-          </div>
-          {/* Glow behind */}
-          <div style={{
-            position: 'absolute',
-            inset: '-20px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)',
-            zIndex: -1,
-            filter: 'blur(20px)',
-          }} />
-        </motion.div>
+            >
+              Hi, my name is
+            </motion.p>
 
-        {/* Greeting */}
-        <motion.p
-          variants={itemVariants}
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.95rem',
-            color: 'var(--accent)',
-          }}
-        >
-          Hi, my name is
-        </motion.p>
-
-        {/* Name */}
-        <motion.h1
-          variants={itemVariants}
-          className="dynamic-name-gradient"
-          style={{
-            fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-            fontWeight: 800,
-            lineHeight: 1.1,
-          }}
-        >
-          {profile.name}
-        </motion.h1>
-
-        {/* Title */}
-        <motion.h2
-          variants={itemVariants}
-          style={{
-            fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
-            fontWeight: 600,
-            color: 'var(--text-secondary)',
-          }}
-        >
-          {profile.title}
-        </motion.h2>
-
-        {/* Tagline */}
-        <motion.p
-          variants={itemVariants}
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 'clamp(0.85rem, 2vw, 1.05rem)',
-            color: 'var(--text-muted)',
-            maxWidth: '500px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <span style={{ color: 'var(--accent)' }}>{'>'}</span>
-          {profile.tagline}
-          <motion.span
-            animate={{ opacity: [1, 0] }}
-            transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
-            style={{ color: 'var(--accent)', fontWeight: 700 }}
-          >
-            _
-          </motion.span>
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          variants={itemVariants}
-          style={{
-            display: 'flex',
-            gap: '1rem',
-            marginTop: '1rem',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}
-        >
-          <motion.a
-            href={`${BASE}${profile.resumeUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '12px',
-              background: 'var(--accent)',
-              color: 'var(--bg-primary)',
-              fontWeight: 600,
-              fontSize: '0.9rem',
-              fontFamily: 'var(--font-mono)',
-              textDecoration: 'none',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 25px var(--accent-glow-strong)' }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <FiDownload /> Resume
-          </motion.a>
-          <motion.button
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '12px',
-              background: 'transparent',
-              color: 'var(--accent)',
-              fontWeight: 600,
-              fontSize: '0.9rem',
-              fontFamily: 'var(--font-mono)',
-              border: '2px solid var(--accent)',
-              cursor: 'pointer',
-            }}
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: 'var(--accent-glow)',
-              boxShadow: '0 0 25px var(--accent-glow)',
-            }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Get in Touch
-          </motion.button>
-        </motion.div>
-
-        {/* Social Icons */}
-        <motion.div
-          variants={itemVariants}
-          style={{
-            display: 'flex',
-            gap: '1rem',
-            marginTop: '1.5rem',
-          }}
-        >
-          {[
-            { icon: <FiMail />, href: `mailto:${profile.social.email}`, label: 'Email' },
-            { icon: <FiGithub />, href: profile.social.github, label: 'GitHub' },
-            { icon: <FiLinkedin />, href: profile.social.linkedin, label: 'LinkedIn' },
-          ].map((social) => (
-            <motion.a
-              key={social.label}
-              href={social.href}
-              target={social.href.startsWith('mailto') ? undefined : '_blank'}
-              rel="noopener noreferrer"
-              title={social.label}
+            {/* Name */}
+            <motion.h1
+              variants={itemVariants}
+              className="dynamic-name-gradient"
               style={{
-                width: '44px',
-                height: '44px',
-                borderRadius: '12px',
-                border: '1px solid var(--border)',
+                fontSize: 'clamp(2rem, 6vw, 3.5rem)',
+                fontWeight: 800,
+                lineHeight: 1.1,
+              }}
+            >
+              {profile.name}
+            </motion.h1>
+
+            {/* Title */}
+            <motion.h2
+              variants={itemVariants}
+              style={{
+                fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
+                fontWeight: 600,
+                color: 'var(--text-secondary)',
+              }}
+            >
+              {profile.title}
+            </motion.h2>
+
+            {/* Tagline */}
+            <motion.p
+              variants={itemVariants}
+              className="hero-tagline"
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 'clamp(0.85rem, 2vw, 1.05rem)',
+                color: 'var(--text-muted)',
+                maxWidth: '500px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--text-secondary)',
-                fontSize: '1.2rem',
+                gap: '0.5rem',
+              }}
+            >
+              <span style={{ color: 'var(--accent)' }}>{'>'}</span>
+              {profile.tagline}
+              <motion.span
+                animate={{ opacity: [1, 0] }}
+                transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+                style={{ color: 'var(--accent)', fontWeight: 700 }}
+              >
+                _
+              </motion.span>
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={itemVariants}
+              className="hero-ctas"
+            >
+              <motion.a
+                href={`${BASE}${profile.resumeUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '12px',
+                  background: 'var(--accent)',
+                  color: 'var(--bg-primary)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-mono)',
+                  textDecoration: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+                whileHover={{ scale: 1.05, boxShadow: '0 0 25px var(--accent-glow-strong)' }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FiDownload /> View Resume
+              </motion.a>
+              <motion.button
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.75rem 1.5rem',
+                  borderRadius: '12px',
+                  background: 'transparent',
+                  color: 'var(--accent)',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  fontFamily: 'var(--font-mono)',
+                  border: '2px solid var(--accent)',
+                  cursor: 'pointer',
+                }}
+                whileHover={{
+                  scale: 1.05,
+                  backgroundColor: 'var(--accent-glow)',
+                  boxShadow: '0 0 25px var(--accent-glow)',
+                }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get in Touch
+              </motion.button>
+            </motion.div>
+
+            {/* Social Icons */}
+            <motion.div
+              variants={itemVariants}
+              className="hero-socials"
+            >
+              {[
+                { icon: <FiMail />, href: `mailto:${profile.social.email}`, label: 'Email' },
+                { icon: <FiGithub />, href: profile.social.github, label: 'GitHub' },
+                { icon: <FiLinkedin />, href: profile.social.linkedin, label: 'LinkedIn' },
+              ].map((social) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith('mailto') ? undefined : '_blank'}
+                  rel="noopener noreferrer"
+                  title={social.label}
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '12px',
+                    border: '1px solid var(--border)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'var(--text-secondary)',
+                    fontSize: '1.2rem',
+                    textDecoration: 'none',
+                    background: 'var(--bg-glass)',
+                  }}
+                  whileHover={{
+                    scale: 1.15,
+                    color: 'var(--accent)',
+                    borderColor: 'var(--accent)',
+                    boxShadow: '0 0 15px var(--accent-glow)',
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right Column: Profile Image & Orbit */}
+          <div className="hero-right-col">
+            <motion.div
+              variants={itemVariants}
+              className="hero-profile-container"
+            >
+              {/* Background Glow */}
+              <div className="profile-glow" />
+
+              {/* Orbit Path & Satellite */}
+              <div className="orbit-path">
+                <div className="satellite" />
+              </div>
+
+              {/* Profile image container (inner circle) */}
+              <div className="profile-img-circle">
+                <img
+                  src={`${BASE}${profile.photo}`}
+                  alt={profile.name}
+                />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Mobile Layout (visible on <992px) - exact original code before any edits */}
+        <div className="mobile-hero-layout">
+          {/* Profile Photo */}
+          <motion.div
+            variants={itemVariants}
+            style={{
+              position: 'relative',
+              width: '180px',
+              height: '180px',
+              margin: '0 auto 1.5rem',
+            }}
+          >
+            {/* Spinning outer radar ring */}
+            <div style={{
+              position: 'absolute',
+              inset: '-12px',
+              borderRadius: '50%',
+              background: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, var(--accent) 100%)',
+              animation: 'spin 3s linear infinite',
+            }}>
+              {/* Rounded Head Cap */}
+              <div style={{
+                position: 'absolute',
+                top: '4px',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '8px',
+                height: '8px',
+                backgroundColor: 'var(--accent)',
+                borderRadius: '50%',
+                boxShadow: '0 0 10px var(--accent-glow)'
+              }} />
+            </div>
+            {/* Gap to separate outer and inner circles */}
+            <div style={{
+              position: 'absolute',
+              inset: '-4px',
+              borderRadius: '50%',
+              background: 'var(--bg-primary)',
+            }} />
+            {/* Static image container (inner circle) */}
+            <div style={{
+              position: 'relative',
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              border: '3px solid var(--accent)',
+              background: 'var(--bg-primary)',
+            }}>
+              <img
+                src={`${BASE}${profile.photo}`}
+                alt={profile.name}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
+            </div>
+            {/* Glow behind */}
+            <div style={{
+              position: 'absolute',
+              inset: '-20px',
+              borderRadius: '50%',
+              background: 'radial-gradient(circle, var(--accent-glow) 0%, transparent 70%)',
+              zIndex: -1,
+              filter: 'blur(20px)',
+            }} />
+          </motion.div>
+
+          {/* Greeting */}
+          <motion.p
+            variants={itemVariants}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.95rem',
+              color: 'var(--accent)',
+              marginBottom: '1rem',
+              textAlign: 'center',
+            }}
+          >
+            Hi, my name is
+          </motion.p>
+
+          {/* Name with Dynamic Gradient */}
+          <motion.h1
+            variants={itemVariants}
+            className="dynamic-name-gradient"
+            style={{
+              fontSize: 'clamp(2rem, 6vw, 3.5rem)',
+              fontWeight: 800,
+              lineHeight: 1.1,
+              marginBottom: '1rem',
+              textAlign: 'center',
+            }}
+          >
+            {profile.name}
+          </motion.h1>
+
+          {/* Title */}
+          <motion.h2
+            variants={itemVariants}
+            style={{
+              fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
+              fontWeight: 600,
+              color: 'var(--text-secondary)',
+              marginBottom: '1rem',
+              textAlign: 'center',
+            }}
+          >
+            {profile.title}
+          </motion.h2>
+
+          {/* Tagline */}
+          <motion.p
+            variants={itemVariants}
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'clamp(0.85rem, 2vw, 1.05rem)',
+              color: 'var(--text-muted)',
+              maxWidth: '500px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              margin: '0 auto 2rem',
+            }}
+          >
+            <span style={{ color: 'var(--accent)' }}>{'>'}</span>
+            {profile.tagline}
+            <motion.span
+              animate={{ opacity: [1, 0] }}
+              transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+              style={{ color: 'var(--accent)', fontWeight: 700 }}
+            >
+              _
+            </motion.span>
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            variants={itemVariants}
+            style={{
+              display: 'flex',
+              gap: '1rem',
+              marginTop: '1rem',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              marginBottom: '2rem',
+            }}
+          >
+            <motion.a
+              href={`${BASE}${profile.resumeUrl}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '12px',
+                background: 'var(--accent)',
+                color: 'var(--bg-primary)',
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                fontFamily: 'var(--font-mono)',
                 textDecoration: 'none',
-                background: 'var(--bg-glass)',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 25px var(--accent-glow-strong)' }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FiDownload /> Resume
+            </motion.a>
+            <motion.button
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1.5rem',
+                borderRadius: '12px',
+                background: 'transparent',
+                color: 'var(--accent)',
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                fontFamily: 'var(--font-mono)',
+                border: '2px solid var(--accent)',
+                cursor: 'pointer',
               }}
               whileHover={{
-                scale: 1.15,
-                color: 'var(--accent)',
-                borderColor: 'var(--accent)',
-                boxShadow: '0 0 15px var(--accent-glow)',
+                scale: 1.05,
+                backgroundColor: 'var(--accent-glow)',
+                boxShadow: '0 0 25px var(--accent-glow)',
               }}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
             >
-              {social.icon}
-            </motion.a>
-          ))}
-        </motion.div>
+              Get in Touch
+            </motion.button>
+          </motion.div>
+
+          {/* Social Icons */}
+          <motion.div
+            variants={itemVariants}
+            style={{
+              display: 'flex',
+              gap: '1rem',
+              justifyContent: 'center',
+            }}
+          >
+            {[
+              { icon: <FiMail />, href: `mailto:${profile.social.email}`, label: 'Email' },
+              { icon: <FiGithub />, href: profile.social.github, label: 'GitHub' },
+              { icon: <FiLinkedin />, href: profile.social.linkedin, label: 'LinkedIn' },
+            ].map((social) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target={social.href.startsWith('mailto') ? undefined : '_blank'}
+                rel="noopener noreferrer"
+                title={social.label}
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '12px',
+                  border: '1px solid var(--border)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--text-secondary)',
+                  fontSize: '1.2rem',
+                  textDecoration: 'none',
+                  background: 'var(--bg-glass)',
+                }}
+                whileHover={{
+                  scale: 1.15,
+                  color: 'var(--accent)',
+                  borderColor: 'var(--accent)',
+                  boxShadow: '0 0 15px var(--accent-glow)',
+                }}
+                whileTap={{ scale: 0.9 }}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
+          </motion.div>
+        </div>
 
         {/* Scroll indicator */}
         <motion.div
@@ -292,6 +493,9 @@ export default function Hero({ config }) {
           style={{
             position: 'absolute',
             bottom: '0.5rem',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 10,
           }}
         >
           <motion.div
@@ -321,7 +525,7 @@ export default function Hero({ config }) {
         </motion.div>
       </motion.div>
 
-      {/* Spinning border and dynamic text gradient animations */}
+      {/* Spinning border and dynamic animations */}
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }
@@ -335,6 +539,56 @@ export default function Hero({ config }) {
           100% {
             background-position: -200% center;
           }
+        }
+
+        @keyframes orbitRotate {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        /* Desktop vs Mobile displays */
+        .desktop-hero-layout {
+          display: none;
+        }
+
+        .mobile-hero-layout {
+          display: block;
+        }
+
+        .hero-grid {
+          padding: 1rem 0;
+        }
+
+        .hero-left-col {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.5rem;
+        }
+
+        .hero-right-col {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+
+        .hero-ctas {
+          display: flex;
+          gap: 1rem;
+          margin-top: 1rem;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+
+        .hero-socials {
+          display: flex;
+          gap: 1.2rem;
+          margin-top: 1.5rem;
+          justify-content: flex-start;
         }
 
         .dynamic-name-gradient {
@@ -358,6 +612,89 @@ export default function Hero({ config }) {
           filter: drop-shadow(0 0 12px var(--accent-glow-strong));
         }
 
+        /* Profile Satellite & Circle styles */
+        .hero-profile-container {
+          position: relative;
+          width: 320px;
+          height: 320px;
+          left: -30px;
+        }
+
+        .profile-glow {
+          position: absolute;
+          inset: -30px;
+          border-radius: 50%;
+          background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+          z-index: -1;
+          filter: blur(25px);
+        }
+
+        .orbit-path {
+          position: absolute;
+          inset: -40px;
+          border-radius: 50%;
+          border: 3px solid rgba(45, 212, 191, 0.25);
+          animation: orbitRotate 20s linear infinite;
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        [data-theme="light"] .orbit-path {
+          border-color: rgba(13, 148, 136, 0.25);
+        }
+
+        .satellite {
+          position: absolute;
+          top: 14.6%;
+          left: 14.6%;
+          transform: translate(-50%, -50%);
+          width: 12px;
+          height: 12px;
+          background-color: var(--accent);
+          border-radius: 50%;
+          box-shadow: 0 0 10px var(--accent-glow-strong);
+        }
+
+        .profile-img-circle {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          overflow: hidden;
+          box-shadow: var(--shadow);
+          border: 2px solid var(--accent);
+        }
+
+        .profile-img-circle::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(circle at 50% 45%, var(--accent) 0%, var(--accent-dim) 100%);
+          opacity: 0.25;
+          z-index: 0;
+        }
+
+        .profile-img-circle img {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          z-index: 1;
+        }
+
+        @media (min-width: 992px) {
+          .desktop-hero-layout {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            align-items: center;
+            gap: 5rem;
+          }
+          .mobile-hero-layout {
+            display: none;
+          }
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .dynamic-name-gradient {
             animation: none;
@@ -365,6 +702,9 @@ export default function Hero({ config }) {
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+          }
+          .orbit-path {
+            animation: none;
           }
         }
       `}</style>
