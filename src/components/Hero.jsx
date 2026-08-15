@@ -223,13 +223,15 @@ export default function Hero({ config }) {
                 <div className="satellite" />
               </div>
 
-              {/* Profile image container (inner circle) */}
-              <div className="profile-img-circle">
-                <img
-                  src={`${BASE}${profile.photo}`}
-                  alt={profile.name}
-                />
-              </div>
+              {/* Profile circle background (tosca sphere) */}
+              <div className="profile-circle-bg" />
+
+              {/* Profile image (overlapping the bottom) */}
+              <img
+                src={`${BASE}${profile.photo}`}
+                alt={profile.name}
+                className="profile-img"
+              />
             </motion.div>
           </div>
         </div>
@@ -568,6 +570,7 @@ export default function Hero({ config }) {
           flex-direction: column;
           align-items: flex-start;
           gap: 1.5rem;
+          margin-left: 40px;
         }
 
         .hero-right-col {
@@ -615,9 +618,10 @@ export default function Hero({ config }) {
         /* Profile Satellite & Circle styles */
         .hero-profile-container {
           position: relative;
-          width: 320px;
-          height: 320px;
-          left: -30px;
+          width: 350px;
+          height: 350px;
+          top: -15px;
+          left: -75px;
         }
 
         .profile-glow {
@@ -633,13 +637,22 @@ export default function Hero({ config }) {
           position: absolute;
           inset: -40px;
           border-radius: 50%;
-          border: 3px solid rgba(45, 212, 191, 0.25);
           animation: orbitRotate 20s linear infinite;
           pointer-events: none;
           z-index: 2;
         }
 
-        [data-theme="light"] .orbit-path {
+        .orbit-path::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          border: 3px solid rgba(45, 212, 191, 0.25);
+          mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+          -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+        }
+
+        [data-theme="light"] .orbit-path::before {
           border-color: rgba(13, 148, 136, 0.25);
         }
 
@@ -655,32 +668,28 @@ export default function Hero({ config }) {
           box-shadow: 0 0 10px var(--accent-glow-strong);
         }
 
-        .profile-img-circle {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          overflow: hidden;
-          box-shadow: var(--shadow);
-          border: 2px solid var(--accent);
-        }
-
-        .profile-img-circle::before {
-          content: '';
+        .profile-circle-bg {
           position: absolute;
           inset: 0;
+          border-radius: 50%;
+          border: 2px solid var(--accent);
           background: radial-gradient(circle at 50% 45%, var(--accent) 0%, var(--accent-dim) 100%);
           opacity: 0.25;
-          z-index: 0;
+          box-shadow: var(--shadow);
+          mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+          -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+          z-index: 1;
         }
 
-        .profile-img-circle img {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          z-index: 1;
+        .profile-img {
+          position: absolute;
+          bottom: -60px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 120%;
+          height: auto;
+          pointer-events: none;
+          z-index: 3;
         }
 
         @media (min-width: 992px) {
