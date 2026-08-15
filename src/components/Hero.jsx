@@ -129,14 +129,11 @@ export default function Hero({ config }) {
         {/* Name */}
         <motion.h1
           variants={itemVariants}
+          className="dynamic-name-gradient"
           style={{
             fontSize: 'clamp(2rem, 6vw, 3.5rem)',
             fontWeight: 800,
             lineHeight: 1.1,
-            background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
           }}
         >
           {profile.name}
@@ -324,11 +321,51 @@ export default function Hero({ config }) {
         </motion.div>
       </motion.div>
 
-      {/* Spinning border animation */}
+      {/* Spinning border and dynamic text gradient animations */}
       <style>{`
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
+        }
+
+        @keyframes textGradient {
+          0% {
+            background-position: 0% center;
+          }
+          100% {
+            background-position: -200% center;
+          }
+        }
+
+        .dynamic-name-gradient {
+          background: linear-gradient(
+            to right,
+            var(--text-primary) 0%,
+            var(--accent) 25%,
+            var(--text-primary) 50%,
+            var(--accent) 75%,
+            var(--text-primary) 100%
+          );
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: textGradient 8s linear infinite;
+          transition: filter 0.3s ease;
+        }
+
+        .dynamic-name-gradient:hover {
+          filter: drop-shadow(0 0 12px var(--accent-glow-strong));
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .dynamic-name-gradient {
+            animation: none;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+          }
         }
       `}</style>
     </section>
