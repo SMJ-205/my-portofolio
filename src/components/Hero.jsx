@@ -452,31 +452,70 @@ export default function Hero({ config }) {
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 10,
+            cursor: 'pointer',
           }}
+          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         >
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             style={{
-              width: '24px',
-              height: '40px',
-              borderRadius: '12px',
-              border: '2px solid var(--border)',
               display: 'flex',
               justifyContent: 'center',
-              paddingTop: '8px',
+              alignItems: 'center',
             }}
           >
-            <motion.div
-              animate={{ opacity: [1, 0], y: [0, 12] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              style={{
-                width: '3px',
-                height: '8px',
-                borderRadius: '2px',
-                background: 'var(--accent)',
-              }}
-            />
+            <svg width="40" height="56" viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg" className="neon-scroll-icon">
+              <defs>
+                <filter id="cyan-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Background Circuit Traces (Subtle) */}
+              <g className="circuit-traces" stroke="var(--accent-dim)" strokeWidth="1" opacity="0.15" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M 11 15 V 23 L 15 27 V 35" />
+                <path d="M 29 41 V 33 L 25 29 V 21" />
+                <path d="M 11 43 H 17 L 21 39" />
+              </g>
+
+              {/* Animated Glowing Circuit Pulses */}
+              <g className="circuit-pulses" stroke="var(--accent)" strokeWidth="1.2" filter="url(#cyan-glow)" strokeLinecap="round" strokeLinejoin="round" opacity="0.8">
+                <path d="M 11 15 V 23 L 15 27 V 35" className="pulse-line pulse-1" />
+                <path d="M 29 41 V 33 L 25 29 V 21" className="pulse-line pulse-2" />
+              </g>
+
+              {/* Scroll Page Outline */}
+              <path 
+                d="M 12 13 H 8 C 4 13, 4 10, 8 10 H 32 V 43 C 36 43, 36 46, 32 46 H 8 V 13 Z" 
+                stroke="var(--accent)" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                filter="url(#cyan-glow)"
+              />
+
+              {/* Scroll Page Inner Rolls */}
+              <path 
+                d="M 8 10 C 12 10, 12 13, 8 13 M 32 46 C 28 46, 28 43, 32 43" 
+                stroke="var(--accent)" 
+                strokeWidth="1.5" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                filter="url(#cyan-glow)"
+              />
+
+              {/* Central Scroll Indicators (Up, Dash, Down) */}
+              <g stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" filter="url(#cyan-glow)" className="indicator-arrows">
+                <path d="M 14 22 L 20 16 L 26 22" className="arrow-up" />
+                <path d="M 20 25 V 31" className="center-dash" />
+                <path d="M 14 34 L 20 40 L 26 34" className="arrow-down" />
+              </g>
+            </svg>
           </motion.div>
         </motion.div>
       </motion.div>
@@ -690,6 +729,57 @@ export default function Hero({ config }) {
           }
           .orbit-path {
             animation: none;
+          }
+        }
+
+        /* Neon Scroll Icon Animations */
+        .neon-scroll-icon {
+          display: block;
+          filter: drop-shadow(0 0 4px var(--accent-glow));
+          transition: filter 0.3s ease;
+        }
+
+        .neon-scroll-icon:hover {
+          filter: drop-shadow(0 0 8px var(--accent-glow-strong));
+        }
+
+        .arrow-up {
+          animation: arrowFade 2.4s infinite;
+        }
+        .center-dash {
+          animation: arrowFade 2.4s infinite;
+          animation-delay: 0.4s;
+        }
+        .arrow-down {
+          animation: arrowFade 2.4s infinite;
+          animation-delay: 0.8s;
+        }
+
+        @keyframes arrowFade {
+          0%, 100% {
+            opacity: 0.25;
+            stroke-width: 2.2;
+          }
+          50% {
+            opacity: 1;
+            stroke-width: 2.8;
+          }
+        }
+
+        .pulse-line {
+          stroke-dasharray: 6 18;
+          animation: pulseRun 4s linear infinite;
+        }
+        .pulse-2 {
+          animation-delay: 2s;
+        }
+
+        @keyframes pulseRun {
+          from {
+            stroke-dashoffset: 24;
+          }
+          to {
+            stroke-dashoffset: 0;
           }
         }
       `}</style>
