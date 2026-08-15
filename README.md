@@ -79,12 +79,6 @@ To maximize search visibility on GitHub's explore tab, add these hashtags/topics
 
 ---
 
-## 📈 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=SMJ-205/my-portofolio&type=Date)](https://star-history.com/#SMJ-205/my-portofolio&Date)
-
----
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
