@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 
 /**
  * Matrix-style background using vertical rounded rectangles
@@ -9,10 +9,30 @@ import { useRef, useEffect, useCallback } from 'react'
 export default function MatrixBackground({ theme, enabled = true }) {
   const canvasRef = useRef(null)
   const animationRef = useRef(null)
+  const [dimensions, setDimensions] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : 1200,
+    height: typeof window !== 'undefined' ? window.innerHeight : 800,
+  })
+
+  // Track window resizing and trigger state update
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current
     if (!canvas || !enabled) return
+
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current)
+    }
 
     const ctx = canvas.getContext('2d')
 
@@ -137,17 +157,13 @@ export default function MatrixBackground({ theme, enabled = true }) {
     render()
   }, [theme, enabled])
 
+  // Setup canvas size and draw based on window dimensions
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const resize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-
-    resize()
-    window.addEventListener('resize', resize)
+    canvas.width = dimensions.width
+    canvas.height = dimensions.height
 
     if (enabled) {
       draw()
@@ -188,10 +204,9 @@ export default function MatrixBackground({ theme, enabled = true }) {
     }
 
     return () => {
-      window.removeEventListener('resize', resize)
       if (animationRef.current) cancelAnimationFrame(animationRef.current)
     }
-  }, [draw, enabled, theme])
+  }, [draw, enabled, theme, dimensions.width, dimensions.height])
 
   // Pause on hidden tab for performance
   useEffect(() => {
