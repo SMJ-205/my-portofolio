@@ -1,16 +1,90 @@
-# React + Vite
+# 🚀 Interactive 3D Data Analyst & Accountant Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Stars](https://img.shields.io/github/stars/SMJ-205/my-portofolio?style=for-the-badge&color=2dd4bf)](https://github.com/SMJ-205/my-portofolio/stargazers)
+[![Forks](https://img.shields.io/github/forks/SMJ-205/my-portofolio?style=for-the-badge&color=0d9488)](https://github.com/SMJ-205/my-portofolio/network/members)
+[![MIT License](https://img.shields.io/github/license/SMJ-205/my-portofolio?style=for-the-badge&color=115e59)](LICENSE)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](#)
+[![Vite](https://img.shields.io/badge/Vite-B736FF?style=for-the-badge&logo=vite&logoColor=FFD62B)](#)
 
-Currently, two official plugins are available:
+A premium, interactive, and lightweight portfolio built specifically for Data Analysts, Engineers, and Finance Professionals. Designed with a dark glassmorphism theme, ambient background physics, and a 3D orbital pop-out layout.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Live Demo:** [www.sarifmj.my.id](https://www.sarifmj.my.id/)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🌌 **Ambient Matrix Data Stream**: Soft cascading data-rain background canvas that automatically resizes dynamically, optimized for performance on visibility shifts and window zooms.
+- 💫 **3D Profile Pop-Out & Orbit**: Custom 3D profile picture overlapping the circular container with a smooth orbiting satellite dot, utilizing `-webkit-mask-image` bottom gradients to avoid clipping.
+- 🎨 **Responsive Layouts**: Dedicated desktop grid-based and mobile center-aligned layouts for optimal mobile performance and high desktop fidelity.
+- 🔒 **Spambot-Resistant Social CTAs**: Decodes your business WhatsApp link dynamically on user hover or touch event using Base64 decryption, completely shielding your raw phone number from web scrapers.
+- ⚙️ **JSON Configuration Driven**: Entire portfolio content (experiences, projects, skills, education) is fully customizable simply by editing [`portfolio.json`](src/config/portfolio.json).
+- 📈 **SEO & GEO Optimized**: Configured with automated XML sitemaps, robots.txt rules, Open Graph previews, and inline JSON-LD Person/WebSite Schema markup to maximize index discovery in traditional and AI engines.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+- **Core**: React 18, Vite 8, ES6 JavaScript, HTML5
+- **Styling**: Vanilla CSS, Framer Motion (for smooth micro-animations and scroll reveals), React Icons
+- **Deployment**: GitHub Pages with Custom CNAME (Domain) integration
+
+---
+
+## 🚀 Quick Start & Customization
+
+If you want to use this template as your own portfolio:
+
+### 1. Clone & Install
+```bash
+# Clone the repository
+git clone https://github.com/SMJ-205/my-portofolio.git
+cd my-portofolio
+
+# Install dependencies
+npm install
+```
+
+### 2. Run Development Server
+```bash
+npm run dev
+```
+Open `http://localhost:5173/` in your browser.
+
+### 3. Customize Content
+Open [`src/config/portfolio.json`](src/config/portfolio.json) and replace the values (name, bio, projects, credentials) with your own info:
+```json
+{
+  "profile": {
+    "name": "Your Name",
+    "title": "Your Professional Title",
+    "bio": "Write a short summary about yourself..."
+  }
+}
+```
+
+### 4. Build and Deploy
+```bash
+# Build production bundle
+npm run build
+```
+The output will be built into the `dist/` directory, ready to serve or deploy to your static hosting provider (GitHub Pages, Netlify, Vercel).
+
+---
+
+## 🏷️ Recommended GitHub Topics (Hashtags)
+
+To maximize search visibility on GitHub's explore tab, add these hashtags/topics in your repository settings:
+`react` • `vite` • `portfolio-website` • `data-analyst` • `accountant` • `glassmorphism` • `interactive-portfolio` • `data-science` • `framer-motion` • `modern-ui`
+
+---
+
+## 📈 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=SMJ-205/my-portofolio&type=Date)](https://star-history.com/#SMJ-205/my-portofolio&Date)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
