@@ -26,13 +26,8 @@ export default function Hero({ config }) {
     <section
       id="hero"
       style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
         position: 'relative',
         zIndex: 1,
-        padding: '6rem 1.5rem 2rem',
       }}
     >
       <motion.div
@@ -269,7 +264,7 @@ export default function Hero({ config }) {
               fontFamily: 'var(--font-mono)',
               fontSize: '0.95rem',
               color: 'var(--accent)',
-              marginBottom: '1rem',
+              marginBottom: '0.5rem',
               textAlign: 'center',
             }}
           >
@@ -284,7 +279,7 @@ export default function Hero({ config }) {
               fontSize: 'clamp(2rem, 6vw, 3.5rem)',
               fontWeight: 800,
               lineHeight: 1.1,
-              marginBottom: '1rem',
+              marginBottom: '0.5rem',
               textAlign: 'center',
             }}
           >
@@ -298,7 +293,7 @@ export default function Hero({ config }) {
               fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
               fontWeight: 600,
               color: 'var(--text-secondary)',
-              marginBottom: '1rem',
+              marginBottom: '0.5rem',
               textAlign: 'center',
             }}
           >
@@ -317,7 +312,7 @@ export default function Hero({ config }) {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '0.5rem',
-              margin: '0 auto 2rem',
+              margin: '0 auto 1.5rem',
             }}
           >
             <span style={{ color: 'var(--accent)' }}>{'>'}</span>
@@ -340,7 +335,7 @@ export default function Hero({ config }) {
               marginTop: '1rem',
               flexWrap: 'wrap',
               justifyContent: 'center',
-              marginBottom: '2rem',
+              marginBottom: '1.5rem',
             }}
           >
             <motion.a
@@ -506,6 +501,22 @@ export default function Hero({ config }) {
 
       {/* Spinning border and dynamic animations */}
       <style>{`
+        #hero {
+          min-height: 100vh;
+          min-height: 100dvh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          z-index: 1;
+          padding: 4.5rem 1rem 3.5rem;
+        }
+        @media (min-width: 992px) {
+          #hero {
+            padding: 6rem 1.5rem 2rem;
+          }
+        }
+
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
@@ -595,14 +606,14 @@ export default function Hero({ config }) {
         /* Profile Satellite & Circle styles (Mobile First) */
         .hero-profile-container {
           position: relative;
-          width: 220px;
-          height: 220px;
-          margin: 0 auto 3.5rem;
+          width: 200px;
+          height: 200px;
+          margin: 0 auto 2.5rem;
         }
 
         .profile-glow {
           position: absolute;
-          inset: -20px;
+          inset: -18px;
           border-radius: 50%;
           background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
           z-index: -1;
@@ -611,7 +622,7 @@ export default function Hero({ config }) {
 
         .orbit-path {
           position: absolute;
-          inset: -25px;
+          inset: -22px;
           border-radius: 50%;
           animation: orbitRotate 20s linear infinite;
           pointer-events: none;
@@ -659,7 +670,7 @@ export default function Hero({ config }) {
 
         .profile-img {
           position: absolute;
-          bottom: -38px;
+          bottom: -34px;
           left: 50%;
           transform: translateX(-50%);
           width: 120%;
