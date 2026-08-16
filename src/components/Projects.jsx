@@ -584,7 +584,7 @@ export default function Projects({ config, theme }) {
                   {/* Description */}
                   <p style={{
                     color: 'var(--text-secondary)',
-                    fontSize: isDesktop ? '1.05rem' : '0.92rem',
+                    fontSize: isDesktop ? '0.95rem' : '0.92rem',
                     lineHeight: isDesktop ? 1.8 : 1.6,
                     marginBottom: isDesktop ? '2.5rem' : '1.5rem',
                     marginTop: '0.5rem',
