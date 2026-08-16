@@ -532,7 +532,7 @@ export default function Projects({ config, theme }) {
                 >
 
                   {/* Header Row */}
-                  <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-6 relative mt-0`}>
+                  <div className={`flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 mb-10 relative mt-0`}>
                     <div>
                       <h2 style={{ fontSize: isDesktop ? 'var(--font-xl, 2.2rem)' : '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
                         {selectedProject.title}
@@ -584,7 +584,7 @@ export default function Projects({ config, theme }) {
                     fontSize: isDesktop ? '1.05rem' : '0.92rem',
                     lineHeight: isDesktop ? 1.8 : 1.6,
                     marginBottom: isDesktop ? '2.5rem' : '1.5rem',
-                    marginTop: '0.5rem',
+                    marginTop: '1.25rem',
                     position: 'relative',
                     textAlign: 'justify',
                     textJustify: 'inter-word'

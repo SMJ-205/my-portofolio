@@ -111,7 +111,7 @@ export default function Hero({ config }) {
               className="hero-ctas"
             >
               <motion.a
-                href={`${BASE}${profile.resumeUrl}`}
+                href={`${BASE}${profile.resumeUrl}?v=1.1`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -339,7 +339,7 @@ export default function Hero({ config }) {
             }}
           >
             <motion.a
-              href={`${BASE}${profile.resumeUrl}`}
+              href={`${BASE}${profile.resumeUrl}?v=1.1`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
