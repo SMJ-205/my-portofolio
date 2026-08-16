@@ -489,21 +489,16 @@ export default function Hero({ config }) {
                 <path d="M 29 41 V 33 L 25 29 V 21" className="pulse-line pulse-2" />
               </g>
 
-              {/* Scroll Page Outline */}
-              <path 
-                d="M 12 13 H 8 C 4 13, 4 10, 8 10 H 32 V 43 C 36 43, 36 46, 32 46 H 8 V 13 Z" 
+              {/* Scroll Page Outline (Simple Rounded Rectangle) */}
+              <rect 
+                x="8" 
+                y="10" 
+                width="24" 
+                height="36" 
+                rx="4" 
+                ry="4" 
                 stroke="var(--accent)" 
                 strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                filter="url(#cyan-glow)"
-              />
-
-              {/* Scroll Page Inner Rolls */}
-              <path 
-                d="M 8 10 C 12 10, 12 13, 8 13 M 32 46 C 28 46, 28 43, 32 43" 
-                stroke="var(--accent)" 
-                strokeWidth="1.5" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
                 filter="url(#cyan-glow)"
