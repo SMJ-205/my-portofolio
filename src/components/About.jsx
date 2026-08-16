@@ -80,6 +80,7 @@ export default function About({ config }) {
             </div>
           </ScrollReveal>
         </div>
+      </div>
       <style>{`
         .about-text {
           font-size: 0.9rem;
