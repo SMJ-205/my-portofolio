@@ -476,18 +476,7 @@ export default function Hero({ config }) {
                 </filter>
               </defs>
 
-              {/* Background Circuit Traces (Subtle) */}
-              <g className="circuit-traces" stroke="var(--accent-dim)" strokeWidth="1" opacity="0.15" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M 11 15 V 23 L 15 27 V 35" />
-                <path d="M 29 41 V 33 L 25 29 V 21" />
-                <path d="M 11 43 H 17 L 21 39" />
-              </g>
 
-              {/* Animated Glowing Circuit Pulses */}
-              <g className="circuit-pulses" stroke="var(--accent)" strokeWidth="1.2" filter="url(#cyan-glow)" strokeLinecap="round" strokeLinejoin="round" opacity="0.8">
-                <path d="M 11 15 V 23 L 15 27 V 35" className="pulse-line pulse-1" />
-                <path d="M 29 41 V 33 L 25 29 V 21" className="pulse-line pulse-2" />
-              </g>
 
               {/* Scroll Page Outline (Simple Rounded Rectangle) */}
               <rect 
@@ -761,22 +750,7 @@ export default function Hero({ config }) {
           }
         }
 
-        .pulse-line {
-          stroke-dasharray: 6 18;
-          animation: pulseRun 4s linear infinite;
-        }
-        .pulse-2 {
-          animation-delay: 2s;
-        }
 
-        @keyframes pulseRun {
-          from {
-            stroke-dashoffset: 24;
-          }
-          to {
-            stroke-dashoffset: 0;
-          }
-        }
       `}</style>
     </section>
   )
