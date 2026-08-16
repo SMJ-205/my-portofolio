@@ -18,18 +18,16 @@ export default function About({ config }) {
         }}>
           <ScrollReveal delay={0.1}>
             <div className="glass-card" style={{ width: '100%' }}>
-              <p style={{
+              <p className="about-text" style={{
                 color: 'var(--text-secondary)',
-                fontSize: '0.9rem',
                 lineHeight: 1.8,
                 marginBottom: '1rem',
                 textAlign: 'justify',
               }}>
                 {profile.bio}
               </p>
-              <p style={{
+              <p className="about-text" style={{
                 color: 'var(--text-secondary)',
-                fontSize: '0.9rem',
                 lineHeight: 1.8,
                 textAlign: 'justify',
               }}>
@@ -82,7 +80,16 @@ export default function About({ config }) {
             </div>
           </ScrollReveal>
         </div>
-      </div>
+      <style>{`
+        .about-text {
+          font-size: 0.9rem;
+        }
+        @media (min-width: 768px) {
+          .about-text {
+            font-size: 1rem;
+          }
+        }
+      `}</style>
     </section>
   )
 }
