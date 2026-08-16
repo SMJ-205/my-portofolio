@@ -20,7 +20,7 @@ export default function About({ config }) {
             <div className="glass-card" style={{ width: '100%' }}>
               <p style={{
                 color: 'var(--text-secondary)',
-                fontSize: '1rem',
+                fontSize: '0.9rem',
                 lineHeight: 1.8,
                 marginBottom: '1rem',
                 textAlign: 'justify',
@@ -29,7 +29,7 @@ export default function About({ config }) {
               </p>
               <p style={{
                 color: 'var(--text-secondary)',
-                fontSize: '1rem',
+                fontSize: '0.9rem',
                 lineHeight: 1.8,
                 textAlign: 'justify',
               }}>
