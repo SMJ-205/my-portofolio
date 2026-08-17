@@ -608,7 +608,7 @@ export default function Hero({ config }) {
           position: relative;
           width: 200px;
           height: 200px;
-          margin: 0 auto 2.5rem;
+          margin: 0 auto 3.1rem;
         }
 
         .profile-glow {
