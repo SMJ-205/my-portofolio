@@ -291,7 +291,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
         .desktop-nav { display: flex !important; }
         .mobile-nav-btn { display: none !important; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 991px), (max-height: 600px) {
           .desktop-nav { display: none !important; }
           .mobile-nav-btn { display: flex !important; }
         }

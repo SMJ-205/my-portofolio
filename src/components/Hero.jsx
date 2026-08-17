@@ -517,6 +517,43 @@ export default function Hero({ config }) {
           }
         }
 
+        @media (max-width: 991px) and (max-height: 600px) {
+          #hero {
+            align-items: flex-start;
+            padding-top: 4.5rem;
+            padding-bottom: 3.5rem;
+          }
+          .hero-profile-container {
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 1.5rem;
+          }
+          .profile-img {
+            bottom: -27px;
+          }
+          .orbit-path {
+            inset: -18px;
+          }
+        }
+
+        @media (max-width: 991px) and (max-height: 400px) {
+          #hero {
+            padding-top: 4.25rem;
+            padding-bottom: 2.5rem;
+          }
+          .hero-profile-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1rem;
+          }
+          .profile-img {
+            bottom: -20px;
+          }
+          .orbit-path {
+            inset: -13px;
+          }
+        }
+
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
