@@ -266,3 +266,215 @@ a:hover {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* ========================================
+   JUPYTER NOTEBOOK PREVIEWER
+   ======================================== */
+
+.ipynb-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: #111b27;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+[data-theme="light"] .ipynb-container {
+  background: #f8fafc;
+}
+
+.ipynb-cell {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  background: var(--bg-secondary);
+}
+
+.ipynb-cell-markdown {
+  background: transparent;
+  border: none;
+}
+
+.ipynb-input-area {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.ipynb-prompt {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.75rem 0.5rem;
+  width: 60px;
+  min-width: 60px;
+  text-align: right;
+  color: var(--accent);
+  opacity: 0.65;
+  user-select: none;
+  border-right: 1px solid rgba(148, 163, 184, 0.08);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.ipynb-code-content {
+  flex: 1;
+  overflow-x: auto;
+}
+
+.ipynb-code-content pre {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.ipynb-output-area {
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.15);
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+[data-theme="light"] .ipynb-output-area {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.ipynb-output-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.ipynb-prompt-out {
+  color: #ef4444;
+}
+
+.ipynb-output-content {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  overflow-x: auto;
+}
+
+.ipynb-output-content-stream {
+  font-family: var(--font-mono);
+  white-space: pre-wrap;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.ipynb-output-content-error {
+  font-family: var(--font-mono);
+  white-space: pre-wrap;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 4px;
+}
+
+.ipynb-output-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  background: #ffffff;
+  padding: 8px;
+  display: block;
+  margin: 0.5rem 0;
+}
+
+/* Jupyter Markdown Cell Content styling */
+.ipynb-markdown-content {
+  padding: 0.5rem 0.75rem;
+}
+
+.ipynb-markdown-content h1,
+.ipynb-markdown-content h2,
+.ipynb-markdown-content h3,
+.ipynb-markdown-content h4 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.ipynb-markdown-content h1 { font-size: 1.35rem; border-bottom: 1px solid var(--border); padding-bottom: 0.2rem; }
+.ipynb-markdown-content h2 { font-size: 1.2rem; }
+.ipynb-markdown-content h3 { font-size: 1.05rem; }
+.ipynb-markdown-content h4 { font-size: 0.95rem; }
+
+.ipynb-markdown-content p {
+  margin-bottom: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.ipynb-markdown-content ul,
+.ipynb-markdown-content ol {
+  margin-left: 1.25rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.ipynb-markdown-content li {
+  margin-bottom: 0.2rem;
+}
+
+.ipynb-markdown-content code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  background: var(--bg-tertiary);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+.ipynb-markdown-content pre {
+  background: var(--bg-tertiary);
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-bottom: 0.6rem;
+}
+
+.ipynb-markdown-content pre code {
+  color: var(--text-primary);
+  background: transparent;
+  padding: 0;
+}
+
+.ipynb-markdown-content a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Pandas Dataframe styling */
+.ipynb-output-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5rem 0;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.ipynb-output-content th,
+.ipynb-output-content td {
+  border: 1px solid var(--border);
+  padding: 5px 8px;
+  text-align: right;
+}
+
+.ipynb-output-content th {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.ipynb-output-content tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.02);
+}
+

@@ -169,8 +169,298 @@ const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
 }
 // ──────────────────────────────────────────────────────────────────────────────
 
+// ─── Jupyter Notebook Renderer ───────────────────────────────────────────────
+const stripAnsi = (text) => {
+  if (typeof text !== 'string') return text;
+  return text.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '');
+};
 
+const parseMarkdownToHtml = (markdown) => {
+  if (!markdown) return '';
+  
+  // Escape HTML entities to prevent XSS
+  let html = markdown
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 
+  // Headings
+  html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+  html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+  // Bold / Italic
+  html = html.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+  html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+
+  // Code blocks (inline and block)
+  html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+  html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+
+  // Links
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+  // Handle lists and paragraph wraps line by line
+  const lines = html.split('\n');
+  let inUl = false;
+  let inOl = false;
+  let inPre = false;
+  const processedLines = [];
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+    const trimmed = line.trim();
+
+    // Check pre block toggle
+    if (trimmed.includes('<pre>')) {
+      inPre = true;
+    }
+
+    if (inPre) {
+      processedLines.push(line);
+      if (trimmed.includes('</pre>')) {
+        inPre = false;
+      }
+      continue;
+    }
+
+    // Check for unordered lists
+    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+      if (inOl) {
+        processedLines.push('</ol>');
+        inOl = false;
+      }
+      if (!inUl) {
+        processedLines.push('<ul>');
+        inUl = true;
+      }
+      processedLines.push(`<li>${trimmed.substring(2)}</li>`);
+      continue;
+    }
+
+    // Check for ordered lists
+    const olMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
+    if (olMatch) {
+      if (inUl) {
+        processedLines.push('</ul>');
+        inUl = false;
+      }
+      if (!inOl) {
+        processedLines.push('<ol>');
+        inOl = true;
+      }
+      processedLines.push(`<li>${olMatch[2]}</li>`);
+      continue;
+    }
+
+    // If it's an empty line or not a list item, close list if open
+    if (trimmed === '' || (!trimmed.startsWith('- ') && !trimmed.startsWith('* ') && !olMatch)) {
+      if (inUl) {
+        processedLines.push('</ul>');
+        inUl = false;
+      }
+      if (inOl) {
+        processedLines.push('</ol>');
+        inOl = false;
+      }
+    }
+
+    // Wrap regular text in paragraphs if it's not a heading, list wrapper, list item, or empty line
+    if (trimmed !== '' && !trimmed.startsWith('<h') && !trimmed.startsWith('<ul>') && !trimmed.startsWith('</ul>') && !trimmed.startsWith('<ol>') && !trimmed.startsWith('</ol>') && !trimmed.startsWith('<li>') && !trimmed.startsWith('</pre>') && !trimmed.startsWith('<pre>')) {
+      processedLines.push(`<p>${line}</p>`);
+    } else {
+      processedLines.push(line);
+    }
+  }
+
+  // Close lists if still open
+  if (inUl) processedLines.push('</ul>');
+  if (inOl) processedLines.push('</ol>');
+
+  return processedLines.join('\n');
+};
+
+const JupyterNotebookRenderer = ({ fileContent }) => {
+  const notebook = useMemo(() => {
+    try {
+      return JSON.parse(fileContent);
+    } catch (e) {
+      return null;
+    }
+  }, [fileContent]);
+
+  if (!notebook || !notebook.cells) {
+    return (
+      <div style={{ padding: '2rem', textAlign: 'center', color: '#ff6b6b', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>
+        Failed to parse notebook JSON content. Displaying as raw text below.
+      </div>
+    );
+  }
+
+  const getSourceString = (source) => {
+    if (Array.isArray(source)) {
+      return source.join('');
+    }
+    return source || '';
+  };
+
+  return (
+    <div className="ipynb-container">
+      {notebook.cells.map((cell, idx) => {
+        const sourceText = getSourceString(cell.source);
+
+        if (cell.cell_type === 'markdown') {
+          const html = parseMarkdownToHtml(sourceText);
+          return (
+            <div key={idx} className="ipynb-cell ipynb-cell-markdown">
+              <div 
+                className="ipynb-markdown-content" 
+                dangerouslySetInnerHTML={{ __html: html }} 
+              />
+            </div>
+          );
+        }
+
+        if (cell.cell_type === 'code') {
+          const executionCount = cell.execution_count !== null && cell.execution_count !== undefined 
+            ? cell.execution_count 
+            : ' ';
+
+          return (
+            <div key={idx} className="ipynb-cell ipynb-cell-code">
+              {/* Input Area */}
+              <div className="ipynb-input-area">
+                <div className="ipynb-prompt">
+                  In [{executionCount}]:
+                </div>
+                <div className="ipynb-code-content">
+                  <SyntaxHighlighter
+                    language="python"
+                    style={atomDark}
+                    customStyle={{ margin: 0, padding: '0.75rem 1rem', fontSize: '0.82rem', background: 'transparent' }}
+                  >
+                    {sourceText}
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+
+              {/* Outputs Area */}
+              {cell.outputs && cell.outputs.length > 0 && (
+                <div className="ipynb-output-area">
+                  {cell.outputs.map((out, outIdx) => {
+                    // 1. Stream (stdout/stderr)
+                    if (out.output_type === 'stream') {
+                      const streamText = getSourceString(out.text);
+                      return (
+                        <div key={outIdx} className="ipynb-output-row">
+                          <div className="ipynb-prompt ipynb-prompt-out" style={{ borderRight: 'none', opacity: 0 }}></div>
+                          <div className="ipynb-output-content ipynb-output-content-stream">
+                            {stripAnsi(streamText)}
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    // 2. Display Data / Execute Result (Data object with mime types)
+                    if (out.output_type === 'display_data' || out.output_type === 'execute_result') {
+                      const data = out.data || {};
+                      
+                      // Check for base64 PNG/JPEG images first
+                      const imagePng = data['image/png'];
+                      const imageJpeg = data['image/jpeg'];
+                      if (imagePng) {
+                        return (
+                          <div key={outIdx} className="ipynb-output-row">
+                            <div className="ipynb-prompt ipynb-prompt-out" style={{ borderRight: 'none', opacity: 0 }}></div>
+                            <div className="ipynb-output-content">
+                              <img 
+                                src={`data:image/png;base64,${imagePng.trim()}`} 
+                                alt="Notebook Output Chart" 
+                                className="ipynb-output-image" 
+                              />
+                            </div>
+                          </div>
+                        );
+                      }
+                      if (imageJpeg) {
+                        return (
+                          <div key={outIdx} className="ipynb-output-row">
+                            <div className="ipynb-prompt ipynb-prompt-out" style={{ borderRight: 'none', opacity: 0 }}></div>
+                            <div className="ipynb-output-content">
+                              <img 
+                                src={`data:image/jpeg;base64,${imageJpeg.trim()}`} 
+                                alt="Notebook Output Chart" 
+                                className="ipynb-output-image" 
+                              />
+                            </div>
+                          </div>
+                        );
+                      }
+
+                      // Check for HTML (like pandas DataFrames)
+                      const htmlContent = data['text/html'];
+                      if (htmlContent) {
+                        const htmlStr = getSourceString(htmlContent);
+                        return (
+                          <div key={outIdx} className="ipynb-output-row">
+                            <div className="ipynb-prompt ipynb-prompt-out">
+                              Out [{executionCount}]:
+                            </div>
+                            <div 
+                              className="ipynb-output-content"
+                              dangerouslySetInnerHTML={{ __html: htmlStr }}
+                            />
+                          </div>
+                        );
+                      }
+
+                      // Fallback to text/plain
+                      const textContent = data['text/plain'];
+                      if (textContent) {
+                        const plainText = getSourceString(textContent);
+                        return (
+                          <div key={outIdx} className="ipynb-output-row">
+                            <div className="ipynb-prompt ipynb-prompt-out">
+                              Out [{executionCount}]:
+                            </div>
+                            <div className="ipynb-output-content ipynb-output-content-stream">
+                              {stripAnsi(plainText)}
+                            </div>
+                          </div>
+                        );
+                      }
+                    }
+
+                    // 3. Error / Traceback
+                    if (out.output_type === 'error') {
+                      const tracebackText = out.traceback ? getSourceString(out.traceback) : `${out.ename}: ${out.evalue}`;
+                      return (
+                        <div key={outIdx} className="ipynb-output-row">
+                          <div className="ipynb-prompt ipynb-prompt-out" style={{ borderRight: 'none', opacity: 0 }}></div>
+                          <div className="ipynb-output-content ipynb-output-content-error">
+                            {stripAnsi(tracebackText)}
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    return null;
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        }
+
+        return null;
+      })}
+    </div>
+  );
+};
 
 export default function Projects({ config, theme }) {
 
@@ -609,7 +899,7 @@ export default function Projects({ config, theme }) {
                       <div style={{
                         overflowY: 'auto',
                         minHeight: '80px',
-                        maxHeight: activeFile ? '300px' : '140px',
+                        maxHeight: activeFile ? '550px' : '140px',
                         padding: '0.5rem 0',
                         transition: 'max-height var(--transition-medium)'
                       }}>
@@ -627,6 +917,8 @@ export default function Projects({ config, theme }) {
                             </button>
                             {fileLoading ? (
                               <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--accent)', fontSize: '0.9rem', fontFamily: 'var(--font-mono)' }}>Reading Deep Storage File...</div>
+                            ) : activeFile.endsWith('.ipynb') ? (
+                              <JupyterNotebookRenderer fileContent={fileContent} />
                             ) : (
                               <SyntaxHighlighter
                                 language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
