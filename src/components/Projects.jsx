@@ -16,16 +16,26 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
   const images = useMemo(() => {
     if (!baseImagePath) return [`${BASE}${baseImagePath}`]
     // Clean string dynamically: "demand-planning.jpg" -> "demandplanning"
-    const cleanBaseName = baseImagePath.split('/').pop().split('.')[0].replace(/[-_ \.]/g, '').toLowerCase()
+    const cleanBaseName = baseImagePath.split('/').pop().split('.')[0].replace(/[-_ .]/g, '').toLowerCase()
 
     // Scan local workspace statically
     const matched = availableImageKeys.filter(key => {
-      const keyBase = key.split('/').pop().split('.')[0].replace(/[-_ \.]/g, '').toLowerCase()
+      const keyBase = key.split('/').pop().split('.')[0].replace(/[-_ .]/g, '').toLowerCase()
       return keyBase.startsWith(cleanBaseName)
     })
 
     if (matched.length > 0) {
-      return matched.sort().map(key => `${BASE}${key.replace('/public/', '')}`)
+      return matched
+        .sort((a, b) => {
+          const nameA = a.split('/').pop().split('.')[0].replace(/[-_ .]/g, '')
+          const nameB = b.split('/').pop().split('.')[0].replace(/[-_ .]/g, '')
+          const hasNumA = /\d+/.test(nameA)
+          const hasNumB = /\d+/.test(nameB)
+          if (!hasNumA && hasNumB) return -1
+          if (hasNumA && !hasNumB) return 1
+          return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })
+        })
+        .map(key => `${BASE}${key.replace('/public/', '')}`)
     }
     return [`${BASE}${baseImagePath}`]
   }, [baseImagePath])
@@ -711,9 +721,66 @@ export default function Projects({ config, theme }) {
                           <span style={{ fontSize: '0.8rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>Click to explore →</span>
 
                           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                            {project.githubRepo && <FiGithub style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
-                            {project.tableauLink && <FaTableau style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }} />}
-                            {project.link?.includes('docs.google.com/spreadsheets') && <SiGooglesheets style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }} />}
+                            {project.githubRepo && (
+                              <a
+                                href={`https://github.com/${project.githubRepo}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                title="View GitHub Repository"
+                                aria-label="View GitHub Repository"
+                                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', transition: 'color var(--transition-fast)' }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                              >
+                                <FiGithub style={{ fontSize: '1.1rem' }} />
+                              </a>
+                            )}
+                            {project.link && !project.link.includes('github.com') && !project.tableauLink && !project.link?.includes('docs.google.com/spreadsheets') && (
+                              <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                title={project.linkLabel || "Open Live App"}
+                                aria-label={project.linkLabel || "Open Live App"}
+                                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', transition: 'color var(--transition-fast)' }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                              >
+                                <FiExternalLink style={{ fontSize: '1.1rem' }} />
+                              </a>
+                            )}
+                            {project.tableauLink && (
+                              <a
+                                href={project.tableauLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                title="View Tableau Vizzes"
+                                aria-label="View Tableau Vizzes"
+                                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', transition: 'color var(--transition-fast)' }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                              >
+                                <FaTableau style={{ fontSize: '1.1rem' }} />
+                              </a>
+                            )}
+                            {project.link?.includes('docs.google.com/spreadsheets') && (
+                              <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                title="View Google Spreadsheet"
+                                aria-label="View Google Spreadsheet"
+                                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', transition: 'color var(--transition-fast)' }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                              >
+                                <SiGooglesheets style={{ fontSize: '0.95rem' }} />
+                              </a>
+                            )}
                           </div>
                         </div>
                       </motion.div>

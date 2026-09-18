@@ -284,6 +284,23 @@
   ],
   "projects": [
     {
+      "title": "Biz-In-Sight Intelligence Engine",
+      "description": "An end-to-end e-commerce decision intelligence engine that discovers high-demand product niches, uncovers unmet consumer complaints via Indonesian NLP sentiment analysis, and simulates sourcing unit economics before capital deployment. Features automated multi-source ingestion (Playwright, Shopee, Tokopedia, TikTok Creative Center, Google Trends), a Supabase PostgreSQL warehouse, and the proprietary Winning Product Score (WPS) engine powering an interactive Next.js 16 executive dashboard with an interactive Sourcing & Pricing Simulator.",
+      "tags": [
+        "Python",
+        "Next.js",
+        "Supabase",
+        "PostgreSQL",
+        "NLP",
+        "Data Analysis"
+      ],
+      "link": "https://winning-product-discovery.vercel.app/",
+      "linkLabel": "View Live App",
+      "image": "assets/projects/biz-in-sight.jpg",
+      "sneakPeekLabel": "Sneak Peek of Sourcing Intelligence Engine",
+      "githubRepo": "SMJ-205/Winning-Product-Discovery-Engine"
+    },
+    {
       "title": "Tableau Vizzes",
       "description": "Data is only as good as the decisions it inspires. This showcase features a collection of Tableau dashboards where I’ve turned complex datasets—from behavioral modeling to global performance—into clear, interactive stories. By blending rigorous data analysis with custom UI/UX, I build tools that don’t just show numbers; they make navigating deep insights feel effortless and intuitive.",
       "tags": [
