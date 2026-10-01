@@ -284,6 +284,25 @@
   ],
   "projects": [
     {
+      "title": "Tokped E-Commerce Pricing & Promo Analytics",
+      "description": "An end-to-end e-commerce pricing and promotion intelligence engine analyzing 20,976 cleaned Tokopedia listings across 14 categories. Engineered with DuckDB, dbt Core, and Python with a Medallion architecture (staging, intermediate, mart) and statistical hypothesis testing (H1–H6). Uncovers empirical discount saturation points (1–10% discount doubles high-velocity products while >20% erodes margins), models Official Store pricing power (+55.4% aggregate premium, 2.25x sales volume), and delivers an interactive Unit Economics & Margin Simulator web dashboard.",
+      "tags": [
+        "DuckDB",
+        "dbt",
+        "Python",
+        "SQL",
+        "Streamlit",
+        "Pricing Strategy",
+        "Data Analysis"
+      ],
+      "link": "https://tokped-fashion-pricing-and-promo-an.vercel.app/",
+      "linkLabel": "View Dashboard",
+      "deckLink": "https://docs.google.com/presentation/d/1IlnnU1m7jjdqyjmsLOqFnLdQxVT99lUOQarIKMo6fO8/preview?slide=id.p1",
+      "image": "assets/projects/tokped-analytics.png",
+      "sneakPeekLabel": "Sneak Peek of Pricing & Promo Analytics",
+      "githubRepo": "SMJ-205/tokped-fashion-pricing-and-promo-analytics"
+    },
+    {
       "title": "Biz-In-Sight Intelligence Engine",
       "description": "An end-to-end e-commerce decision intelligence engine that discovers high-demand product niches, uncovers unmet consumer complaints via Indonesian NLP sentiment analysis, and simulates sourcing unit economics before capital deployment. Features automated multi-source ingestion (Playwright, Shopee, Tokopedia, TikTok Creative Center, Google Trends), a Supabase PostgreSQL warehouse, and the proprietary Winning Product Score (WPS) engine powering an interactive Next.js 16 executive dashboard with an interactive Sourcing & Pricing Simulator.",
       "tags": [

@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiExternalLink, FiTag, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub, FiX } from 'react-icons/fi'
 import { FaChartBar as FaTableau } from 'react-icons/fa'
-import { SiGooglesheets } from 'react-icons/si'
+import { SiGooglesheets, SiGoogleslides } from 'react-icons/si'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import ScrollReveal from './ScrollReveal'
@@ -766,6 +766,21 @@ export default function Projects({ config, theme }) {
                                 <FaTableau style={{ fontSize: '1.1rem' }} />
                               </a>
                             )}
+                            {project.deckLink && (
+                              <a
+                                href={project.deckLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                title="View Presentation Deck"
+                                aria-label="View Presentation Deck"
+                                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', transition: 'color var(--transition-fast)' }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                              >
+                                <SiGoogleslides style={{ fontSize: '1.05rem' }} />
+                              </a>
+                            )}
                             {project.link?.includes('docs.google.com/spreadsheets') && (
                               <a
                                 href={project.link}
@@ -915,6 +930,15 @@ export default function Projects({ config, theme }) {
                           whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
                         >
                           <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
+                        </motion.a>
+                      )}
+                      {selectedProject.deckLink && (
+                        <motion.a
+                          href={selectedProject.deckLink} target="_blank" rel="noopener noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
+                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+                        >
+                          <SiGoogleslides /> View Deck
                         </motion.a>
                       )}
                       {selectedProject.tableauLink && (

@@ -146,11 +146,18 @@ async function main() {
     console.log(`Processing repo: ${repo}`);
     console.log(`----------------------------------------`);
     
+    const outputFilename = `${repo.replace('/', '_')}.json`;
+    const outputPath = path.join(OUTPUT_DIR, outputFilename);
+    const force = process.argv.includes('--force');
+
+    if (!force && fs.existsSync(outputPath)) {
+      console.log(`Skipping repo ${repo} (already cached at ${outputPath})`);
+      successCount++;
+      continue;
+    }
+
     try {
       const repoData = await fetchRepoTreeAndFiles(repo);
-      const outputFilename = `${repo.replace('/', '_')}.json`;
-      const outputPath = path.join(OUTPUT_DIR, outputFilename);
-      
       fs.writeFileSync(outputPath, JSON.stringify(repoData, null, 2), 'utf-8');
       console.log(`Successfully wrote bundle to ${outputPath}`);
       successCount++;
