@@ -126,7 +126,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
               title={matrixEnabled ? 'Disable matrix effect' : 'Enable matrix effect'}
               style={{
                 background: matrixEnabled ? 'var(--accent-glow)' : 'transparent',
-                border: '1px solid',
+                border: '1.8px solid',
                 borderColor: matrixEnabled ? 'var(--accent)' : 'var(--border)',
                 color: matrixEnabled ? 'var(--accent)' : 'var(--text-muted)',
                 width: '36px',
@@ -151,7 +151,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
               onClick={toggleTheme}
               style={{
                 background: 'var(--accent-glow)',
-                border: '1px solid var(--border)',
+                border: '1.8px solid var(--border)',
                 color: 'var(--accent)',
                 width: '36px',
                 height: '36px',
@@ -179,7 +179,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
               title={matrixEnabled ? 'Disable matrix effect' : 'Enable matrix effect'}
               style={{
                 background: matrixEnabled ? 'var(--accent-glow)' : 'transparent',
-                border: '1px solid',
+                border: '1.8px solid',
                 borderColor: matrixEnabled ? 'var(--accent)' : 'var(--border)',
                 color: matrixEnabled ? 'var(--accent)' : 'var(--text-muted)',
                 width: '36px',
@@ -199,7 +199,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
               onClick={toggleTheme}
               style={{
                 background: 'var(--accent-glow)',
-                border: '1px solid var(--border)',
+                border: '1.8px solid var(--border)',
                 color: 'var(--accent)',
                 width: '36px',
                 height: '36px',
@@ -218,7 +218,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
               onClick={() => setMobileOpen(!mobileOpen)}
               style={{
                 background: 'none',
-                border: '1px solid var(--border)',
+                border: '1.8px solid var(--border)',
                 color: 'var(--accent)',
                 width: '36px',
                 height: '36px',
