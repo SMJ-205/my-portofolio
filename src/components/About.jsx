@@ -38,44 +38,52 @@ export default function About({ config }) {
 
           {/* Quick Stats */}
           <ScrollReveal delay={0.2}>
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-              gap: '1rem',
-              width: '100%',
-            }}>
+            <div className="stats-grid">
               {(config.stats || [
-                { number: '7 → 3–4d', label: 'Month-End Closing (Est.)' },
-                { number: '3–4d → 1', label: 'Postpaid Invoice Cycle' },
-                { number: '4', label: 'Domains Covered by BI' },
-                { number: '100+', label: 'Students Mentored' },
+                {
+                  number: '7d → 3–4d',
+                  label: 'Month-End Closing',
+                  context: 'Automated draft ledgers cut finance closing cycle by ~50%',
+                },
+                {
+                  number: '3–4d → 1d',
+                  label: 'Postpaid Invoice Cycle',
+                  context: 'Automation script reduced billing turnaround for single PIC',
+                },
+                {
+                  number: '4 Domains',
+                  label: 'Cross-Functional BI',
+                  context: 'Finance, General Trade, Ads Service & Shipping',
+                },
+                {
+                  number: '100+',
+                  label: 'Students Mentored',
+                  context: 'Data analytics cohorts at RevoU & Kampus Merdeka',
+                },
               ]).map((stat) => (
                 <div
                   key={stat.label}
-                  className="glass-card"
+                  className="glass-card stat-card"
                   style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
                     textAlign: 'center',
-                    padding: '1.25rem 0.75rem',
+                    padding: '1.25rem 0.85rem',
                   }}
                 >
-                  <div style={{
-                    fontSize: 'clamp(1.35rem, 2.8vw, 1.75rem)',
-                    fontWeight: 800,
-                    color: 'var(--accent)',
-                    fontFamily: 'var(--font-mono)',
-                    lineHeight: 1.2,
-                    wordBreak: 'break-word',
-                  }}>
+                  <div className="stat-number">
                     {stat.number}
                   </div>
-                  <div style={{
-                    fontSize: '0.8rem',
-                    color: 'var(--text-secondary)',
-                    marginTop: '0.4rem',
-                    fontFamily: 'var(--font-mono)',
-                  }}>
+                  <div className="stat-label">
                     {stat.label}
                   </div>
+                  {stat.context && (
+                    <div className="stat-context">
+                      {stat.context}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -90,6 +98,49 @@ export default function About({ config }) {
           .about-text {
             font-size: 1rem;
           }
+        }
+        .stats-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          width: 100%;
+        }
+        @media (min-width: 520px) {
+          .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (min-width: 960px) {
+          .stats-grid {
+            grid-template-columns: repeat(4, 1fr);
+          }
+        }
+        .stat-card {
+          transition: transform var(--transition-medium), border-color var(--transition-medium), box-shadow var(--transition-medium);
+        }
+        .stat-number {
+          font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+          font-weight: 800;
+          color: var(--accent);
+          font-family: var(--font-mono);
+          line-height: 1.2;
+          word-break: break-word;
+        }
+        .stat-label {
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin-top: 0.45rem;
+          font-family: var(--font-heading);
+          letter-spacing: -0.01em;
+          line-height: 1.3;
+        }
+        .stat-context {
+          font-size: 0.75rem;
+          color: var(--text-secondary);
+          margin-top: 0.35rem;
+          font-family: var(--font-sans);
+          line-height: 1.45;
         }
       `}</style>
     </section>
