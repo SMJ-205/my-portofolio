@@ -44,26 +44,27 @@ export default function About({ config }) {
               gap: '1rem',
               width: '100%',
             }}>
-              {[
-                { number: '12+', label: 'Years Experience' },
-                { number: '6+', label: 'Companies' },
+              {(config.stats || [
+                { number: '7 → 3–4d', label: 'Month-End Closing (Est.)' },
+                { number: '3–4d → 1', label: 'Postpaid Invoice Cycle' },
+                { number: '4', label: 'Domains Covered by BI' },
                 { number: '100+', label: 'Students Mentored' },
-                { number: '2', label: 'Degrees' },
-              ].map((stat) => (
+              ]).map((stat) => (
                 <div
                   key={stat.label}
                   className="glass-card"
                   style={{
                     textAlign: 'center',
-                    padding: '1.25rem',
+                    padding: '1.25rem 0.75rem',
                   }}
                 >
                   <div style={{
-                    fontSize: '2rem',
+                    fontSize: 'clamp(1.35rem, 2.8vw, 1.75rem)',
                     fontWeight: 800,
                     color: 'var(--accent)',
                     fontFamily: 'var(--font-mono)',
-                    lineHeight: 1,
+                    lineHeight: 1.2,
+                    wordBreak: 'break-word',
                   }}>
                     {stat.number}
                   </div>

@@ -1,17 +1,17 @@
 {
   "meta": {
     "title": "Sarif Mubdi Jantika",
-    "description": "Data Analyst & Accountant — Searching for Treasure in Data",
+    "description": "Senior Data Analyst — Analytics Engineering · Data Modeling · Governance",
     "siteUrl": "https://www.sarifmj.my.id/"
   },
   "profile": {
     "name": "Sarif Mubdi Jantika",
     "shortName": "Sarif MJ",
-    "title": "Data Analyst & Accountant",
-    "tagline": "Searching for Treasure in Data",
+    "title": "Senior Data Analyst",
+    "tagline": "Building clean, reliable data infrastructure and growing a healthy data culture and environment",
     "photo": "assets/profile.png",
-    "bio": "Data Analyst with 12+ years of experience in accounting and tax reporting — now leveraging that deep financial background to build reliable, decision-ready data products. Currently working at Evermos, where I focus on creating a trusted SSOT for finance operations. I design and automate data pipelines using tools like Airflow and transform business requirements into scalable models using SQL, dbt and Python, while also utilizing AI models. I also help enforce data standards and conventions to ensure our datasets remain clean, consistent and reliable.",
-    "bioExtended": "Experienced as an accountant helped me to comprehend the business process and transform the business needs into data solutions. Moreover, passionate about connecting the dots between raw data and real business impact — never stop looking to grow as a modern data professional.",
+    "bio": "Senior data analyst with 12+ years across accounting, finance and cross-functional operations, hands-on across the modern data stack (Snowflake, dbt, Airflow, SQL, Python). At Evermos I work with data engineers and cross-functional teams to build and improve our data infrastructure: dbt models and pipelines, a central warehouse, data conventions and a trusted single source of truth (SSOT) for finance. I replace manual, error-prone processes with automation (journals, invoicing, audit data) and care about standards that make data reliable and teams faster. I also lead small-scale data projects and have mentored 100+ aspiring analysts, so I know how to help people grow.",
+    "bioExtended": "My extensive background across accounting and finance enables me to bridge business complexity with analytics engineering — transforming raw transactional datasets into trusted, audit-ready data models and high-impact automated workflows.",
     "resumeUrl": "assets/resume_sarif_mubdi_jantika.pdf",
     "social": {
       "email": "sarif.mj@gmail.com",
@@ -19,6 +19,24 @@
       "linkedin": "https://linkedin.com/in/sarifmj"
     }
   },
+  "stats": [
+    {
+      "number": "7 → 3–4d",
+      "label": "Month-End Closing (Est.)"
+    },
+    {
+      "number": "3–4d → 1",
+      "label": "Postpaid Invoice Cycle"
+    },
+    {
+      "number": "4",
+      "label": "Domains Covered by BI"
+    },
+    {
+      "number": "100+",
+      "label": "Students Mentored"
+    }
+  ],
   "navigation": [
     {
       "id": "about",
@@ -59,19 +77,21 @@
           "endDate": "Present",
           "duration": "1 mos",
           "description": [
-            "Integrate AI tools (LLMs, automation agents, etc.) into daily workflows to accelerate analysis and reduce manual effort.",
-            "Proactively identify risks, inefficiencies and growth opportunities across the business.",
-            "Build and maintain a clear task tracking system to ensure visibility and accountability."
+            "Data Warehouse & Modeling: Led migration of FinOps data to the central data warehouse and built dbt models across shipping, Ads Service, and product sourcing for external audit and operations.",
+            "Governance & Data Quality: Authored Enterprise Bus Matrix proposal for General Trade stream; enforced Google Sheet ingestion standards via Apps Script to ensure reliable pipelines.",
+            "Closing Automation: Built multi-stream journal automation transforming salesbook data into submit-ready draft ledgers, estimated to cut month-end closing from 7 days to 3–4 days.",
+            "AI Enablement: Enabled stakeholders across departments to adopt AI in daily workflows; presented on context engineering at the company-wide AI Academy."
           ],
           "skills": [
-            "SQL",
-            "DBT",
-            "Airflow",
-            "Python",
             "Snowflake",
+            "dbt",
+            "Apache Airflow",
+            "Python",
+            "SQL",
+            "Dimensional Modeling",
+            "Data Governance",
+            "Apps Script",
             "Metabase",
-            "AppScript",
-            "Looker",
             "LLMs"
           ]
         },
@@ -84,22 +104,20 @@
           "endDate": "Mar 2026",
           "duration": "2 yrs 6 mos",
           "description": [
-            "Delivered decision-making for top management and investors by transforming complex data into high-level corporate insights and integrated financial reporting.",
-            "Supported finance operations and audit through data-driven insights and automation to improve efficiency and accuracy.",
-            "Bridged the gap between finance and business teams, aligning financial processes with business perspectives and objectives.",
-            "Standardized and streamlined manual data administration, ensuring consistency and compliance across departments.",
-            "Developed and maintained automated convention script and tools to manage manual datasets and enhance reporting reliability.",
-            "Collaborated with cross-functional stakeholders to address corporate-level data."
+            "Finance SSOT: Built the trusted Single Source of Truth for finance operations, unifying reporting used by executive leadership.",
+            "Process Automation: Replaced manual postpaid shipping-invoice process with an automation script, cutting cycle time from 3–4 days to 1 day for a single Finance PIC.",
+            "BI Delivery: Delivered dashboards, analytics, and reports across 4 key domains (Finance, General Trade, Ads Service, Shipping), tracking AR, outlet tiering, margins, and cash conversion cycle.",
+            "Data Quality & Conventions: Maintained Google Sheet validation scripts to eliminate manual data errors and ensure consistent ETL ingestion across cross-functional teams."
           ],
           "skills": [
             "SQL",
-            "DBT",
-            "Airflow",
+            "dbt",
+            "Apache Airflow",
             "Python",
             "Snowflake",
             "Metabase",
-            "AppScript",
-            "Looker"
+            "Looker",
+            "Apps Script"
           ]
         }
       ]
