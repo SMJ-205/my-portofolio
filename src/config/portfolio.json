@@ -8,7 +8,7 @@
     "name": "Sarif Mubdi Jantika",
     "shortName": "Sarif MJ",
     "title": "Senior Data Analyst",
-    "tagline": "Building clean, reliable data infrastructure and growing a healthy data culture and environment",
+    "tagline": "Building clean, reliable data",
     "photo": "assets/profile.png",
     "bio": "Senior data analyst with 12+ years across accounting, finance and cross-functional operations, hands-on across the modern data stack (Snowflake, dbt, Airflow, SQL, Python). At Evermos I work with data engineers and cross-functional teams to build and improve our data infrastructure: dbt models and pipelines, a central warehouse, data conventions and a trusted single source of truth (SSOT) for finance. I replace manual, error-prone processes with automation (journals, invoicing, audit data) and care about standards that make data reliable and teams faster. I also lead small-scale data projects and have mentored 100+ aspiring analysts, so I know how to help people grow.",
     "bioExtended": "My extensive background across accounting and finance enables me to bridge business complexity with analytics engineering — transforming raw transactional datasets into trusted, audit-ready data models and high-impact automated workflows.",
