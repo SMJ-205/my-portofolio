@@ -72,7 +72,7 @@ export default function Hero({ config }) {
             <motion.h2
               variants={itemVariants}
               style={{
-                fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
+                fontSize: 'clamp(0.99rem, 2.7vw, 1.35rem)',
                 fontWeight: 600,
                 color: 'var(--text-secondary)',
               }}
@@ -290,7 +290,7 @@ export default function Hero({ config }) {
           <motion.h2
             variants={itemVariants}
             style={{
-              fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
+              fontSize: 'clamp(0.99rem, 2.7vw, 1.35rem)',
               fontWeight: 600,
               color: 'var(--text-secondary)',
               marginBottom: '0.5rem',
