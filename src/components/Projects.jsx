@@ -864,7 +864,7 @@ export default function Projects({ config, theme }) {
                 style={{
                   background: 'var(--accent-glow)',
                   color: 'var(--accent)',
-                  border: '1px solid var(--accent)',
+                  border: '1.8px solid var(--accent)',
                   boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
                 }}
               >
