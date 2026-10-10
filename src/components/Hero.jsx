@@ -316,7 +316,7 @@ export default function Hero({ config }) {
             }}
           >
             <span style={{ color: 'var(--accent)' }}>{'>'}</span>
-            {profile.tagline}
+            {profile.mobileTagline || profile.tagline}
             <motion.span
               animate={{ opacity: [1, 0] }}
               transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
