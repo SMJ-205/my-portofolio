@@ -307,6 +307,30 @@
   ],
   "projects": [
     {
+      "title": "F&B Data Platform",
+      "description": "An enterprise-grade, zero-cost ($0/mo, 100% free-tier) modern data platform built for multi-outlet Food & Beverage analytics across 267k orders (1.33M rows). Orchestrated via GitHub Actions with keyless Workload Identity Federation (WIF) and strict query cost guardrails, the architecture ingests OLTP data from Neon PostgreSQL via dlt into Google BigQuery. dbt Core powers a Medallion & Star Schema warehouse featuring recursive Bill of Materials (BOM) explosion, daily standard costing, monthly physical stock opname variance reconciliation, Kasavana-Smith menu engineering (Stars, Plowhorses, Puzzles, Dogs), and multi-channel commission transparency. Delivers dual serving layers: a dark glassmorphism interactive executive web dashboard on Vercel with What-If margin simulators, and an automated Google Sheets & Apps Script financial statement reporting portal with live KPI benchmarking alerts.",
+      "tags": [
+        "BigQuery",
+        "dbt",
+        "PostgreSQL",
+        "Python",
+        "dlt",
+        "ETL",
+        "Data Analysis",
+        "Google Apps Script",
+        "Automation"
+      ],
+      "link": "https://data-infra-template-public.vercel.app/",
+      "linkLabel": "Executive Dashboard",
+      "financeLink": "https://script.google.com/macros/s/AKfycbzscLzQ9F24LTlI9Jd13c5uzDNRENQMwb45KG2_AY0OzMVknEri2KJJr-3UFaj8998VSA/exec",
+      "financeLinkLabel": "Finance Dashboard",
+      "dwhLink": "https://console.cloud.google.com/bigquery?p=fnb-data-platform&d=marts&page=dataset",
+      "dwhLinkLabel": "BigQuery Marts",
+      "image": "assets/projects/fnb-data-platform.png",
+      "sneakPeekLabel": "Sneak Peek of F&B Data Platform",
+      "githubRepo": "SMJ-205/data-infra-template"
+    },
+    {
       "title": "Tokped E-Commerce Pricing & Promo Analytics",
       "description": "An end-to-end e-commerce pricing and promotion intelligence engine analyzing 20,976 cleaned Tokopedia listings across 14 categories. Engineered with DuckDB, dbt Core, and Python with a Medallion architecture (staging, intermediate, mart) and statistical hypothesis testing (H1–H6). Uncovers empirical discount saturation points (1–10% discount doubles high-velocity products while >20% erodes margins), models Official Store pricing power (+55.4% aggregate premium, 2.25x sales volume), and delivers an interactive Unit Economics & Margin Simulator web dashboard.",
       "tags": [

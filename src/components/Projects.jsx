@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiExternalLink, FiTag, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub, FiX } from 'react-icons/fi'
 import { FaChartBar as FaTableau } from 'react-icons/fa'
-import { SiGooglesheets, SiGoogleslides } from 'react-icons/si'
+import { SiGooglesheets, SiGoogleslides, SiGooglebigquery } from 'react-icons/si'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import ScrollReveal from './ScrollReveal'
@@ -751,6 +751,36 @@ export default function Projects({ config, theme }) {
                                 <FiExternalLink style={{ fontSize: '1.1rem' }} />
                               </a>
                             )}
+                            {project.financeLink && (
+                              <a
+                                href={project.financeLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                title={project.financeLinkLabel || "Open Finance Dashboard"}
+                                aria-label={project.financeLinkLabel || "Open Finance Dashboard"}
+                                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', transition: 'color var(--transition-fast)' }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                              >
+                                <SiGooglesheets style={{ fontSize: '0.95rem' }} />
+                              </a>
+                            )}
+                            {project.dwhLink && (
+                              <a
+                                href={project.dwhLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                title={project.dwhLinkLabel || "Open BigQuery Marts"}
+                                aria-label={project.dwhLinkLabel || "Open BigQuery Marts"}
+                                style={{ color: 'var(--text-secondary)', display: 'inline-flex', alignItems: 'center', transition: 'color var(--transition-fast)' }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                              >
+                                <SiGooglebigquery style={{ fontSize: '1.05rem' }} />
+                              </a>
+                            )}
                             {project.tableauLink && (
                               <a
                                 href={project.tableauLink}
@@ -930,6 +960,24 @@ export default function Projects({ config, theme }) {
                           whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
                         >
                           <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
+                        </motion.a>
+                      )}
+                      {selectedProject.financeLink && (
+                        <motion.a
+                          href={selectedProject.financeLink} target="_blank" rel="noopener noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
+                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+                        >
+                          <SiGooglesheets /> {selectedProject.financeLinkLabel || 'Finance Dashboard'}
+                        </motion.a>
+                      )}
+                      {selectedProject.dwhLink && (
+                        <motion.a
+                          href={selectedProject.dwhLink} target="_blank" rel="noopener noreferrer"
+                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
+                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+                        >
+                          <SiGooglebigquery /> {selectedProject.dwhLinkLabel || 'BigQuery Marts'}
                         </motion.a>
                       )}
                       {selectedProject.deckLink && (
