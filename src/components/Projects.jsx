@@ -12,7 +12,7 @@ const BASE = import.meta.env.BASE_URL
 const projectImageMapGlob = import.meta.glob('/public/assets/projects/*')
 const availableImageKeys = Object.keys(projectImageMapGlob)
 
-const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, theme }) => {
+const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isDesktopHero = false, theme }) => {
   const images = useMemo(() => {
     if (!baseImagePath) return [`${BASE}${baseImagePath}`]
     // Clean string dynamically: "demand-planning.jpg" -> "demandplanning"
@@ -57,9 +57,9 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
 
   return (
     <div className={
-      isMobileFullBlock
+      (isMobileFullBlock || isDesktopHero)
         ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden bg-black"
-        : "flex relative w-full h-[220px] md:h-[430px] justify-center overflow-hidden bg-black"
+        : "flex relative w-full h-[260px] md:h-[480px] justify-center overflow-hidden bg-black"
     }>
       <AnimatePresence>
         <motion.img
@@ -67,7 +67,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
           src={images[currentIndex]}
           alt={`${title} - slide ${currentIndex + 1}`}
           initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: isMobileFullBlock ? 0.35 : 0.35, scale: 1.15 }}
+          animate={{ opacity: isMobileFullBlock ? 0.35 : 0.9, scale: 1.05 }}
           exit={{ opacity: 0 }}
           transition={{
             opacity: { duration: 1.5, ease: 'easeInOut' },
@@ -85,7 +85,14 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, the
           zIndex: 1
         }} />
       ) : (
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 0%, var(--bg-secondary) 100%)', zIndex: 1 }} />
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: theme === 'light'
+            ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.02) 36%, rgba(255, 255, 255, 0.28) 56%, rgba(255, 255, 255, 0.65) 75%, rgba(255, 255, 255, 0.90) 89%, rgba(255, 255, 255, 0.98) 96%, var(--bg-secondary) 100%)'
+            : 'linear-gradient(to bottom, rgba(17, 25, 39, 0) 0%, rgba(17, 25, 39, 0.02) 36%, rgba(17, 25, 39, 0.28) 56%, rgba(17, 25, 39, 0.65) 75%, rgba(17, 25, 39, 0.90) 89%, rgba(17, 25, 39, 0.98) 96%, var(--bg-secondary) 100%)',
+          zIndex: 1
+        }} />
       )}
     </div>
   )
@@ -623,6 +630,145 @@ export default function Projects({ config, theme }) {
     }
   }
 
+  const renderHeaderRow = () => {
+    if (!selectedProject) return null
+    return (
+      <div 
+        className="flex flex-col items-start relative mt-0"
+        style={{ gap: isDesktop ? '0.65rem' : '0.75rem', marginBottom: isDesktop ? '0.25rem' : '1.25rem' }}
+      >
+        <div>
+          <h2 style={{
+            fontSize: isDesktop ? '1.85rem' : '1.4rem',
+            fontWeight: 800,
+            color: 'var(--text-primary)',
+            marginBottom: '0.45rem',
+            lineHeight: 1.2,
+            textShadow: theme === 'light' ? '0 1px 3px rgba(255, 255, 255, 0.9)' : '0 2px 10px rgba(0, 0, 0, 0.85)'
+          }}>
+            {selectedProject.title}
+          </h2>
+          <div style={{ display: 'flex', gap: '0.45rem', flexWrap: 'wrap' }}>
+            {selectedProject.tags.map(tag => (
+              <span
+                key={tag}
+                className="skill-tag"
+                style={{
+                  fontSize: isDesktop ? '0.72rem' : '0.65rem',
+                  padding: isDesktop ? '0.2rem 0.65rem' : '0.2rem 0.6rem',
+                  backdropFilter: 'blur(6px)',
+                  background: theme === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(17, 25, 39, 0.75)'
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* External Action Links */}
+        <div style={{ display: 'flex', gap: '0.55rem', flexWrap: 'wrap', marginTop: '0.1rem' }}>
+          {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
+            <motion.a
+              href={selectedProject.link} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
+                border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
+                borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
+                fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
+              }}
+              whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+            >
+              <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
+            </motion.a>
+          )}
+          {selectedProject.financeLink && (
+            <motion.a
+              href={selectedProject.financeLink} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
+                border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
+                borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
+                fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
+              }}
+              whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+            >
+              <SiGooglesheets /> {selectedProject.financeLinkLabel || 'Finance Dashboard'}
+            </motion.a>
+          )}
+          {selectedProject.dwhLink && (
+            <motion.a
+              href={selectedProject.dwhLink} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
+                border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
+                borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
+                fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
+              }}
+              whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+            >
+              <SiGooglebigquery /> {selectedProject.dwhLinkLabel || 'BigQuery Marts'}
+            </motion.a>
+          )}
+          {selectedProject.deckLink && (
+            <motion.a
+              href={selectedProject.deckLink} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
+                border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
+                borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
+                fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
+              }}
+              whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+            >
+              <SiGoogleslides /> View Deck
+            </motion.a>
+          )}
+          {selectedProject.tableauLink && (
+            <motion.a
+              href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
+                border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
+                borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
+                fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
+              }}
+              whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+            >
+              <FaTableau /> {selectedProject.linkLabel || 'View Vizzes'}
+            </motion.a>
+          )}
+          {selectedProject.githubRepo && (
+            <motion.a
+              href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
+                border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
+                borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
+                fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
+                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
+              }}
+              whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
+            >
+              <FiGithub /> Source Code
+            </motion.a>
+          )}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       <section id="projects" className="section" style={{ position: 'relative', zIndex: 1 }}>
@@ -915,10 +1061,26 @@ export default function Projects({ config, theme }) {
                 display: 'flex',
                 flexDirection: 'column'
               }}>
-                {/* Desktop Header Image */}
-                {isDesktop && selectedProject.image && (
-                  <ProjectSlideshow theme={theme} baseImagePath={selectedProject.image} title={selectedProject.title} />
-                )}
+                {/* Desktop Hero Section: Slideshow background extends down behind Header Row */}
+                {isDesktop && selectedProject.image ? (
+                  <div className="relative w-full overflow-hidden flex flex-col justify-end">
+                    <div className="absolute inset-0 z-0">
+                      <ProjectSlideshow theme={theme} baseImagePath={selectedProject.image} title={selectedProject.title} isDesktopHero={true} />
+                    </div>
+                    {/* Header Row placed over slideshow with clean padding */}
+                    <div
+                      className="relative z-10 w-full"
+                      style={{
+                        paddingTop: '13.25rem',
+                        paddingBottom: '0.4rem',
+                        paddingLeft: 'clamp(1.5rem, 4vw, 3rem)',
+                        paddingRight: 'clamp(1.5rem, 4vw, 3rem)'
+                      }}
+                    >
+                      {renderHeaderRow()}
+                    </div>
+                  </div>
+                ) : null}
 
                 {/* Modal Body */}
                 <div
@@ -926,97 +1088,22 @@ export default function Projects({ config, theme }) {
                   style={{
                     background: isDesktop ? 'var(--bg-secondary)' : 'transparent',
                     borderRadius: '0 0 16px 16px',
-                    paddingTop: isDesktop ? '1rem' : '4rem',
-                    paddingBottom: 'clamp(2.5rem, 5vw, 4rem)',
-                    paddingLeft: 'clamp(1.5rem, 5vw, 4rem)',
-                    paddingRight: 'clamp(1.5rem, 5vw, 4rem)'
+                    paddingTop: (isDesktop && selectedProject.image) ? '0.2rem' : (isDesktop ? '1.5rem' : '4rem'),
+                    paddingBottom: isDesktop ? '1.25rem' : 'clamp(2.5rem, 5vw, 4rem)',
+                    paddingLeft: 'clamp(1.5rem, 4vw, 3rem)',
+                    paddingRight: 'clamp(1.5rem, 4vw, 3rem)'
                   }}
                 >
-
-                  {/* Header Row */}
-                  <div 
-                    className="flex flex-col md:flex-row md:justify-between items-start md:items-center flex-wrap gap-5 relative mt-0"
-                    style={{ marginBottom: '2rem' }}
-                  >
-                    <div>
-                      <h2 style={{ fontSize: isDesktop ? 'var(--font-xl, 2.2rem)' : '1.5rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.75rem', lineHeight: 1.2 }}>
-                        {selectedProject.title}
-                      </h2>
-                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        {selectedProject.tags.map(tag => (
-                          <span key={tag} className="skill-tag" style={{ fontSize: isDesktop ? '0.75rem' : '0.65rem', padding: isDesktop ? '0.25rem 0.75rem' : '0.2rem 0.6rem' }}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* External Action Links */}
-                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
-                      {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
-                        <motion.a
-                          href={selectedProject.link} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
-                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                        >
-                          <FiExternalLink /> {selectedProject.linkLabel || 'View Full Project'}
-                        </motion.a>
-                      )}
-                      {selectedProject.financeLink && (
-                        <motion.a
-                          href={selectedProject.financeLink} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
-                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                        >
-                          <SiGooglesheets /> {selectedProject.financeLinkLabel || 'Finance Dashboard'}
-                        </motion.a>
-                      )}
-                      {selectedProject.dwhLink && (
-                        <motion.a
-                          href={selectedProject.dwhLink} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
-                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                        >
-                          <SiGooglebigquery /> {selectedProject.dwhLinkLabel || 'BigQuery Marts'}
-                        </motion.a>
-                      )}
-                      {selectedProject.deckLink && (
-                        <motion.a
-                          href={selectedProject.deckLink} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
-                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                        >
-                          <SiGoogleslides /> View Deck
-                        </motion.a>
-                      )}
-                      {selectedProject.tableauLink && (
-                        <motion.a
-                          href={selectedProject.tableauLink} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.25rem' }}
-                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                        >
-                          <FaTableau /> {selectedProject.linkLabel || 'View Vizzes'}
-                        </motion.a>
-                      )}
-                      {selectedProject.githubRepo && (
-                        <motion.a
-                          href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
-                          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.65rem', border: '1px solid var(--accent)', padding: isDesktop ? '0.6rem 1.25rem' : '0.45rem 1rem', borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontSize: isDesktop ? '0.85rem' : '0.75rem', textDecoration: 'none', background: 'rgba(0,0,0,0.05)', marginRight: '0.5rem' }}
-                          whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
-                        >
-                          <FiGithub /> Source Code
-                        </motion.a>
-                      )}
-                    </div>
-                  </div>
+                  {/* If no desktop hero image or on mobile, render header row here */}
+                  {(!isDesktop || !selectedProject.image) && renderHeaderRow()}
 
                   {/* Description */}
                   <p style={{
                     color: 'var(--text-secondary)',
-                    fontSize: isDesktop ? '0.95rem' : '0.92rem',
-                    lineHeight: isDesktop ? 1.8 : 1.6,
-                    marginBottom: isDesktop ? '2.5rem' : '1.5rem',
-                    marginTop: '0.5rem',
+                    fontSize: isDesktop ? '0.9rem' : '0.92rem',
+                    lineHeight: isDesktop ? 1.6 : 1.6,
+                    marginBottom: isDesktop ? '1.1rem' : '1.5rem',
+                    marginTop: '0.15rem',
                     position: 'relative',
                     textAlign: 'justify',
                     textJustify: 'inter-word'
@@ -1028,7 +1115,7 @@ export default function Projects({ config, theme }) {
                   {selectedProject.githubRepo && (
                     <div style={{ border: '1px solid var(--border)', borderRadius: '12px', background: 'var(--bg-tertiary)', overflow: 'hidden' }}>
                       {/* IDE Header */}
-                      <div style={{ padding: '0.75rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
+                      <div style={{ padding: '0.55rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
                         <FiCode color="var(--accent)" />
                         <span>{selectedProject.githubRepo}</span>
                         {repoPath && <span style={{ color: 'var(--accent)' }}>/ {repoPath}</span>}
@@ -1037,9 +1124,9 @@ export default function Projects({ config, theme }) {
                       {/* IDE Content Provider */}
                       <div style={{
                         overflowY: 'auto',
-                        minHeight: '80px',
+                        minHeight: '70px',
                         maxHeight: activeFile ? '550px' : '140px',
-                        padding: '0.5rem 0',
+                        padding: '0.35rem 0',
                         transition: 'max-height var(--transition-medium)'
                       }}>
                         {repoLoading ? (
