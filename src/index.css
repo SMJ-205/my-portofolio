@@ -478,3 +478,31 @@ a:hover {
   background: rgba(255, 255, 255, 0.02);
 }
 
+/* ========================================
+   PROJECT MODAL CLOSE BUTTON
+   ======================================== */
+.project-modal-close-btn {
+  background: var(--accent-glow);
+  color: var(--accent);
+  border: 1.8px solid var(--accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 0.25s ease,
+              color 0.25s ease,
+              box-shadow 0.25s ease,
+              border-color 0.25s ease;
+}
+
+.project-modal-close-btn:hover {
+  background-color: var(--accent) !important;
+  color: var(--bg-primary) !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 22px var(--accent-glow-strong), 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+}
+
+.project-modal-close-btn:active {
+  box-shadow: 0 0 10px var(--accent-glow-strong) !important;
+}
+
+

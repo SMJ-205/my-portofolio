@@ -1037,18 +1037,27 @@ export default function Projects({ config, theme }) {
               }}
             >
               {/* Floating Close Button */}
-              <button
+              <motion.button
                 onClick={closeProject}
-                className="absolute top-3 right-3 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center cursor-pointer z-50 text-base md:text-xl"
-                style={{
-                  background: 'var(--accent-glow)',
-                  color: 'var(--accent)',
-                  border: '1.8px solid var(--accent)',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
+                className="project-modal-close-btn absolute top-3 right-3 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center cursor-pointer z-50 text-base md:text-xl"
+                aria-label="Close project modal"
+                title="Close"
+                whileHover={{
+                  scale: 1.15,
+                  rotate: 90,
+                }}
+                whileTap={{
+                  scale: 0.9,
+                  rotate: 90,
+                }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 350,
+                  damping: 20,
                 }}
               >
                 <FiX />
-              </button>
+              </motion.button>
 
               {/* Mobile Fixed Background Slideshow */}
               {!isDesktop && selectedProject.image && (
