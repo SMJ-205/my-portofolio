@@ -642,6 +642,8 @@ export default function Projects({ config, theme }) {
             fontSize: isDesktop ? '1.85rem' : '1.4rem',
             fontWeight: 800,
             color: 'var(--text-primary)',
+            WebkitTextStroke: '1px var(--accent)',
+            paintOrder: 'stroke fill',
             marginBottom: '0.45rem',
             lineHeight: 1.2,
             textShadow: theme === 'light' ? '0 1px 3px rgba(255, 255, 255, 0.9)' : '0 2px 10px rgba(0, 0, 0, 0.85)'
@@ -1025,6 +1027,7 @@ export default function Projects({ config, theme }) {
                 borderRadius: '16px',
                 width: '100%',
                 maxWidth: '1100px',
+                minHeight: isDesktop ? 'min(640px, calc(90vh + 30px))' : 'min(560px, 85vh)',
                 maxHeight: isDesktop ? 'calc(90vh + 30px)' : '90vh',
                 overflow: 'hidden',
                 position: 'relative',
@@ -1063,7 +1066,13 @@ export default function Projects({ config, theme }) {
               }}>
                 {/* Desktop Hero Section: Slideshow background extends down behind Header Row */}
                 {isDesktop && selectedProject.image ? (
-                  <div className="relative w-full overflow-hidden flex flex-col justify-end">
+                  <div
+                    className="relative w-full overflow-hidden flex flex-col justify-end"
+                    style={{
+                      flex: selectedProject.githubRepo ? '0 0 auto' : 1,
+                      minHeight: selectedProject.githubRepo ? 'auto' : '360px'
+                    }}
+                  >
                     <div className="absolute inset-0 z-0">
                       <ProjectSlideshow theme={theme} baseImagePath={selectedProject.image} title={selectedProject.title} isDesktopHero={true} />
                     </div>
@@ -1071,10 +1080,11 @@ export default function Projects({ config, theme }) {
                     <div
                       className="relative z-10 w-full"
                       style={{
-                        paddingTop: '13.25rem',
+                        paddingTop: selectedProject.githubRepo ? '13.25rem' : '4rem',
                         paddingBottom: '0.4rem',
                         paddingLeft: 'clamp(1.5rem, 4vw, 3rem)',
-                        paddingRight: 'clamp(1.5rem, 4vw, 3rem)'
+                        paddingRight: 'clamp(1.5rem, 4vw, 3rem)',
+                        marginTop: selectedProject.githubRepo ? 0 : 'auto'
                       }}
                     >
                       {renderHeaderRow()}
@@ -1084,12 +1094,13 @@ export default function Projects({ config, theme }) {
 
                 {/* Modal Body */}
                 <div
-                  className="flex-1 relative z-10"
+                  className="relative z-10"
                   style={{
+                    flex: selectedProject.githubRepo ? 1 : '0 0 auto',
                     background: isDesktop ? 'var(--bg-secondary)' : 'transparent',
                     borderRadius: '0 0 16px 16px',
                     paddingTop: (isDesktop && selectedProject.image) ? '0.2rem' : (isDesktop ? '1.5rem' : '4rem'),
-                    paddingBottom: isDesktop ? '1.25rem' : 'clamp(2.5rem, 5vw, 4rem)',
+                    paddingBottom: isDesktop ? (selectedProject.githubRepo ? '1.25rem' : '2.5rem') : 'clamp(2.5rem, 5vw, 4rem)',
                     paddingLeft: 'clamp(1.5rem, 4vw, 3rem)',
                     paddingRight: 'clamp(1.5rem, 4vw, 3rem)'
                   }}
@@ -1102,7 +1113,7 @@ export default function Projects({ config, theme }) {
                     color: 'var(--text-secondary)',
                     fontSize: isDesktop ? '0.9rem' : '0.92rem',
                     lineHeight: isDesktop ? 1.6 : 1.6,
-                    marginBottom: isDesktop ? '1.1rem' : '1.5rem',
+                    marginBottom: selectedProject.githubRepo ? (isDesktop ? '1.1rem' : '1.5rem') : 0,
                     marginTop: '0.15rem',
                     position: 'relative',
                     textAlign: 'justify',
