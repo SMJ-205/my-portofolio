@@ -1135,10 +1135,62 @@ export default function Projects({ config, theme }) {
                   {selectedProject.githubRepo && (
                     <div style={{ border: '1px solid var(--border)', borderRadius: '12px', background: 'var(--bg-tertiary)', overflow: 'hidden' }}>
                       {/* IDE Header */}
-                      <div style={{ padding: '0.55rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}>
-                        <FiCode color="var(--accent)" />
-                        <span>{selectedProject.githubRepo}</span>
-                        {repoPath && <span style={{ color: 'var(--accent)' }}>/ {repoPath}</span>}
+                      <div style={{ padding: '0.55rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)', flexWrap: 'wrap' }}>
+                        <span
+                          onClick={() => (repoPath || activeFile) && navigateToDir(selectedProject.githubRepo, '')}
+                          title={(repoPath || activeFile) ? "Return to root directory" : undefined}
+                          style={{
+                            cursor: (repoPath || activeFile) ? 'pointer' : 'default',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.45rem',
+                            color: (repoPath || activeFile) ? 'var(--text-secondary)' : 'var(--text-primary)',
+                            transition: 'color var(--transition-fast)'
+                          }}
+                          onMouseEnter={(e) => {
+                            if (repoPath || activeFile) e.currentTarget.style.color = 'var(--accent)'
+                          }}
+                          onMouseLeave={(e) => {
+                            if (repoPath || activeFile) e.currentTarget.style.color = (repoPath || activeFile) ? 'var(--text-secondary)' : 'var(--text-primary)'
+                          }}
+                        >
+                          <FiCode color="var(--accent)" />
+                          <span>{selectedProject.githubRepo}</span>
+                        </span>
+
+                        {repoPath && repoPath.split('/').map((segment, idx, arr) => {
+                          const isLast = idx === arr.length - 1 && !activeFile
+                          const targetPath = arr.slice(0, idx + 1).join('/')
+                          return (
+                            <span key={targetPath} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                              <span style={{ color: 'var(--text-muted)' }}>/</span>
+                              {isLast ? (
+                                <span style={{ color: 'var(--accent)', fontWeight: 600 }}>{segment}</span>
+                              ) : (
+                                <span
+                                  onClick={() => navigateToDir(selectedProject.githubRepo, targetPath)}
+                                  title={`Go to ${targetPath}`}
+                                  style={{
+                                    cursor: 'pointer',
+                                    color: 'var(--text-secondary)',
+                                    transition: 'color var(--transition-fast)'
+                                  }}
+                                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+                                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                                >
+                                  {segment}
+                                </span>
+                              )}
+                            </span>
+                          )
+                        })}
+
+                        {activeFile && (
+                          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
+                            <span style={{ color: 'var(--text-muted)' }}>/</span>
+                            <span style={{ color: 'var(--accent)', fontWeight: 600 }}>{activeFile}</span>
+                          </span>
+                        )}
                       </div>
 
                       {/* IDE Content Provider */}

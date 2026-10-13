@@ -308,7 +308,7 @@
   "projects": [
     {
       "title": "F&B Data Platform",
-      "description": "An enterprise-grade, zero-cost ($0/mo) modern data platform for multi-outlet F&B analytics across 267k orders (1.33M rows). Ingests Neon PostgreSQL data via dlt into Google BigQuery, orchestrated by GitHub Actions with keyless WIF and strict query cost guardrails. dbt Core powers a Medallion & Star Schema warehouse featuring recursive BOM explosion, standard costing, stock opname reconciliation, and Kasavana-Smith menu engineering. Delivers dual serving layers: an interactive executive web dashboard with What-If margin simulators, and an automated Google Sheets reporting portal with live KPI benchmarking.",
+      "description": "An enterprise-grade modern data platform for multi-outlet F&B analytics across 267k orders (1.33M rows). Ingests Neon PostgreSQL data via dlt into Google BigQuery, orchestrated by GitHub Actions with keyless WIF and strict query guardrails. dbt Core powers a Medallion & Star Schema warehouse featuring recursive BOM explosion, standard costing, stock opname reconciliation, and Kasavana-Smith menu engineering. Delivers dual serving layers: an interactive executive web dashboard with What-If margin simulators, and an automated Google Sheets reporting portal with live KPI benchmarking.",
       "tags": [
         "BigQuery",
         "dbt",
