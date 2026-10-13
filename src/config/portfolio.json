@@ -367,21 +367,6 @@
       "githubRepo": "SMJ-205/Winning-Product-Discovery-Engine"
     },
     {
-      "title": "Tableau Vizzes",
-      "description": "Data is only as good as the decisions it inspires. This showcase features a collection of Tableau dashboards where I’ve turned complex datasets—from behavioral modeling to global performance—into clear, interactive stories. By blending rigorous data analysis with custom UI/UX, I build tools that don’t just show numbers; they make navigating deep insights feel effortless and intuitive.",
-      "tags": [
-        "Tableau",
-        "Data Visualization",
-        "Storytelling",
-        "Data Analysis"
-      ],
-      "link": "https://public.tableau.com/app/profile/sarif.mubdi.jantika/vizzes",
-      "linkLabel": "View Vizzes",
-      "image": "assets/projects/tableau-vizzes.jpeg",
-      "sneakPeekLabel": "Sneak Peek of Tableau Vizzes",
-      "tableauLink": "https://public.tableau.com/app/profile/sarif.mubdi.jantika/vizzes"
-    },
-    {
       "title": "Customer Profiling Analysis",
       "description": "Leveraging Astro's customer dataset, I engineered a behavioral segmentation model using unsupervised machine learning. By utilizing RFM (Recency, Frequency, Monetary) analysis as the feature engineering backbone, I implemented K-Means clustering to identify distinct customer personas. The project concludes with data-driven recommendations and strategic interventions tailored to the specific behavioral patterns uncovered during the analysis.",
       "tags": [
@@ -392,6 +377,7 @@
       ],
       "link": "https://github.com/SMJ-205/customer-profiling-analysis",
       "linkLabel": "View Repository",
+      "deckLink": "https://docs.google.com/presentation/d/1P-sWW4PHonspRNBAmi5sQl01tdhPF8B_mmDwG8AOy30/preview?slide=id.g16d99c0c411_0_1",
       "image": "assets/projects/k-means-4-cluster.jpeg",
       "sneakPeekLabel": "Sneak Peek of Cluster Analysis",
       "githubRepo": "SMJ-205/customer-profiling-analysis"
@@ -472,6 +458,21 @@
       "image": "assets/projects/cv-scanner.jpeg",
       "sneakPeekLabel": "Sneak Peek of Recruiter Dashboard",
       "githubRepo": "SMJ-205/cv-scanner"
+    },
+    {
+      "title": "Tableau Vizzes",
+      "description": "Data is only as good as the decisions it inspires. This showcase features a collection of Tableau dashboards where I’ve turned complex datasets—from behavioral modeling to global performance—into clear, interactive stories. By blending rigorous data analysis with custom UI/UX, I build tools that don’t just show numbers; they make navigating deep insights feel effortless and intuitive.",
+      "tags": [
+        "Tableau",
+        "Data Visualization",
+        "Storytelling",
+        "Data Analysis"
+      ],
+      "link": "https://public.tableau.com/app/profile/sarif.mubdi.jantika/vizzes",
+      "linkLabel": "View Vizzes",
+      "image": "assets/projects/tableau-vizzes.jpeg",
+      "sneakPeekLabel": "Sneak Peek of Tableau Vizzes",
+      "tableauLink": "https://public.tableau.com/app/profile/sarif.mubdi.jantika/vizzes"
     }
   ],
   "education": [
