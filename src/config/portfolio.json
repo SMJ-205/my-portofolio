@@ -322,7 +322,7 @@
       ],
       "link": "https://data-infra-template-public.vercel.app/",
       "linkLabel": "Executive Dashboard",
-      "financeLink": "https://script.google.com/macros/s/AKfycbxCGM1Gdp2hRHZiKnU-6lWMqfwqbHJgIUVOcCUrabp4BzPc73yQ4o_gCMN16yVvbOIOOA/exec",
+      "financeLink": "https://script.google.com/macros/s/AKfycbwfg0y76pdTswXmjkE0wx7dBnD3rv0X-kFLpyCqur69li0G84jjwRVWIfUk9kT69Jeq-A/exec",
       "financeLinkLabel": "Finance Dashboard",
       "dwhLink": "https://console.cloud.google.com/bigquery?p=fnb-data-platform&d=marts&page=dataset",
       "dwhLinkLabel": "BigQuery Marts",
