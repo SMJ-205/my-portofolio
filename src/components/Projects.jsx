@@ -1015,7 +1015,7 @@ export default function Projects({ config, theme }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '2rem'
+              padding: isDesktop ? '1.5rem' : '1rem'
             }}
             onClick={closeProject}
           >
@@ -1026,9 +1026,9 @@ export default function Projects({ config, theme }) {
                 border: '1px solid var(--border)',
                 borderRadius: '16px',
                 width: '100%',
-                maxWidth: '1100px',
-                minHeight: isDesktop ? 'min(640px, calc(90vh + 30px))' : 'min(560px, 85vh)',
-                maxHeight: isDesktop ? 'calc(90vh + 30px)' : '90vh',
+                maxWidth: '1200px',
+                minHeight: isDesktop ? 'min(720px, 92vh)' : 'min(560px, 85vh)',
+                maxHeight: isDesktop ? '92vh' : '90vh',
                 overflow: 'hidden',
                 position: 'relative',
                 display: 'flex',
@@ -1197,7 +1197,7 @@ export default function Projects({ config, theme }) {
                       <div style={{
                         overflowY: 'auto',
                         minHeight: '70px',
-                        maxHeight: activeFile ? '550px' : '140px',
+                        maxHeight: activeFile ? '550px' : '190px',
                         padding: '0.35rem 0',
                         transition: 'max-height var(--transition-medium)'
                       }}>
