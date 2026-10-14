@@ -1078,8 +1078,8 @@ export default function Projects({ config, theme }) {
                   <div
                     className="relative w-full overflow-hidden flex flex-col justify-end"
                     style={{
-                      flex: selectedProject.githubRepo ? '0 0 auto' : 1,
-                      minHeight: selectedProject.githubRepo ? 'auto' : '360px'
+                      flex: 1,
+                      minHeight: '260px'
                     }}
                   >
                     <div className="absolute inset-0 z-0">
@@ -1089,11 +1089,11 @@ export default function Projects({ config, theme }) {
                     <div
                       className="relative z-10 w-full"
                       style={{
-                        paddingTop: selectedProject.githubRepo ? '13.25rem' : '4rem',
+                        paddingTop: '3.5rem',
                         paddingBottom: '0.4rem',
                         paddingLeft: 'clamp(1.5rem, 4vw, 3rem)',
                         paddingRight: 'clamp(1.5rem, 4vw, 3rem)',
-                        marginTop: selectedProject.githubRepo ? 0 : 'auto'
+                        marginTop: 'auto'
                       }}
                     >
                       {renderHeaderRow()}
@@ -1105,7 +1105,7 @@ export default function Projects({ config, theme }) {
                 <div
                   className="relative z-10"
                   style={{
-                    flex: selectedProject.githubRepo ? 1 : '0 0 auto',
+                    flex: '0 0 auto',
                     background: isDesktop ? 'var(--bg-secondary)' : 'transparent',
                     borderRadius: '0 0 16px 16px',
                     paddingTop: (isDesktop && selectedProject.image) ? '0.2rem' : (isDesktop ? '1.5rem' : '4rem'),
