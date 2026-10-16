@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
 const CONFIG_PATH = './src/config/portfolio.json';
 const OUTPUT_DIR = './public/data/repos';
@@ -7,8 +8,16 @@ const OUTPUT_DIR = './public/data/repos';
 // Binary file extensions to exclude from crawling
 const BINARY_EXTENSIONS = /\.(png|jpe?g|gif|webp|svg|ico|pdf|zip|tar|gz|xlsx?|csv|db|sqlite|bin|exe|dll|so|dylib|woff2?|eot|ttf|otf|mp4|webm|mp3|wav)$/i;
 
-// Read GITHUB_TOKEN from env
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN;
+// Read GITHUB_TOKEN from env or fallback to `gh auth token`
+let GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN;
+if (!GITHUB_TOKEN) {
+  try {
+    GITHUB_TOKEN = execSync('gh auth token', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+  } catch {
+    // gh not available or not logged in
+  }
+}
+
 const headers = {
   'User-Agent': 'my-portfolio-build-script',
   'Accept': 'application/vnd.github.v3+json',
@@ -16,7 +25,7 @@ const headers = {
 if (GITHUB_TOKEN) {
   headers['Authorization'] = `token ${GITHUB_TOKEN}`;
 } else {
-  console.warn('\x1b[33mWarning: GITHUB_TOKEN not found in environment. Crawling will run unauthenticated and may hit rate limits.\x1b[0m');
+  console.warn('\x1b[33mWarning: GITHUB_TOKEN not found in environment or gh CLI. Crawling will run unauthenticated and may hit rate limits.\x1b[0m');
 }
 
 // Function to recursively crawl a repository
