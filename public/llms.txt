@@ -1,0 +1,136 @@
+# Sarif Mubdi Jantika — Senior Data Analyst
+
+> Senior Data Analyst with 12+ years across accounting, finance, and cross-functional operations, specializing in Analytics Engineering, Data Modeling, Governance, Snowflake, dbt, Apache Airflow, SQL, and Python.
+
+- Name: Sarif Mubdi Jantika (Sarif MJ)
+- Title: Senior Data Analyst
+- Location: Bandung, West Java, Indonesia
+- Website: https://www.sarifmj.my.id/
+- Email: sarif.mj@gmail.com
+- LinkedIn: https://linkedin.com/in/sarifmj
+- GitHub: https://github.com/SMJ-205
+- Resume: https://www.sarifmj.my.id/assets/resume_sarif_mubdi_jantika.pdf
+
+---
+
+## Executive Summary
+Senior data analyst with 12+ years bridging accounting, finance, and cross-functional operations with modern data stack architectures (Snowflake, dbt, Airflow, SQL, Python). Proven track record leading enterprise data warehouse migrations, building trusted Single Source of Truth (SSOT) data models for executive reporting, automating financial closing workflows, and mentoring 100+ aspiring analysts.
+
+### Key Impact Metrics
+- **Month-End Closing: 7 days → 3–4 days**: Automated multi-stream journal ledger generation, reducing finance closing cycle by ~50%.
+- **Postpaid Invoice Cycle: 3–4 days → 1 day**: Python and automated pipeline script cut billing turnaround for single PIC by >65%.
+- **Cross-Functional BI: 4 Domains**: Built unified analytics across Finance, General Trade, Ads Service, and Shipping.
+- **100+ Students Mentored**: Led and coached data analytics cohorts at RevoU and Kampus Merdeka (AWS CendekiAwan).
+
+---
+
+## Core Skills & Technical Stack
+- **Languages & Databases**: Python, SQL, PostgreSQL, MySQL, Snowflake, Google BigQuery, DuckDB.
+- **Data Engineering & Automation**: dbt (Core/Cloud), Apache Airflow, dlt, n8n, Google Apps Script, ETL/ELT Pipelines, Dimensional Modeling (Star Schema, Medallion Architecture).
+- **Spreadsheet & Scripting**: Advanced Excel, Google Sheets, Power Query, Power Pivot, Apps Script.
+- **Business Intelligence & Visualization**: Tableau, Looker Studio, Metabase, SmartPLS.
+- **Cloud & DevOps**: GitHub, Docker, AWS, Google Cloud Platform (GCP).
+- **AI & Assistants**: LLMs, Context Engineering, Prompt Engineering, OpenAI API, Gemini, Claude.
+
+---
+
+## Professional Experience
+
+### Evermos
+- **Senior Data Analyst** (Apr 2026 – Present | Bandung, Indonesia / Hybrid)
+  - Data Warehouse & Modeling: Led migration of FinOps data to central data warehouse, building robust dbt models across shipping, Ads Service, and product sourcing for external audit and operations.
+  - Governance & Data Quality: Authored Enterprise Bus Matrix proposal for General Trade stream; enforced Google Sheet ingestion standards via Apps Script for reliable pipelines.
+  - Closing Automation: Built multi-stream journal automation transforming salesbook data into submit-ready draft ledgers, estimated to cut month-end closing from 7 to 3–4 days.
+  - AI Enablement: Enabled cross-departmental AI adoption; presented context engineering at the company-wide AI Academy.
+  - Tech Stack: Snowflake, dbt, Apache Airflow, Python, SQL, Dimensional Modeling, Data Governance, Apps Script, Metabase, LLMs.
+
+- **Data Analyst** (Oct 2023 – Mar 2026 | Bandung, Indonesia / Hybrid)
+  - Finance SSOT: Built the trusted Single Source of Truth for finance operations, unifying executive leadership reporting.
+  - Process Automation: Replaced manual postpaid shipping invoice workflows with an automated script, slashing turnaround from 3–4 days to 1 day.
+  - BI Delivery: Delivered business intelligence dashboards across 4 key domains (Finance, General Trade, Ads Service, Shipping), monitoring AR, outlet tiering, margins, and cash conversion cycles.
+  - Tech Stack: SQL, dbt, Apache Airflow, Python, Snowflake, Metabase, Looker, Apps Script.
+
+### PT Murakabi Talenta Cala
+- **Accounting Supervisor** (Mar 2018 – Present | Bandung, Indonesia)
+  - Supervised financial reporting, tax compliance, and payroll systems.
+  - Analyzed financial data for budgeting, forecasting, and executive strategic decisions.
+
+### RevoU
+- **Team Lead & Data Analytics Mentor** (Aug 2022 – Feb 2025 | Remote)
+  - Mentored 100+ students across data cleaning, SQL, Python, and data visualization.
+  - Vertical Mentor for RevoU x AWS Kampus Merdeka Program CendekiAwan (Cloud Analytics).
+  - Data Analyst Associate for RevoU Virtual Labs (Cohort feature prioritization, churn analysis, customer segmentation).
+
+### Koperasi Pegawai Indosat
+- **Senior Accountant** (Jan 2012 – Feb 2022 | Bandung, Indonesia)
+  - Managed financial reporting and reconciliation for the West Java region.
+  - Led system migration to ODOO ERP and resolved complex accounting discrepancies.
+
+### Satuan Tugas Penanganan COVID-19 Nasional
+- **Data Administrator** (Oct 2020 – Mar 2021 | Jakarta, Indonesia)
+  - Cleaned user databases for the national Bersatu Lawan Covid (BLC) application.
+  - Developed SOP schedules, flowcharts, and budget realization recaps.
+
+---
+
+## Featured Projects
+
+### 1. F&B Data Platform
+- **Summary**: Enterprise-grade modern data platform for multi-outlet F&B analytics across 267k orders (1.33M rows). Ingests Neon PostgreSQL data via dlt into Google BigQuery, orchestrated by GitHub Actions with keyless Workload Identity Federation (WIF).
+- **Architecture**: dbt Core Medallion & Star Schema warehouse featuring recursive BOM explosion, standard costing, stock opname reconciliation, and Kasavana-Smith menu engineering.
+- **Serving Layer**: Dual serving layers with an executive web dashboard (What-If margin simulators) and an automated Google Sheets reporting portal with live KPI benchmarking.
+- **Tech Stack**: BigQuery, dbt, PostgreSQL, Python, dlt, ETL, Apps Script.
+- **Repository**: https://github.com/SMJ-205/data-infra-template
+- **Live Demo**: https://data-infra-template-public.vercel.app/
+
+### 2. Tokped E-Commerce Pricing & Promo Analytics
+- **Summary**: Pricing and promotion intelligence engine analyzing 20,976 cleaned Tokopedia listings across 14 categories.
+- **Architecture**: DuckDB, dbt Core, Python with Medallion architecture and statistical hypothesis testing (H1–H6). Uncovers empirical discount saturation points (1–10% discount doubles high-velocity products while >20% erodes margins) and models Official Store pricing power (+55.4% aggregate premium).
+- **Tech Stack**: DuckDB, dbt, Python, SQL, Streamlit, Pricing Strategy.
+- **Repository**: https://github.com/SMJ-205/tokped-fashion-pricing-and-promo-analytics
+- **Live Demo**: https://tokped-fashion-pricing-and-promo-an.vercel.app/
+
+### 3. Biz-In-Sight Intelligence Engine
+- **Summary**: E-commerce decision intelligence engine discovering high-demand product niches, customer sentiment via Indonesian NLP, and unit economics simulation before capital deployment.
+- **Tech Stack**: Python, Next.js, Supabase, PostgreSQL, NLP.
+- **Repository**: https://github.com/SMJ-205/Winning-Product-Discovery-Engine
+- **Live Demo**: https://winning-product-discovery.vercel.app/
+
+### 4. Customer Profiling Analysis
+- **Summary**: Customer behavioral segmentation using RFM (Recency, Frequency, Monetary) feature engineering and K-Means clustering on Astro's dataset to identify distinct buyer personas.
+- **Tech Stack**: Python, Machine Learning, K-Means Clustering, Data Analysis.
+- **Repository**: https://github.com/SMJ-205/customer-profiling-analysis
+
+### 5. Demand Planning Analysis
+- **Summary**: Demand forecasting and inventory procurement optimization for Astro comparing Moving Averages, Decomposition, and Holt-Winters Exponential Smoothing (selected for superior MAPE).
+- **Tech Stack**: Python, Forecasting, Google Sheets, Time Series.
+
+### 6. Google Sheet Convention Script
+- **Summary**: Google Apps Script validation framework enforcing schema types on shared spreadsheets to eliminate human entry errors and guarantee ETL ingestion integrity.
+- **Tech Stack**: Google Apps Script, Data Quality, ETL, Automation.
+- **Repository**: https://github.com/SMJ-205/google-sheet-convention-script-v.2
+
+### 7. Automated Weather Report Pipeline
+- **Summary**: Production-ready automated ETL pipeline orchestrated by Apache Airflow, pulling from Open-Meteo API, transforming via Pandas, and streaming to Google Sheets and Looker Studio.
+- **Tech Stack**: Python, Apache Airflow, ETL, Google Sheets, Looker Studio.
+- **Repository**: https://github.com/SMJ-205/project-weather-forecast
+
+### 8. AI Qualification Screener
+- **Summary**: Recruitment screener orchestrated via n8n and OpenAI gpt-4o-mini parsing PDF CVs, scoring fit, logging to Airtable, and triggering automated WhatsApp interviews or polite rejection notifications.
+- **Tech Stack**: n8n, OpenAI, Airtable, WhatsApp API, Automation.
+- **Repository**: https://github.com/SMJ-205/cv-scanner
+
+### 9. Tableau Interactive Dashboards
+- **Summary**: Curated collection of interactive Tableau visualizations transforming complex financial, operational, and customer behavioral metrics into intuitive stories.
+- **Public Portfolio**: https://public.tableau.com/app/profile/sarif.mubdi.jantika/vizzes
+
+---
+
+## Education
+
+- **Master's Degree in Engineering / Industrial Management (Enterprise Systems Integration)**
+  - Institut Teknologi Bandung (ITB) | 2013 – 2017
+  - Thesis: *Influence of Intellectual Capital, Knowledge Sharing, and Innovation on Indonesian Startup Companies* (Multi-variate statistical research).
+- **Bachelor's Degree in Accounting**
+  - Universitas Padjadjaran (UNPAD) | 2004 – 2009
+  - Thesis: *The Effect of Six Sigma Implementation on Company Financial Performance*.
