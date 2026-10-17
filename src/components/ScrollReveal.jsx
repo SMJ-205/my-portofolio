@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 
-export default function ScrollReveal({ children, className = '', delay = 0, style = {} }) {
+export default function ScrollReveal({ children, className = '', delay = 0, style = {}, viewport = { once: false, amount: 0.1, margin: '-20px' } }) {
   const ref = useRef(null)
   const [hiddenY, setHiddenY] = useState(40) // Default rise from below
 
@@ -39,7 +39,7 @@ export default function ScrollReveal({ children, className = '', delay = 0, styl
       initial={{ opacity: 0, y: hiddenY }}
       whileInView={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: hiddenY }}
-      viewport={{ once: false, amount: 0.1, margin: '-20px' }}
+      viewport={viewport}
       transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94], delay }}
       className={className}
       style={style}

@@ -777,7 +777,7 @@ export default function Projects({ config, theme }) {
         <div className="container">
           <ScrollReveal>
             <h2 className="section-title">Projects</h2>
-            <p className="section-subtitle">Data projects and tools I have built.</p>
+            <p className="section-subtitle">{config.projects.length} data projects and tools I have built.</p>
           </ScrollReveal>
 
           {/* Tag Filters */}
@@ -802,7 +802,7 @@ export default function Projects({ config, theme }) {
                     transition={{ duration: 0.4 }}
                     style={{ height: '100%' }}
                   >
-                    <ScrollReveal delay={idx * 0.1} style={{ height: '100%' }}>
+                    <ScrollReveal delay={isDesktop ? (idx % 2) * 0.1 : 0} viewport={{ once: false, amount: 0 }} style={{ height: '100%' }}>
                       <motion.div
                         className="glass-card"
                         onClick={() => openProject(project)}
