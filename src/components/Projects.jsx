@@ -835,6 +835,12 @@ export default function Projects({ config, theme }) {
                           {project.title}
                         </h3>
 
+                        {project.impact && (
+                          <p className="project-impact" style={{ marginBottom: '0.75rem' }}>
+                            {project.impact}
+                          </p>
+                        )}
+
                         <p style={{
                           color: 'var(--text-secondary)',
                           fontSize: '0.9rem',
@@ -1116,6 +1122,13 @@ export default function Projects({ config, theme }) {
                 >
                   {/* If no desktop hero image or on mobile, render header row here */}
                   {(!isDesktop || !selectedProject.image) && renderHeaderRow()}
+
+                  {/* Impact */}
+                  {selectedProject.impact && (
+                    <p className="project-impact" style={{ marginBottom: '0.75rem', marginTop: '0.15rem' }}>
+                      {selectedProject.impact}
+                    </p>
+                  )}
 
                   {/* Description */}
                   <p style={{

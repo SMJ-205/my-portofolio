@@ -26,6 +26,13 @@ export default function Footer({ config }) {
       }}>
         Built with React, Framer Motion and Morning Coffee
       </p>
+      <p style={{
+        fontFamily: 'var(--font-mono)',
+        fontSize: '0.68rem',
+        marginTop: '0.3rem',
+      }}>
+        <a href="/resume/" style={{ color: 'var(--text-muted)' }}>Text-only resume</a>
+      </p>
     </footer>
   )
 }

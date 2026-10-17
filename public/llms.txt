@@ -9,7 +9,8 @@
 - Email: sarif.mj@gmail.com
 - LinkedIn: https://linkedin.com/in/sarifmj
 - GitHub: https://github.com/SMJ-205
-- Resume: https://www.sarifmj.my.id/assets/resume_sarif_mubdi_jantika.pdf
+- Resume (PDF): https://www.sarifmj.my.id/assets/resume_sarif_mubdi_jantika.pdf
+- Resume (HTML): https://www.sarifmj.my.id/resume/
 
 ---
 
