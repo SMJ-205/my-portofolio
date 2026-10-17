@@ -533,7 +533,7 @@ export default function Projects({ config, theme }) {
       if (!response.ok) throw new Error('API Rate Limit Exceeded or Repo Not Found')
       const data = await response.json()
       const filteredData = Array.isArray(data)
-        ? data.filter(item => !/\.(jpeg|jpg|png|gif|svg|webp|ico|mp4|pdf)$/i.test(item.name) && !/implementation[\s_-]*plan/i.test(item.name))
+        ? data.filter(item => !/\.(jpeg|jpg|png|gif|svg|webp|ico|mp4|pdf)$/i.test(item.name) && !/implementation/i.test(item.name))
         : []
 
       const sorted = filteredData.sort((a, b) => {
