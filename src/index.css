@@ -244,9 +244,9 @@ a:hover {
 
 .project-impact {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-style: italic;
   line-height: 1.5;
-  color: var(--text-primary);
+  color: var(--accent);
   padding-left: 0.75rem;
   border-left: 2px solid var(--accent);
 }
