@@ -9,7 +9,7 @@ const OUTPUT_DIR = './public/data/repos';
 const BINARY_EXTENSIONS = /\.(png|jpe?g|gif|webp|svg|ico|pdf|zip|tar|gz|xlsx?|csv|db|sqlite|bin|exe|dll|so|dylib|woff2?|eot|ttf|otf|mp4|webm|mp3|wav)$/i;
 
 // Internal working docs that should never appear in the portfolio's code explorer
-const HIDDEN_NAMES = /implementation[\s_-]*plan/i;
+const HIDDEN_NAMES = /implementation/i;
 
 // Read GITHUB_TOKEN from env or fallback to `gh auth token`
 let GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN;
