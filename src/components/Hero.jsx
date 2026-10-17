@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiMail, FiDownload } from 'react-icons/fi'
 
 const BASE = import.meta.env.BASE_URL
+const RESUME_VERSION = import.meta.env.VITE_RESUME_VERSION
 
 export default function Hero({ config }) {
   const { profile } = config
@@ -111,7 +112,7 @@ export default function Hero({ config }) {
               className="hero-ctas"
             >
               <motion.a
-                href={`${BASE}${profile.resumeUrl}?v=1.2`}
+                href={`${BASE}${profile.resumeUrl}?v=${RESUME_VERSION}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -339,7 +340,7 @@ export default function Hero({ config }) {
             }}
           >
             <motion.a
-              href={`${BASE}${profile.resumeUrl}?v=1.2`}
+              href={`${BASE}${profile.resumeUrl}?v=${RESUME_VERSION}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{

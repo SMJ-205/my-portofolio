@@ -142,7 +142,7 @@
           "description": [
             "Supervised financial reporting, tax compliance, and payroll systems.",
             "Analyzed financial data for budgeting and forecasting.",
-            "Supported the leader to take a decision by provide advice about financial insights and developed the dashboards."
+            "Advised leadership on financial decisions and built supporting dashboards."
           ],
           "skills": [
             "Financial Analysis",
@@ -309,6 +309,7 @@
     {
       "title": "F&B Data Platform",
       "description": "An enterprise-grade modern data platform for multi-outlet F&B analytics across 267k orders (1.33M rows). Ingests Neon PostgreSQL data via dlt into Google BigQuery, orchestrated by GitHub Actions with keyless WIF and strict query guardrails. dbt Core powers a Medallion & Star Schema warehouse featuring recursive BOM explosion, standard costing, stock opname reconciliation, and Kasavana-Smith menu engineering. Delivers dual serving layers: an interactive executive web dashboard with What-If margin simulators, and an automated Google Sheets reporting portal with live KPI benchmarking.",
+      "impact": "Modeled 267k orders (1.33M rows) into a dbt Medallion warehouse that feeds an executive dashboard and an automated finance reporting portal.",
       "tags": [
         "BigQuery",
         "dbt",
@@ -333,6 +334,7 @@
     {
       "title": "Tokped E-Commerce Pricing & Promo Analytics",
       "description": "An end-to-end e-commerce pricing and promotion intelligence engine analyzing 20,976 cleaned Tokopedia listings across 14 categories. Engineered with DuckDB, dbt Core, and Python with a Medallion architecture (staging, intermediate, mart) and statistical hypothesis testing (H1–H6). Uncovers empirical discount saturation points (1–10% discount doubles high-velocity products while >20% erodes margins), models Official Store pricing power (+55.4% aggregate premium, 2.25x sales volume), and delivers an interactive Unit Economics & Margin Simulator web dashboard.",
+      "impact": "Showed that 1–10% discounts double sales on high-velocity products while >20% erodes margin, and that Official Stores carry a +55.4% price premium.",
       "tags": [
         "DuckDB",
         "dbt",
@@ -352,6 +354,7 @@
     {
       "title": "Biz-In-Sight Intelligence Engine",
       "description": "An end-to-end e-commerce decision intelligence engine that discovers high-demand product niches, uncovers unmet consumer complaints via Indonesian NLP sentiment analysis, and simulates sourcing unit economics before capital deployment. Features automated multi-source ingestion (Playwright, Shopee, Tokopedia, TikTok Creative Center, Google Trends), a Supabase PostgreSQL warehouse, and the proprietary Winning Product Score (WPS) engine powering an interactive Next.js 16 executive dashboard with an interactive Sourcing & Pricing Simulator.",
+      "impact": "Scores product niches from 5 marketplace and trend sources so sourcing decisions are validated before capital is committed.",
       "tags": [
         "Python",
         "Next.js",
@@ -369,6 +372,7 @@
     {
       "title": "Customer Profiling Analysis",
       "description": "Leveraging Astro's customer dataset, I engineered a behavioral segmentation model using unsupervised machine learning. By utilizing RFM (Recency, Frequency, Monetary) analysis as the feature engineering backbone, I implemented K-Means clustering to identify distinct customer personas. The project concludes with data-driven recommendations and strategic interventions tailored to the specific behavioral patterns uncovered during the analysis.",
+      "impact": "Turned RFM features into K-Means customer personas with a targeted action plan for each segment.",
       "tags": [
         "Python",
         "Machine Learning",
@@ -385,6 +389,7 @@
     {
       "title": "Demand Planning Analysis",
       "description": "Tasked with demand planning analysis for Astro, I developed a system to optimize inventory procurement and warehouse management through data-driven forecasting. After evaluating several methodologies—including Moving Averages, Decomposition, and Trend Analysis—I identified Holt-Winters Exponential Smoothing as the most reliable model based on its superior MAPE performance. The final solution is delivered via an interactive Google Sheets dashboard, transforming these projections into actionable insights for streamlined inventory planning.",
+      "impact": "Selected Holt-Winters over moving-average and decomposition baselines on MAPE to drive inventory procurement planning.",
       "tags": [
         "Python",
         "Data Analysis",
@@ -400,6 +405,7 @@
     {
       "title": "Google Sheet Convention Script",
       "description": "Developed a validation system using Google Apps Script to prevent data entry errors in shared spreadsheets. Each sheet includes a 'Schema' tab defining expected data types per column. Invalid inputs trigger automatic error notifications and are immediately removed, significantly improving data quality and ETL pipeline reliability.",
+      "impact": "Rejects invalid entries at input time against a per-sheet schema, so bad data never reaches the ETL pipeline.",
       "tags": [
         "Google Apps Script",
         "Data Quality",
@@ -415,6 +421,7 @@
     {
       "title": "Automated Weather Report Pipeline",
       "description": "This automated weather intelligence pipeline serves as a blueprint for my production-ready data workflows, bridging the gap between raw external data and actionable insights. Orchestrated by Airflow, the system fetches real-time data from the Open-Meteo API via Python, processing it through a local ETL engine that utilizes Pandas to transform raw CSVs into refined datasets. The final output is automatically pushed to the Google Sheets API, enabling seamless integration with Looker Studio to deliver a ready-to-use dashboard.",
+      "impact": "Runs a fully scheduled Airflow ETL from API to Looker Studio dashboard with no manual steps.",
       "tags": [
         "Python",
         "Airflow",
@@ -431,6 +438,7 @@
     {
       "title": "OCR Expense Tracker",
       "description": "Built a lightweight web-based expense tracker deployed on Vercel, where users upload bill images through a simple interface and instantly convert them into structured transaction logs in Google Sheets. The app processes images using OCR (Google Cloud Vision), extracts key details like date, merchant and total and stores both parsed data or raw images for traceability. Designed for low-volume, free-tier usage, it focuses on fast input, clean automation and minimal infrastructure while keeping the system reliable and easy to maintain.",
+      "impact": "Turns a bill photo into a structured Google Sheets transaction in a single upload, on free-tier infrastructure.",
       "tags": [
         "Web App",
         "OCR",
@@ -447,6 +455,7 @@
     {
       "title": "AI Qualification Screener",
       "description": "Built an automated end-to-end recruitment screener and WhatsApp notification system. Orchestrated via n8n, this workflow processes PDF CV applications, runs match evaluations using OpenAI's gpt-4o-mini, logs scores to Airtable CRM, and routes candidates. Applicants with a match score >= 75 receive an automated WhatsApp interview invite via Fonnte and trigger internal recruiter alerts via Telegram, while other profiles receive a polite rejection email. The system cuts manual screening time by 85% and speeds up candidate outreach to less than two minutes.",
+      "impact": "Cuts manual CV screening time by 85% and reaches qualified candidates in under two minutes.",
       "tags": [
         "n8n",
         "OpenAI",
@@ -463,6 +472,7 @@
     {
       "title": "Tableau Vizzes",
       "description": "Data is only as good as the decisions it inspires. This showcase features a collection of Tableau dashboards where I’ve turned complex datasets—from behavioral modeling to global performance—into clear, interactive stories. By blending rigorous data analysis with custom UI/UX, I build tools that don’t just show numbers; they make navigating deep insights feel effortless and intuitive.",
+      "impact": "Public, interactive dashboards that turn behavioral and performance datasets into clear visual stories.",
       "tags": [
         "Tableau",
         "Data Visualization",

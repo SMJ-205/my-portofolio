@@ -8,7 +8,7 @@ export default function Contact({ config }) {
   const [helloHref, setHelloHref] = useState('#')
 
   const revealPhone = () => {
-    // Base64 obfuscated segments of "https://wa.me/6282218246688"
+    // Base64-obfuscated segments of the WhatsApp link, decoded only on user interaction
     const encoded = ["aHR0cHM6Ly93", "YS5tZS82Mjgy", "MjE4MjQ2Njg4"]
     setHelloHref(atob(encoded.join("")))
   }

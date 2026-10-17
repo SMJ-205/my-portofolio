@@ -106,6 +106,16 @@ async function fetchRepoTreeAndFiles(repo) {
   return { repo, tree, files };
 }
 
+// Fetch the latest commit SHA on the repo's default branch (1 API call)
+async function fetchLatestSha(repo) {
+  const res = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`, { headers });
+  if (!res.ok) {
+    throw new Error(`${res.status} ${res.statusText}`);
+  }
+  const commits = await res.json();
+  return Array.isArray(commits) && commits[0] ? commits[0].sha : null;
+}
+
 async function main() {
   console.log('Starting GitHub repositories build-time cache pre-generation...');
 
@@ -159,14 +169,37 @@ async function main() {
     const outputPath = path.join(OUTPUT_DIR, outputFilename);
     const force = process.argv.includes('--force');
 
+    // Re-crawl only when the repo has new commits since the cached snapshot
+    let latestSha = null;
+    try {
+      latestSha = await fetchLatestSha(repo);
+    } catch (shaErr) {
+      console.warn(`  \x1b[33mWarning: Could not fetch latest commit SHA for ${repo}: ${shaErr.message}\x1b[0m`);
+    }
+
     if (!force && fs.existsSync(outputPath)) {
-      console.log(`Skipping repo ${repo} (already cached at ${outputPath})`);
-      successCount++;
-      continue;
+      let cachedSha = null;
+      try {
+        cachedSha = JSON.parse(fs.readFileSync(outputPath, 'utf-8')).sha || null;
+      } catch {
+        // Corrupt cache, re-crawl below
+      }
+
+      if (!latestSha) {
+        console.log(`Skipping repo ${repo} (latest SHA unavailable, keeping cache at ${outputPath})`);
+        successCount++;
+        continue;
+      }
+      if (cachedSha && cachedSha === latestSha) {
+        console.log(`Skipping repo ${repo} (cache is up to date at ${latestSha.slice(0, 7)})`);
+        successCount++;
+        continue;
+      }
+      console.log(`Cache for ${repo} is stale (${cachedSha ? cachedSha.slice(0, 7) : 'no SHA'} → ${latestSha.slice(0, 7)}), re-crawling...`);
     }
 
     try {
-      const repoData = await fetchRepoTreeAndFiles(repo);
+      const repoData = { ...(await fetchRepoTreeAndFiles(repo)), sha: latestSha };
       fs.writeFileSync(outputPath, JSON.stringify(repoData, null, 2), 'utf-8');
       console.log(`Successfully wrote bundle to ${outputPath}`);
       successCount++;
