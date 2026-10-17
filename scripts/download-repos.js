@@ -8,6 +8,9 @@ const OUTPUT_DIR = './public/data/repos';
 // Binary file extensions to exclude from crawling
 const BINARY_EXTENSIONS = /\.(png|jpe?g|gif|webp|svg|ico|pdf|zip|tar|gz|xlsx?|csv|db|sqlite|bin|exe|dll|so|dylib|woff2?|eot|ttf|otf|mp4|webm|mp3|wav)$/i;
 
+// Internal working docs that should never appear in the portfolio's code explorer
+const HIDDEN_NAMES = /implementation[\s_-]*plan/i;
+
 // Read GITHUB_TOKEN from env or fallback to `gh auth token`
 let GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN;
 if (!GITHUB_TOKEN) {
@@ -54,6 +57,7 @@ async function fetchRepoTreeAndFiles(repo) {
     // Filter and sort items (directories first, then files)
     const filteredItems = items
       .filter(item => {
+        if (HIDDEN_NAMES.test(item.name)) return false;
         if (item.type === 'dir') return true;
         // Exclude binary files
         return !BINARY_EXTENSIONS.test(item.name);
