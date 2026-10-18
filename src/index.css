@@ -524,3 +524,33 @@ a:hover {
 .mobile-tag-scroll::-webkit-scrollbar {
   display: none;
 }
+
+/* ========================================
+   EDUCATION CARD
+   ======================================== */
+
+.edu-card {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+/* Mobile: description and thesis span the full card width, aligned with the logo */
+@media (max-width: 767px) {
+  .edu-card {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    column-gap: 1.25rem;
+  }
+  .edu-body {
+    display: contents;
+  }
+  .edu-header {
+    grid-column: 2;
+  }
+  .edu-card:not(:has(.edu-logo)) .edu-header,
+  .edu-desc,
+  .edu-thesis {
+    grid-column: 1 / -1;
+  }
+}

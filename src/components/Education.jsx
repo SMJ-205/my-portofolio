@@ -21,8 +21,8 @@ export default function Education({ config }) {
           {config.education.map((edu, idx) => (
             <ScrollReveal key={idx} delay={idx * 0.15} style={{ height: '100%' }}>
               <motion.div
-                className="glass-card"
-                style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start', height: '100%' }}
+                className="glass-card edu-card"
+                style={{ height: '100%' }}
                 whileHover={{
                   borderColor: 'var(--border-hover)',
                   boxShadow: 'var(--shadow), var(--shadow-glow)',
@@ -31,7 +31,7 @@ export default function Education({ config }) {
               >
                 {/* Logo */}
                 {edu.logo && (
-                  <div style={{
+                  <div className="edu-logo" style={{
                     width: '64px',
                     height: '64px',
                     borderRadius: '12px',
@@ -56,7 +56,8 @@ export default function Education({ config }) {
                   </div>
                 )}
 
-                <div style={{ flex: 1 }}>
+                <div className="edu-body" style={{ flex: 1 }}>
+                  <div className="edu-header">
                   <h3 style={{
                     fontSize: '1.1rem',
                     fontWeight: 700,
@@ -88,8 +89,9 @@ export default function Education({ config }) {
                   }}>
                     {edu.startYear} – {edu.endYear}
                   </div>
+                  </div>
 
-                  <p style={{
+                  <p className="edu-desc" style={{
                     color: 'var(--text-secondary)',
                     fontSize: '0.88rem',
                     lineHeight: 1.6,
@@ -100,7 +102,8 @@ export default function Education({ config }) {
 
                   {/* Thesis */}
                   {edu.thesis && (
-                    <motion.div 
+                    <motion.div
+                      className="edu-thesis"
                       whileHover={edu.thesisLink ? { y: -2, background: 'rgba(56, 189, 248, 0.1)' } : {}}
                       style={{
                         display: 'flex',
