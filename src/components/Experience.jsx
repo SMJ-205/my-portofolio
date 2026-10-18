@@ -231,6 +231,7 @@ function MobileEarlierCareerCard({ companies, onOpen }) {
 }
 
 function ExperiencePopup({ companies, onClose }) {
+  // Mirrors the mobile project modal: centered card with a 1rem gutter
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -241,62 +242,54 @@ function ExperiencePopup({ companies, onClose }) {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        background: 'rgba(5, 8, 12, 0.7)',
-        backdropFilter: 'blur(6px)',
-        WebkitBackdropFilter: 'blur(6px)',
+        background: 'rgba(10, 13, 20, 0.75)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
         display: 'flex',
-        alignItems: 'flex-end',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem',
       }}
     >
       <motion.div
-        initial={{ y: '100%' }}
-        animate={{ y: 0 }}
-        exit={{ y: '100%' }}
-        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+        initial={{ opacity: 0, scale: 0.96, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 12 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
         onClick={(e) => e.stopPropagation()}
         style={{
           width: '100%',
-          maxHeight: '88dvh',
-          overflowY: 'auto',
-          background: 'var(--bg-secondary)',
-          borderTop: '1px solid var(--border)',
-          borderRadius: '18px 18px 0 0',
-          padding: '1rem 1.25rem 2rem',
+          maxHeight: '90vh',
+          background: 'var(--bg-primary)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.8)',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
-          <div style={{ width: '40px', height: '4px', borderRadius: '2px', background: 'var(--border)' }} />
+        <button
+          onClick={onClose}
+          className="project-modal-close-btn absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer z-50 text-base"
+          aria-label="Close experience details"
+          title="Close"
+        >
+          <FiX />
+        </button>
+        <div style={{ overflowY: 'auto', padding: '1.5rem 1.25rem 1.75rem' }}>
+          {companies.map((company, idx) => (
+            <div key={company.company} style={{ marginTop: idx ? '1.75rem' : 0 }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '1rem', paddingRight: '2.5rem', fontFamily: 'var(--font-sans)' }}>
+                {company.company}
+              </h3>
+              {company.roles.map((role, roleIdx) => (
+                <RoleCard key={roleIdx} role={role} roleIdx={roleIdx} totalRoles={company.roles.length} />
+              ))}
+            </div>
+          ))}
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              width: '34px',
-              height: '34px',
-              borderRadius: '50%',
-              border: '1px solid var(--accent)',
-              background: 'var(--accent-glow)',
-              color: 'var(--accent)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-            }}
-          >
-            <FiX />
-          </button>
-        </div>
-        {companies.map((company, idx) => (
-          <div key={company.company} style={{ marginTop: idx ? '1.75rem' : 0 }}>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '1rem', fontFamily: 'var(--font-sans)' }}>
-              {company.company}
-            </h3>
-            {company.roles.map((role, roleIdx) => (
-              <RoleCard key={roleIdx} role={role} roleIdx={roleIdx} totalRoles={company.roles.length} />
-            ))}
-          </div>
-        ))}
       </motion.div>
     </motion.div>
   )
