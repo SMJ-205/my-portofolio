@@ -112,12 +112,13 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
 
 
 // ─── Tag Filter Bar ────────────────────────────────────────────────────────────
-const TagButton = ({ tag, activeTag, setActiveTag }) => (
+const TagButton = ({ tag, activeTag, setActiveTag, compact = false }) => (
   <motion.button
     key={tag}
     onClick={() => setActiveTag(tag)}
     style={{
-      padding: '0.4rem 0.85rem',
+      padding: compact ? '0.4rem 0.75rem' : '0.4rem 0.85rem',
+      ...(compact && { display: 'inline-flex', alignItems: 'center', lineHeight: 1.2 }),
       borderRadius: '8px',
       border: '1px solid',
       borderColor: activeTag === tag ? 'var(--accent)' : 'var(--border)',
@@ -150,8 +151,8 @@ const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
           display: 'flex',
           gap: '0.5rem',
           overflowX: 'auto',
-          margin: '0 -1.5rem 1.25rem',
-          padding: '0.25rem 1.5rem',
+          margin: '0 -1.5rem 0.75rem',
+          padding: '0.15rem 1.5rem',
           WebkitOverflowScrolling: 'touch',
           scrollbarWidth: 'none',
           maskImage: 'linear-gradient(to right, black 85%, transparent)',
@@ -159,7 +160,7 @@ const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
         }}
       >
         {allTags.map(tag => (
-          <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
+          <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} compact />
         ))}
       </div>
     )
@@ -851,7 +852,7 @@ export default function Projects({ config, theme }) {
         <div className="container">
           <ScrollReveal>
             <h2 className="section-title">Projects</h2>
-            <p className="section-subtitle">Data projects and tools I have built.</p>
+            <p className="section-subtitle" style={isDesktop ? undefined : { marginBottom: '0.75rem' }}>Data projects and tools I have built.</p>
           </ScrollReveal>
 
           {/* Tag Filters */}
