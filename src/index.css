@@ -519,3 +519,8 @@ a:hover {
 }
 
 
+
+/* Hide scrollbar on the mobile project tag row */
+.mobile-tag-scroll::-webkit-scrollbar {
+  display: none;
+}
