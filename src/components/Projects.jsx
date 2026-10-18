@@ -67,7 +67,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
           src={images[currentIndex]}
           alt={`${title} - slide ${currentIndex + 1}`}
           initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: isMobileFullBlock ? 0.35 : 0.9, scale: 1.05 }}
+          animate={{ opacity: isMobileFullBlock ? 0.7 : 0.9, scale: 1.05 }}
           exit={{ opacity: 0 }}
           transition={{
             opacity: { duration: 1.5, ease: 'easeInOut' },
@@ -81,7 +81,10 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: theme === 'light' ? 'rgba(241, 245, 249, 0.85)' : 'rgba(10, 14, 20, 0.8)',
+          // Lighter at the top so the screenshot shows, darker lower where body text sits
+          background: theme === 'light'
+            ? 'linear-gradient(to bottom, rgba(241, 245, 249, 0.55) 0%, rgba(241, 245, 249, 0.78) 40%, rgba(241, 245, 249, 0.9) 65%, rgba(241, 245, 249, 0.92) 100%)'
+            : 'linear-gradient(to bottom, rgba(10, 14, 20, 0.5) 0%, rgba(10, 14, 20, 0.75) 40%, rgba(10, 14, 20, 0.88) 65%, rgba(10, 14, 20, 0.9) 100%)',
           zIndex: 1
         }} />
       ) : (
