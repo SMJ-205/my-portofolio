@@ -1,16 +1,25 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiExternalLink, FiTag, FiFolder, FiFileText, FiCornerUpLeft, FiCode, FiGithub, FiX } from 'react-icons/fi'
 import { FaChartBar as FaTableau } from 'react-icons/fa'
 import { SiGooglesheets, SiGoogleslides, SiGooglebigquery } from 'react-icons/si'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import SyntaxHighlighter from './LazyCodeHighlighter'
 import ScrollReveal from './ScrollReveal'
 
 const BASE = import.meta.env.BASE_URL
 
+// URL-safe slug used for project deep links, e.g. "F&B Data Platform" -> "fb-data-platform"
+const projectSlug = (title) =>
+  title.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
 const projectImageMapGlob = import.meta.glob('/public/assets/projects/*')
 const availableImageKeys = Object.keys(projectImageMapGlob)
+// Downscaled WebP copies (npm run images:mobile), used only by the mobile modal
+const mobileImageKeys = new Set(Object.keys(import.meta.glob('/public/assets/m/projects/*')))
+const toMobileImage = (url) => {
+  const name = url.split('/').pop().replace(/\.(png|jpe?g)$/i, '.webp')
+  return mobileImageKeys.has(`/public/assets/m/projects/${name}`) ? `${BASE}assets/m/projects/${name}` : url
+}
 
 const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isDesktopHero = false, theme }) => {
   const images = useMemo(() => {
@@ -64,7 +73,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
       <AnimatePresence>
         <motion.img
           key={images[currentIndex]}
-          src={images[currentIndex]}
+          src={isMobileFullBlock ? toMobileImage(images[currentIndex]) : images[currentIndex]}
           alt={`${title} - slide ${currentIndex + 1}`}
           initial={{ opacity: 0, scale: 1 }}
           animate={{ opacity: isMobileFullBlock ? 0.7 : 0.9, scale: 1.05 }}
@@ -132,8 +141,29 @@ const TagButton = ({ tag, activeTag, setActiveTag }) => (
 const TagFilterBar = ({ allTags, activeTag, setActiveTag, isDesktop }) => {
   const [expanded, setExpanded] = useState(false)
 
-  // ── Mobile: tag filter hidden entirely ───────────────────────────────────
-  if (!isDesktop) return null
+  // ── Mobile: single swipeable row of chips ─────────────────────────────────
+  if (!isDesktop) {
+    return (
+      <div
+        className="mobile-tag-scroll"
+        style={{
+          display: 'flex',
+          gap: '0.5rem',
+          overflowX: 'auto',
+          margin: '0 -1.5rem 1.25rem',
+          padding: '0.25rem 1.5rem',
+          WebkitOverflowScrolling: 'touch',
+          scrollbarWidth: 'none',
+          maskImage: 'linear-gradient(to right, black 85%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, black 85%, transparent)',
+        }}
+      >
+        {allTags.map(tag => (
+          <TagButton key={tag} tag={tag} activeTag={activeTag} setActiveTag={setActiveTag} />
+        ))}
+      </div>
+    )
+  }
 
   // ── Desktop: slice-based collapse — no overflow:hidden, no clipping ───────
   // Show first COLLAPSED_COUNT tags by default; show all when expanded.
@@ -360,7 +390,6 @@ const JupyterNotebookRenderer = ({ fileContent }) => {
                 <div className="ipynb-code-content">
                   <SyntaxHighlighter
                     language="python"
-                    style={atomDark}
                     customStyle={{ margin: 0, padding: '0.75rem 1rem', fontSize: '0.82rem', background: 'transparent' }}
                   >
                     {sourceText}
@@ -502,6 +531,8 @@ export default function Projects({ config, theme }) {
   const [fileContent, setFileContent] = useState('')
   const [fileLoading, setFileLoading] = useState(false)
 
+  const pushedHashRef = useRef(false)
+
   // Desktop check for Conditional Slideshow
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768)
 
@@ -608,7 +639,47 @@ export default function Projects({ config, theme }) {
 
   const closeProject = () => {
     setSelectedProject(null)
+    if (!getProjectFromHash()) return
+    if (pushedHashRef.current) {
+      // Mobile: step back over the entry we pushed, so the back button stays consistent
+      pushedHashRef.current = false
+      window.history.back()
+    } else {
+      // Arrived via a shared deep link: clear it without adding history
+      window.history.replaceState(null, '', window.location.pathname + window.location.search)
+    }
   }
+
+  const getProjectFromHash = () => {
+    const match = window.location.hash.match(/^#project-(.+)$/)
+    return match ? config.projects.find(p => projectSlug(p.title) === match[1]) : null
+  }
+
+  // Mobile only: give each opened project a shareable URL and let the back button close it
+  const openProjectFromCard = (project) => {
+    openProject(project)
+    if (!isDesktop) {
+      window.history.pushState(null, '', `#project-${projectSlug(project.title)}`)
+      pushedHashRef.current = true
+    }
+  }
+
+  // Open a project from a shared link (#project-<slug>) and follow back/forward navigation
+  useEffect(() => {
+    const syncFromHash = () => {
+      const project = getProjectFromHash()
+      if (project) {
+        openProject(project)
+      } else {
+        pushedHashRef.current = false
+        setSelectedProject(null)
+      }
+    }
+    if (getProjectFromHash()) syncFromHash()
+    window.addEventListener('popstate', syncFromHash)
+    return () => window.removeEventListener('popstate', syncFromHash)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const navigateToDir = (githubRepo, path) => {
     setRepoPath(path)
@@ -808,7 +879,7 @@ export default function Projects({ config, theme }) {
                     <ScrollReveal delay={isDesktop ? (idx % 2) * 0.1 : 0} viewport={{ once: false, amount: 0 }} style={{ height: '100%' }}>
                       <motion.div
                         className="glass-card"
-                        onClick={() => openProject(project)}
+                        onClick={() => openProjectFromCard(project)}
                         style={{
                           display: 'flex',
                           flexDirection: 'column',
@@ -1236,7 +1307,6 @@ export default function Projects({ config, theme }) {
                             ) : (
                               <SyntaxHighlighter
                                 language={activeFile.split('.').pop() === 'py' ? 'python' : activeFile.split('.').pop() === 'js' ? 'javascript' : activeFile.split('.').pop()}
-                                style={atomDark}
                                 customStyle={{ margin: 0, padding: '1.5rem', fontSize: '0.85rem', background: '#1a1b26', borderRadius: '0 0 12px 12px' }}
                               >
                                 {fileContent}

@@ -3,6 +3,9 @@ import { FiGithub, FiLinkedin, FiMail, FiDownload } from 'react-icons/fi'
 
 const BASE = import.meta.env.BASE_URL
 const RESUME_VERSION = import.meta.env.VITE_RESUME_VERSION
+const MOBILE_PHOTO = Object.keys(import.meta.glob('/public/assets/m/profile.webp')).length
+  ? `${BASE}assets/m/profile.webp`
+  : null
 
 export default function Hero({ config }) {
   const { profile } = config
@@ -250,12 +253,15 @@ export default function Hero({ config }) {
             {/* Profile circle background (tosca sphere) */}
             <div className="profile-circle-bg" />
 
-            {/* Profile image (overlapping the bottom) */}
-            <img
-              src={`${BASE}${profile.photo}`}
-              alt={profile.name}
-              className="profile-img"
-            />
+            {/* Profile image (overlapping the bottom); phones get a downscaled WebP */}
+            <picture>
+              {MOBILE_PHOTO && <source media="(max-width: 767px)" srcSet={MOBILE_PHOTO} type="image/webp" />}
+              <img
+                src={`${BASE}${profile.photo}`}
+                alt={profile.name}
+                className="profile-img"
+              />
+            </picture>
           </motion.div>
 
           {/* Greeting */}

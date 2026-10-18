@@ -78,7 +78,14 @@ Open [`src/config/portfolio.json`](src/config/portfolio.json) and replace the va
 }
 ```
 
-### 4. Build and Deploy
+### 4. Mobile Images (optional)
+After adding or replacing images in `public/assets/projects/` or `public/assets/profile.png`, regenerate the downscaled WebP copies served to phones (requires `cwebp`, e.g. `brew install webp`):
+```bash
+npm run images:mobile
+```
+Images without a mobile copy simply fall back to the original.
+
+### 5. Build and Deploy
 ```bash
 # Build production bundle
 npm run build

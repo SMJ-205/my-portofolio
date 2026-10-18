@@ -38,10 +38,17 @@ function calcDuration(startStr, endStr) {
   return `${years} yr${years > 1 ? 's' : ''} ${mos} mos`
 }
 
+// Number of bullets shown per role on mobile before "show more"
+const MOBILE_PREVIEW_COUNT = 2
+
 // ─── Role Card ───────────────────────────────────────────────────────────────
 // Each role gets its own toggle state so they collapse/expand independently.
 function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
   const [descOpen, setDescOpen] = useState(false)
+  const canToggle = isMobile && role.description.length > MOBILE_PREVIEW_COUNT
+  const visibleDescriptions = (!isMobile || descOpen)
+    ? role.description
+    : role.description.slice(0, MOBILE_PREVIEW_COUNT)
   const isLast = roleIdx === totalRoles - 1
 
   return (
@@ -99,42 +106,14 @@ function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
         )}
       </div>
 
-      {/* Mobile: toggle button for description */}
-      {isMobile && (
-        <motion.button
-          onClick={() => setDescOpen(o => !o)}
-          style={{
-            marginBottom: descOpen ? '0.6rem' : '0.75rem',
-            padding: '0.2rem 0.65rem',
-            borderRadius: '6px',
-            border: '1px dashed var(--border)',
-            background: 'transparent',
-            color: 'var(--text-muted)',
-            fontSize: '0.7rem',
-            fontFamily: 'var(--font-mono)',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.3rem',
-          }}
-          whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {descOpen
-            ? <><FiChevronUp size={11} /> hide details</>
-            : <><FiChevronDown size={11} /> show details</>
-          }
-        </motion.button>
-      )}
-
-      {/* Description bullet points — always visible on desktop, toggled on mobile */}
-      {(!isMobile || descOpen) && (
+      {/* Description bullet points — all visible on desktop; first few on mobile with a toggle */}
+      {visibleDescriptions.length > 0 && (
         <ul style={{
           listStyle: 'none',
           padding: 0,
           margin: '0 0 0.75rem 0',
         }}>
-          {role.description.map((desc, descIdx) => (
+          {visibleDescriptions.map((desc, descIdx) => (
             <li
               key={descIdx}
               style={{
@@ -159,6 +138,34 @@ function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {/* Mobile: expand remaining bullets */}
+      {canToggle && (
+        <motion.button
+          onClick={() => setDescOpen(o => !o)}
+          style={{
+            marginBottom: '0.75rem',
+            padding: '0.2rem 0.65rem',
+            borderRadius: '6px',
+            border: '1px dashed var(--border)',
+            background: 'transparent',
+            color: 'var(--text-muted)',
+            fontSize: '0.7rem',
+            fontFamily: 'var(--font-mono)',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.3rem',
+          }}
+          whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {descOpen
+            ? <><FiChevronUp size={11} /> show less</>
+            : <><FiChevronDown size={11} /> show {role.description.length - MOBILE_PREVIEW_COUNT} more</>
+          }
+        </motion.button>
       )}
 
       {/* Skill Tags */}
