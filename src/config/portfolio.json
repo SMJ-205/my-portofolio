@@ -72,6 +72,7 @@
     {
       "company": "Evermos",
       "logo": null,
+      "highlight": "Built journal automation estimated to cut month-end closing from 7 to 3–4 days, and the finance SSOT used by leadership.",
       "roles": [
         {
           "title": "Senior Data Analyst",
@@ -130,6 +131,7 @@
     {
       "company": "PT Murakabi Talenta Cala",
       "logo": null,
+      "highlight": "Supervises financial reporting, tax compliance, and payroll, with dashboards that support leadership decisions.",
       "roles": [
         {
           "title": "Accounting Supervisor",
@@ -155,6 +157,7 @@
     {
       "company": "RevoU",
       "logo": null,
+      "highlight": "Mentored 100+ aspiring analysts, leading cohorts of 12–20 students and the RevoU x AWS cloud analytics program.",
       "roles": [
         {
           "title": "Team Lead",
@@ -233,6 +236,7 @@
     {
       "company": "Koperasi Pegawai Indosat",
       "logo": null,
+      "highlight": "Managed West Java financial reporting for 10 years and led the ERP migration to ODOO.",
       "roles": [
         {
           "title": "Senior Accountant",
@@ -259,6 +263,8 @@
     {
       "company": "Satuan Tugas Penanganan COVID-19 Nasional",
       "logo": null,
+      "highlight": "Cleaned the national BLC app user database and built budget-realization recaps.",
+      "earlierCareer": true,
       "roles": [
         {
           "title": "Data Administrator",
@@ -285,6 +291,8 @@
     {
       "company": "PT Plaza Indonesia Realty, Tbk",
       "logo": null,
+      "highlight": "Handled accounts payable, collections, and payment reconciliation.",
+      "earlierCareer": true,
       "roles": [
         {
           "title": "Finance Ops - Accounts Payable",

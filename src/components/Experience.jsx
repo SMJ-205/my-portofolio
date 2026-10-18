@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { FiMapPin, FiCalendar, FiBriefcase, FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FiMapPin, FiCalendar, FiBriefcase, FiX } from 'react-icons/fi'
 import ScrollReveal from './ScrollReveal'
 
 /**
@@ -38,17 +39,8 @@ function calcDuration(startStr, endStr) {
   return `${years} yr${years > 1 ? 's' : ''} ${mos} mos`
 }
 
-// Number of bullets shown per role on mobile before "show more"
-const MOBILE_PREVIEW_COUNT = 2
-
 // ─── Role Card ───────────────────────────────────────────────────────────────
-// Each role gets its own toggle state so they collapse/expand independently.
-function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
-  const [descOpen, setDescOpen] = useState(false)
-  const canToggle = isMobile && role.description.length > MOBILE_PREVIEW_COUNT
-  const visibleDescriptions = (!isMobile || descOpen)
-    ? role.description
-    : role.description.slice(0, MOBILE_PREVIEW_COUNT)
+function RoleCard({ role, roleIdx, totalRoles }) {
   const isLast = roleIdx === totalRoles - 1
 
   return (
@@ -106,14 +98,14 @@ function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
         )}
       </div>
 
-      {/* Description bullet points — all visible on desktop; first few on mobile with a toggle */}
-      {visibleDescriptions.length > 0 && (
+      {/* Description bullet points */}
+      {role.description.length > 0 && (
         <ul style={{
           listStyle: 'none',
           padding: 0,
           margin: '0 0 0.75rem 0',
         }}>
-          {visibleDescriptions.map((desc, descIdx) => (
+          {role.description.map((desc, descIdx) => (
             <li
               key={descIdx}
               style={{
@@ -140,34 +132,6 @@ function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
         </ul>
       )}
 
-      {/* Mobile: expand remaining bullets */}
-      {canToggle && (
-        <motion.button
-          onClick={() => setDescOpen(o => !o)}
-          style={{
-            marginBottom: '0.75rem',
-            padding: '0.2rem 0.65rem',
-            borderRadius: '6px',
-            border: '1px dashed var(--border)',
-            background: 'transparent',
-            color: 'var(--text-muted)',
-            fontSize: '0.7rem',
-            fontFamily: 'var(--font-mono)',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.3rem',
-          }}
-          whileHover={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {descOpen
-            ? <><FiChevronUp size={11} /> show less</>
-            : <><FiChevronDown size={11} /> show {role.description.length - MOBILE_PREVIEW_COUNT} more</>
-          }
-        </motion.button>
-      )}
-
       {/* Skill Tags */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
         {role.skills.map((skill) => (
@@ -175,6 +139,255 @@ function RoleCard({ role, roleIdx, totalRoles, isMobile }) {
         ))}
       </div>
     </div>
+  )
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
+
+// ─── Mobile: compact company cards + detail popup ─────────────────────────────
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const toMonthIndex = (str) => {
+  if (!str || str.toLowerCase() === 'present') return Infinity
+  const [mon, year] = str.split(' ')
+  return parseInt(year, 10) * 12 + Math.max(MONTHS.indexOf(mon), 0)
+}
+
+// Overall period a company covers across all of its roles
+function companySpan(roles) {
+  const start = roles.reduce((a, r) => (toMonthIndex(r.startDate) < toMonthIndex(a) ? r.startDate : a), roles[0].startDate)
+  const end = roles.reduce((a, r) => (toMonthIndex(r.endDate) > toMonthIndex(a) ? r.endDate : a), roles[0].endDate)
+  return { start, end }
+}
+
+const uniqueSkills = (roles) => [...new Set(roles.flatMap(r => r.skills))]
+
+function MobileCompanyCard({ company, onOpen }) {
+  const latest = company.roles[0]
+  const { start, end } = companySpan(company.roles)
+  const skills = uniqueSkills(company.roles)
+  const extraRoles = company.roles.length - 1
+
+  return (
+    <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
+        <h4 style={{ fontSize: '0.98rem', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.35 }}>
+          {latest.title}
+        </h4>
+        {extraRoles > 0 && (
+          <span className="skill-tag" style={{ flexShrink: 0, fontSize: '0.65rem' }}>
+            +{extraRoles} role{extraRoles > 1 ? 's' : ''}
+          </span>
+        )}
+      </div>
+      <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--accent)', margin: '0.2rem 0 0.35rem', fontFamily: 'var(--font-sans)' }}>
+        {company.company}
+      </h3>
+      <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.6rem' }}>
+        {start} – {end} · {calcDuration(start, end)}{latest.workMode ? ` · ${latest.workMode}` : ''}
+      </p>
+      {company.highlight && (
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5, marginBottom: '0.7rem', paddingLeft: '1.1rem', position: 'relative' }}>
+          <span style={{ position: 'absolute', left: 0, color: 'var(--accent)', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>▹</span>
+          {company.highlight}
+        </p>
+      )}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+          {skills.slice(0, 3).map(skill => (
+            <span key={skill} className="skill-tag" style={{ fontSize: '0.65rem' }}>{skill}</span>
+          ))}
+          {skills.length > 3 && <span className="skill-tag" style={{ fontSize: '0.65rem' }}>+{skills.length - 3}</span>}
+        </div>
+        <span style={{ fontSize: '0.75rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)', whiteSpace: 'nowrap' }}>Details →</span>
+      </div>
+    </motion.div>
+  )
+}
+
+function MobileEarlierCareerCard({ companies, onOpen }) {
+  return (
+    <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
+      <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '0.6rem', fontFamily: 'var(--font-sans)' }}>
+        Earlier career
+      </h3>
+      {companies.map(company => {
+        const { start, end } = companySpan(company.roles)
+        return (
+          <div key={company.company} style={{ marginBottom: '0.55rem' }}>
+            <p style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.35 }}>
+              {company.roles[0].title}
+            </p>
+            <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
+              {company.company} · {start.split(' ')[1]}–{end.split(' ')[1]}
+            </p>
+          </div>
+        )
+      })}
+      <div style={{ textAlign: 'right' }}>
+        <span style={{ fontSize: '0.75rem', color: 'var(--accent)', fontFamily: 'var(--font-mono)' }}>Details →</span>
+      </div>
+    </motion.div>
+  )
+}
+
+function ExperiencePopup({ companies, onClose }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 9999,
+        background: 'rgba(5, 8, 12, 0.7)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        display: 'flex',
+        alignItems: 'flex-end',
+      }}
+    >
+      <motion.div
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        exit={{ y: '100%' }}
+        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: '100%',
+          maxHeight: '88dvh',
+          overflowY: 'auto',
+          background: 'var(--bg-secondary)',
+          borderTop: '1px solid var(--border)',
+          borderRadius: '18px 18px 0 0',
+          padding: '1rem 1.25rem 2rem',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.5rem' }}>
+          <div style={{ width: '40px', height: '4px', borderRadius: '2px', background: 'var(--border)' }} />
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            style={{
+              width: '34px',
+              height: '34px',
+              borderRadius: '50%',
+              border: '1px solid var(--accent)',
+              background: 'var(--accent-glow)',
+              color: 'var(--accent)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+            }}
+          >
+            <FiX />
+          </button>
+        </div>
+        {companies.map((company, idx) => (
+          <div key={company.company} style={{ marginTop: idx ? '1.75rem' : 0 }}>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '1rem', fontFamily: 'var(--font-sans)' }}>
+              {company.company}
+            </h3>
+            {company.roles.map((role, roleIdx) => (
+              <RoleCard key={roleIdx} role={role} roleIdx={roleIdx} totalRoles={company.roles.length} />
+            ))}
+          </div>
+        ))}
+      </motion.div>
+    </motion.div>
+  )
+}
+
+function MobileExperience({ experience }) {
+  const [openCompanies, setOpenCompanies] = useState(null)
+  const pushedRef = useRef(false)
+
+  const mainCompanies = experience.filter(c => !c.earlierCareer)
+  const earlierCompanies = experience.filter(c => c.earlierCareer)
+
+  const open = (companies) => {
+    setOpenCompanies(companies)
+    // Let the phone's back button close the popup instead of leaving the page
+    window.history.pushState({ experiencePopup: true }, '')
+    pushedRef.current = true
+  }
+
+  const close = () => {
+    if (pushedRef.current) {
+      pushedRef.current = false
+      window.history.back()
+    } else {
+      setOpenCompanies(null)
+    }
+  }
+
+  useEffect(() => {
+    const onPopState = () => {
+      pushedRef.current = false
+      setOpenCompanies(null)
+    }
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
+
+  // Freeze background scrolling while the popup is open
+  useEffect(() => {
+    document.body.style.overflow = openCompanies ? 'hidden' : 'unset'
+    return () => { document.body.style.overflow = 'unset' }
+  }, [openCompanies])
+
+  const cards = [
+    ...mainCompanies.map(company => ({ key: company.company, el: <MobileCompanyCard company={company} onOpen={() => open([company])} /> })),
+    ...(earlierCompanies.length
+      ? [{ key: 'earlier-career', el: <MobileEarlierCareerCard companies={earlierCompanies} onOpen={() => open(earlierCompanies)} /> }]
+      : []),
+  ]
+
+  return (
+    <>
+      <div style={{ position: 'relative', paddingLeft: '1.5rem' }}>
+        {/* Vertical Line */}
+        <div style={{
+          position: 'absolute',
+          left: '5px',
+          top: 0,
+          bottom: 0,
+          width: '2px',
+          background: 'linear-gradient(to bottom, var(--accent), var(--border), transparent)',
+        }} />
+        {cards.map(({ key, el }) => (
+          <ScrollReveal key={key} viewport={{ once: false, amount: 0 }}>
+            <div style={{ marginBottom: '1rem', position: 'relative' }}>
+              {/* Timeline Dot */}
+              <div style={{
+                position: 'absolute',
+                left: '-1.5rem',
+                top: '1.2rem',
+                width: '12px',
+                height: '12px',
+                borderRadius: '50%',
+                background: 'var(--accent)',
+                border: '2px solid var(--bg-primary)',
+                boxShadow: '0 0 10px var(--accent-glow-strong)',
+                zIndex: 2,
+              }} />
+              {el}
+            </div>
+          </ScrollReveal>
+        ))}
+      </div>
+
+      {createPortal(
+        <AnimatePresence>
+          {openCompanies && <ExperiencePopup companies={openCompanies} onClose={close} />}
+        </AnimatePresence>,
+        document.body
+      )}
+    </>
   )
 }
 // ─────────────────────────────────────────────────────────────────────────────
@@ -190,7 +403,10 @@ export default function Experience({ config }) {
           <p className="section-subtitle">My professional journey across data, finance and mentoring.</p>
         </ScrollReveal>
 
-        {/* Timeline */}
+        {isMobile ? (
+          <MobileExperience experience={config.experience} />
+        ) : (
+        /* Timeline */
         <div style={{ position: 'relative', paddingLeft: '2rem' }}>
           {/* Vertical Line */}
           <div style={{
@@ -250,7 +466,6 @@ export default function Experience({ config }) {
                       role={role}
                       roleIdx={roleIdx}
                       totalRoles={company.roles.length}
-                      isMobile={isMobile}
                     />
                   ))}
                 </motion.div>
@@ -258,8 +473,8 @@ export default function Experience({ config }) {
             </ScrollReveal>
           ))}
         </div>
+        )}
       </div>
     </section>
   )
 }
-
