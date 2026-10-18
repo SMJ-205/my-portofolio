@@ -170,7 +170,7 @@ function MobileCompanyCard({ company, onOpen }) {
   return (
     <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
-        <h4 style={{ fontSize: '0.98rem', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.35 }}>
+        <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.3 }}>
           {latest.title}
         </h4>
         {extraRoles > 0 && (
@@ -179,7 +179,7 @@ function MobileCompanyCard({ company, onOpen }) {
           </span>
         )}
       </div>
-      <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--accent)', margin: '0.2rem 0 0.35rem', fontFamily: 'var(--font-sans)' }}>
+      <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--accent)', margin: '0.3rem 0 0.35rem', fontFamily: 'var(--font-sans)' }}>
         {company.company}
       </h3>
       <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: '0.6rem' }}>
@@ -207,14 +207,14 @@ function MobileCompanyCard({ company, onOpen }) {
 function MobileEarlierCareerCard({ companies, onOpen }) {
   return (
     <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
-      <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--accent)', marginBottom: '0.6rem', fontFamily: 'var(--font-sans)' }}>
+      <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-sans)' }}>
         Earlier career
       </h3>
       {companies.map(company => {
         const { start, end } = companySpan(company.roles)
         return (
           <div key={company.company} style={{ marginBottom: '0.55rem' }}>
-            <p style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.35 }}>
+            <p style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--accent)', lineHeight: 1.35 }}>
               {company.roles[0].title}
             </p>
             <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>
