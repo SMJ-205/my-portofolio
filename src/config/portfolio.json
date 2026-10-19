@@ -12,7 +12,7 @@
     "mobileTagline": "Engineered for growth",
     "photo": "assets/profile.png",
     "bio": "I bring 12+ years of accounting and finance experience into analytics engineering, so the data models I build are audit-ready and speak the language of the business. As a Senior Data Analyst at Evermos I work with data engineers and cross-functional teams across the modern data stack (Snowflake, dbt, Airflow, SQL and Python).",
-    "bioExtended": "My work spans dbt models and pipelines, a central warehouse and a trusted single source of truth (SSOT) for finance. I replace manual, error-prone processes with automation for journals, invoicing and audit data while setting the standards that make data reliable and teams faster. Beyond building the data, I turn analysis into clear recommendations, from pricing and promo strategy to customer segmentation and financial decisions for leadership. I also lead small data projects and have mentored 100+ aspiring analysts, an experience that shaped how I help people and teams grow.",
+    "bioExtended": "My work spans dbt models and pipelines, a central warehouse and a trusted single source of truth (SSOT) for finance. I replace manual, error-prone processes with automation for journals, invoicing and audit data while setting the standards that make data reliable and teams faster. Beyond building the data, I turn analysis into clear recommendations at Evermos, from distributor and outlet tiering with forecasting to cash conversion cycle (CCC) analysis and targeted actions for top users in key segments. I also lead small data projects and have mentored 100+ aspiring analysts, an experience that shaped how I help people and teams grow.",
     "pillars": [
       {
         "label": "Model",
@@ -24,7 +24,7 @@
       },
       {
         "label": "Advise",
-        "text": "Analysis turned into clear recommendations, from pricing and promo strategy to customer segments and financial decisions for leadership."
+        "text": "Evermos analysis turned into clear recommendations, from distributor and outlet tiering with forecasting to cash conversion cycle (CCC) analysis and targeted actions for top users in key segments."
       },
       {
         "label": "Enable",
