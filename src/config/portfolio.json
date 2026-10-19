@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Sarif Mubdi Jantika",
-    "description": "Senior Data Analyst — Analytics Engineering · Data Modeling · Governance",
+    "description": "Senior Data Analyst | Analytics Engineering · Data Modeling · Governance",
     "siteUrl": "https://www.sarifmj.my.id/"
   },
   "profile": {
@@ -11,8 +11,22 @@
     "tagline": "Data-driven insights, engineered for growth",
     "mobileTagline": "Engineered for growth",
     "photo": "assets/profile.png",
-    "bio": "Senior data analyst with 12+ years across accounting, finance and cross-functional operations, hands-on across the modern data stack (Snowflake, dbt, Airflow, SQL, Python). At Evermos I work with data engineers and cross-functional teams to build and improve our data infrastructure: dbt models and pipelines, a central warehouse, data conventions and a trusted single source of truth (SSOT) for finance. I replace manual, error-prone processes with automation (journals, invoicing, audit data) and care about standards that make data reliable and teams faster. I also lead small-scale data projects and have mentored 100+ aspiring analysts, so I know how to help people grow.",
-    "bioExtended": "My extensive background across accounting and finance enables me to bridge business complexity with analytics engineering — transforming raw transactional datasets into trusted, audit-ready data models and high-impact automated workflows.",
+    "bio": "I bring 12+ years of accounting and finance experience into analytics engineering, so the data models I build are audit-ready and speak the language of the business. As a Senior Data Analyst at Evermos I work with data engineers and cross-functional teams across the modern data stack (Snowflake, dbt, Airflow, SQL and Python).",
+    "bioExtended": "My work spans dbt models and pipelines, a central warehouse and a trusted single source of truth (SSOT) for finance. I replace manual, error-prone processes with automation for journals, invoicing and audit data while setting the standards that make data reliable and teams faster. I also lead small data projects and have mentored 100+ aspiring analysts, an experience that shaped how I help people and teams grow.",
+    "pillars": [
+      {
+        "label": "Model",
+        "text": "dbt and Snowflake models, a central warehouse and a trusted finance SSOT."
+      },
+      {
+        "label": "Automate",
+        "text": "Month-end closing, invoicing and audit data rebuilt as reliable automated workflows."
+      },
+      {
+        "label": "Enable",
+        "text": "Data governance, AI adoption across teams and mentoring for 100+ aspiring analysts, which shaped how I help people and teams grow."
+      }
+    ],
     "resumeUrl": "assets/resume_sarif_mubdi_jantika.pdf",
     "social": {
       "email": "sarif.mj@gmail.com",
@@ -24,22 +38,34 @@
     {
       "number": "7d → 3–4d",
       "label": "Month-End Closing",
-      "context": "Automated draft ledgers cut finance closing cycle by ~50%"
+      "context": "Automated draft ledgers cut finance closing cycle by ~50%",
+      "evidence": {
+        "experience": "Evermos"
+      }
     },
     {
       "number": "3–4d → 1d",
       "label": "Postpaid Invoice Cycle",
-      "context": "Automation script reduced billing turnaround for single PIC"
+      "context": "Automation script reduced billing turnaround for single PIC",
+      "evidence": {
+        "experience": "Evermos"
+      }
     },
     {
       "number": "4 Domains",
       "label": "Cross-Functional BI",
-      "context": "Finance, General Trade, Ads Service & Shipping"
+      "context": "Finance, General Trade, Ads Service & Shipping",
+      "evidence": {
+        "experience": "Evermos"
+      }
     },
     {
       "number": "100+",
       "label": "Students Mentored",
-      "context": "Data analytics cohorts at RevoU & Kampus Merdeka"
+      "context": "Data analytics cohorts at RevoU & Kampus Merdeka",
+      "evidence": {
+        "experience": "RevoU"
+      }
     }
   ],
   "navigation": [
@@ -72,7 +98,7 @@
     {
       "company": "Evermos",
       "logo": null,
-      "highlight": "Built journal automation estimated to cut month-end closing from 7 to 3–4 days, and the finance SSOT used by leadership.",
+      "highlight": "Built journal automation estimated to cut month-end closing from 7 to 3–4 days, plus the finance SSOT used by leadership.",
       "roles": [
         {
           "title": "Senior Data Analyst",
@@ -83,7 +109,7 @@
           "endDate": "Present",
           "duration": "1 mos",
           "description": [
-            "Data Warehouse & Modeling: Led migration of FinOps data to the central data warehouse and built dbt models across shipping, Ads Service, and product sourcing for external audit and operations.",
+            "Data Warehouse & Modeling: Led migration of FinOps data to the central data warehouse and built dbt models across shipping, Ads Service and product sourcing for external audit and operations.",
             "Governance & Data Quality: Authored Enterprise Bus Matrix proposal for General Trade stream; enforced Google Sheet ingestion standards via Apps Script to ensure reliable pipelines.",
             "Closing Automation: Built multi-stream journal automation transforming salesbook data into submit-ready draft ledgers, estimated to cut month-end closing from 7 days to 3–4 days.",
             "AI Enablement: Enabled stakeholders across departments to adopt AI in daily workflows; presented on context engineering at the company-wide AI Academy."
@@ -112,7 +138,7 @@
           "description": [
             "Finance SSOT: Built the trusted Single Source of Truth for finance operations, unifying reporting used by executive leadership.",
             "Process Automation: Replaced manual postpaid shipping-invoice process with an automation script, cutting cycle time from 3–4 days to 1 day for a single Finance PIC.",
-            "BI Delivery: Delivered dashboards, analytics, and reports across 4 key domains (Finance, General Trade, Ads Service, Shipping), tracking AR, outlet tiering, margins, and cash conversion cycle.",
+            "BI Delivery: Delivered dashboards, analytics and reports across 4 key domains (Finance, General Trade, Ads Service, Shipping), tracking AR, outlet tiering, margins and cash conversion cycle.",
             "Data Quality & Conventions: Maintained Google Sheet validation scripts to eliminate manual data errors and ensure consistent ETL ingestion across cross-functional teams."
           ],
           "skills": [
@@ -131,7 +157,7 @@
     {
       "company": "PT Murakabi Talenta Cala",
       "logo": null,
-      "highlight": "Supervises financial reporting, tax compliance, and payroll, with dashboards that support leadership decisions.",
+      "highlight": "Supervises financial reporting, tax compliance and payroll, with dashboards that support leadership decisions.",
       "roles": [
         {
           "title": "Accounting Supervisor",
@@ -142,7 +168,7 @@
           "endDate": "Present",
           "duration": "7 yrs 4 mos",
           "description": [
-            "Supervised financial reporting, tax compliance, and payroll systems.",
+            "Supervised financial reporting, tax compliance and payroll systems.",
             "Analyzed financial data for budgeting and forecasting.",
             "Advised leadership on financial decisions and built supporting dashboards."
           ],
@@ -169,7 +195,7 @@
           "duration": "2 yrs 11 mos",
           "description": [
             "Guided a team consist of 12~20 students through the Data Analytics program via simulations and 1-on-1 sessions.",
-            "Mentored students on data cleaning, analysis, and visualization.",
+            "Mentored students on data cleaning, analysis and visualization.",
             "Provided additional learning support beyond the core curriculum."
           ],
           "skills": [
@@ -220,7 +246,7 @@
           "endDate": "Dec 2022",
           "duration": "4 mos",
           "description": [
-            "Conducted feature prioritization, customer segmentation, churn analysis, and KPI monitoring for a stealth startup."
+            "Conducted feature prioritization, customer segmentation, churn analysis and KPI monitoring for a stealth startup."
           ],
           "skills": [
             "SQL",
@@ -291,7 +317,7 @@
     {
       "company": "PT Plaza Indonesia Realty, Tbk",
       "logo": null,
-      "highlight": "Handled accounts payable, collections, and payment reconciliation.",
+      "highlight": "Handled accounts payable, collections and payment reconciliation.",
       "earlierCareer": true,
       "roles": [
         {
@@ -316,7 +342,7 @@
   "projects": [
     {
       "title": "F&B Data Platform",
-      "description": "An enterprise-grade modern data platform for multi-outlet F&B analytics across 267k orders (1.33M rows). Ingests Neon PostgreSQL data via dlt into Google BigQuery, orchestrated by GitHub Actions with keyless WIF and strict query guardrails. dbt Core powers a Medallion & Star Schema warehouse featuring recursive BOM explosion, standard costing, stock opname reconciliation, and Kasavana-Smith menu engineering. Delivers dual serving layers: an interactive executive web dashboard with What-If margin simulators, and an automated Google Sheets reporting portal with live KPI benchmarking.",
+      "description": "An enterprise-grade modern data platform for multi-outlet F&B analytics across 267k orders (1.33M rows). Ingests Neon PostgreSQL data via dlt into Google BigQuery, orchestrated by GitHub Actions with keyless WIF and strict query guardrails. dbt Core powers a Medallion & Star Schema warehouse featuring recursive BOM explosion, standard costing, stock opname reconciliation and Kasavana-Smith menu engineering. Delivers dual serving layers: an interactive executive web dashboard with What-If margin simulators plus an automated Google Sheets reporting portal with live KPI benchmarking.",
       "impact": "Modeled 267k orders (1.33M rows) into a dbt Medallion warehouse that feeds an executive dashboard and an automated finance reporting portal.",
       "tags": [
         "BigQuery",
@@ -341,8 +367,8 @@
     },
     {
       "title": "Tokped E-Commerce Pricing & Promo Analytics",
-      "description": "An end-to-end e-commerce pricing and promotion intelligence engine analyzing 20,976 cleaned Tokopedia listings across 14 categories. Engineered with DuckDB, dbt Core, and Python with a Medallion architecture (staging, intermediate, mart) and statistical hypothesis testing (H1–H6). Uncovers empirical discount saturation points (1–10% discount doubles high-velocity products while >20% erodes margins), models Official Store pricing power (+55.4% aggregate premium, 2.25x sales volume), and delivers an interactive Unit Economics & Margin Simulator web dashboard.",
-      "impact": "Showed that 1–10% discounts double sales on high-velocity products while >20% erodes margin, and that Official Stores carry a +55.4% price premium.",
+      "description": "An end-to-end e-commerce pricing and promotion intelligence engine analyzing 20,976 cleaned Tokopedia listings across 14 categories. Engineered with DuckDB, dbt Core and Python with a Medallion architecture (staging, intermediate, mart) and statistical hypothesis testing (H1–H6). Uncovers empirical discount saturation points (1–10% discount doubles high-velocity products while >20% erodes margins), models Official Store pricing power (+55.4% aggregate premium, 2.25x sales volume) and delivers an interactive Unit Economics & Margin Simulator web dashboard.",
+      "impact": "Showed that 1–10% discounts double sales on high-velocity products while >20% erodes margin. Official Stores also carry a +55.4% price premium.",
       "tags": [
         "DuckDB",
         "dbt",
@@ -361,7 +387,7 @@
     },
     {
       "title": "Biz-In-Sight Intelligence Engine",
-      "description": "An end-to-end e-commerce decision intelligence engine that discovers high-demand product niches, uncovers unmet consumer complaints via Indonesian NLP sentiment analysis, and simulates sourcing unit economics before capital deployment. Features automated multi-source ingestion (Playwright, Shopee, Tokopedia, TikTok Creative Center, Google Trends), a Supabase PostgreSQL warehouse, and the proprietary Winning Product Score (WPS) engine powering an interactive Next.js 16 executive dashboard with an interactive Sourcing & Pricing Simulator.",
+      "description": "An end-to-end e-commerce decision intelligence engine that discovers high-demand product niches, uncovers unmet consumer complaints via Indonesian NLP sentiment analysis and simulates sourcing unit economics before capital deployment. Features automated multi-source ingestion (Playwright, Shopee, Tokopedia, TikTok Creative Center, Google Trends), a Supabase PostgreSQL warehouse and the proprietary Winning Product Score (WPS) engine powering an interactive Next.js 16 executive dashboard with an interactive Sourcing & Pricing Simulator.",
       "impact": "Scores product niches from 5 marketplace and trend sources so sourcing decisions are validated before capital is committed.",
       "tags": [
         "Python",
@@ -396,7 +422,7 @@
     },
     {
       "title": "Demand Planning Analysis",
-      "description": "Tasked with demand planning analysis for Astro, I developed a system to optimize inventory procurement and warehouse management through data-driven forecasting. After evaluating several methodologies—including Moving Averages, Decomposition, and Trend Analysis—I identified Holt-Winters Exponential Smoothing as the most reliable model based on its superior MAPE performance. The final solution is delivered via an interactive Google Sheets dashboard, transforming these projections into actionable insights for streamlined inventory planning.",
+      "description": "Tasked with demand planning analysis for Astro, I developed a system to optimize inventory procurement and warehouse management through data-driven forecasting. After evaluating several methodologies, including Moving Averages, Decomposition and Trend Analysis, I identified Holt-Winters Exponential Smoothing as the most reliable model based on its superior MAPE performance. The final solution is delivered via an interactive Google Sheets dashboard, transforming these projections into actionable insights for streamlined inventory planning.",
       "impact": "Selected Holt-Winters over moving-average and decomposition baselines on MAPE to drive inventory procurement planning.",
       "tags": [
         "Python",
@@ -462,7 +488,7 @@
     },
     {
       "title": "AI Qualification Screener",
-      "description": "Built an automated end-to-end recruitment screener and WhatsApp notification system. Orchestrated via n8n, this workflow processes PDF CV applications, runs match evaluations using OpenAI's gpt-4o-mini, logs scores to Airtable CRM, and routes candidates. Applicants with a match score >= 75 receive an automated WhatsApp interview invite via Fonnte and trigger internal recruiter alerts via Telegram, while other profiles receive a polite rejection email. The system cuts manual screening time by 85% and speeds up candidate outreach to less than two minutes.",
+      "description": "Built an automated end-to-end recruitment screener and WhatsApp notification system. Orchestrated via n8n, this workflow processes PDF CV applications, runs match evaluations using OpenAI's gpt-4o-mini, logs scores to Airtable CRM and routes candidates. Applicants with a match score >= 75 receive an automated WhatsApp interview invite via Fonnte and trigger internal recruiter alerts via Telegram, while other profiles receive a polite rejection email. The system cuts manual screening time by 85% and speeds up candidate outreach to less than two minutes.",
       "impact": "Cuts manual CV screening time by 85% and reaches qualified candidates in under two minutes.",
       "tags": [
         "n8n",
@@ -479,7 +505,7 @@
     },
     {
       "title": "Tableau Vizzes",
-      "description": "Data is only as good as the decisions it inspires. This showcase features a collection of Tableau dashboards where I’ve turned complex datasets—from behavioral modeling to global performance—into clear, interactive stories. By blending rigorous data analysis with custom UI/UX, I build tools that don’t just show numbers; they make navigating deep insights feel effortless and intuitive.",
+      "description": "Data is only as good as the decisions it inspires. This showcase features a collection of Tableau dashboards where I’ve turned complex datasets, from behavioral modeling to global performance, into clear, interactive stories. By blending rigorous data analysis with custom UI/UX, I build tools that don’t just show numbers; they make navigating deep insights feel effortless and intuitive.",
       "impact": "Public, interactive dashboards that turn behavioral and performance datasets into clear visual stories.",
       "tags": [
         "Tableau",

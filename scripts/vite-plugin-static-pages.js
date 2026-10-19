@@ -50,7 +50,7 @@ function renderResume(config, resumeVersion) {
 
   const experienceHtml = experience.map(company => company.roles.map(role => `
       <article class="entry">
-        <h3>${escapeHtml(role.title)} — ${escapeHtml(company.company)}</h3>
+        <h3>${escapeHtml(role.title)} · ${escapeHtml(company.company)}</h3>
         <p class="meta">${escapeHtml(role.startDate)} – ${escapeHtml(role.endDate)} · ${escapeHtml(role.type)} · ${escapeHtml(role.location)}${role.workMode && role.workMode !== role.location ? ` (${escapeHtml(role.workMode)})` : ''}</p>
         <ul>
           ${role.description.map(d => `<li>${escapeHtml(d)}</li>`).join('\n          ')}
@@ -74,7 +74,7 @@ function renderResume(config, resumeVersion) {
 
   const educationHtml = education.map(e => `
       <article class="entry">
-        <h3>${escapeHtml(e.degree)}, ${escapeHtml(e.field)} — ${escapeHtml(e.institution)}</h3>
+        <h3>${escapeHtml(e.degree)}, ${escapeHtml(e.field)} · ${escapeHtml(e.institution)}</h3>
         <p class="meta">${escapeHtml(e.startYear)} – ${escapeHtml(e.endYear)}</p>
         ${e.thesis ? `<p>Thesis: ${e.thesisLink ? `<a href="${escapeHtml(e.thesisLink)}">${escapeHtml(e.thesis)}</a>` : escapeHtml(e.thesis)}</p>` : ''}
       </article>`).join('')
@@ -87,14 +87,14 @@ function renderResume(config, resumeVersion) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Resume — ${escapeHtml(profile.name)}, ${escapeHtml(headline)}</title>
+    <title>Resume | ${escapeHtml(profile.name)}, ${escapeHtml(headline)}</title>
     <meta name="description" content="Resume of ${escapeHtml(profile.name)}: ${escapeHtml(headline)}. Experience, projects, education, and skills." />
     <meta name="author" content="${escapeHtml(profile.name)}" />
     <link rel="canonical" href="${siteUrl}resume/" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <meta property="og:type" content="profile" />
     <meta property="og:url" content="${siteUrl}resume/" />
-    <meta property="og:title" content="Resume — ${escapeHtml(profile.name)}" />
+    <meta property="og:title" content="Resume | ${escapeHtml(profile.name)}" />
     <meta property="og:description" content="${escapeHtml(headline)}" />
     <meta property="og:image" content="${siteUrl}${profile.photo}" />
     <style>

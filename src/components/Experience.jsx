@@ -327,6 +327,18 @@ function MobileExperience({ experience }) {
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
+  // About stat cards open the popup for the company that backs them
+  useEffect(() => {
+    const onShow = (e) => {
+      const company = experience.find(c => c.company === e.detail.company)
+      if (!company) return
+      open(company.earlierCareer ? earlierCompanies : [company])
+    }
+    window.addEventListener('show-experience', onShow)
+    return () => window.removeEventListener('show-experience', onShow)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [experience])
+
   // Freeze background scrolling while the popup is open
   useEffect(() => {
     document.body.style.overflow = openCompanies ? 'hidden' : 'unset'
@@ -388,6 +400,21 @@ function MobileExperience({ experience }) {
 export default function Experience({ config }) {
   const [isMobile] = useState(() => window.innerWidth < 768)
 
+  // Desktop: About stat cards scroll to the company that backs them and flash it
+  useEffect(() => {
+    if (isMobile) return
+    const onShow = (e) => {
+      const card = document.querySelector(`#experience [data-company="${CSS.escape(e.detail.company)}"]`)
+      if (!card) return
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      card.classList.remove('exp-flash')
+      void card.offsetWidth // restart the animation if clicked again
+      card.classList.add('exp-flash')
+    }
+    window.addEventListener('show-experience', onShow)
+    return () => window.removeEventListener('show-experience', onShow)
+  }, [isMobile])
+
   return (
     <section id="experience" className="section" style={{ position: 'relative', zIndex: 1 }}>
       <div className="container">
@@ -435,6 +462,7 @@ export default function Experience({ config }) {
 
                 <motion.div
                   className="glass-card"
+                  data-company={company.company}
                   whileHover={{
                     borderColor: 'var(--border-hover)',
                     boxShadow: 'var(--shadow), var(--shadow-glow)',
