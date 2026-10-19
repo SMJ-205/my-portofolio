@@ -85,7 +85,13 @@ npm run images:mobile
 ```
 Images without a mobile copy simply fall back to the original.
 
-### 5. Build and Deploy
+### 5. Resume PDF
+The PDF served by the Resume button is rendered from [`resume-src/resume.html`](resume-src/resume.html). After editing it, regenerate the single-page A4 PDF (requires Google Chrome; `pdfinfo` from `brew install poppler` enables the one-page check):
+```bash
+npm run resume:pdf
+```
+
+### 6. Build and Deploy
 ```bash
 # Build production bundle
 npm run build
