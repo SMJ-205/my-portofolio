@@ -564,3 +564,12 @@ a:hover {
     grid-column: 1 / -1;
   }
 }
+
+/* Briefly highlight an experience card reached from an About stat */
+@keyframes expFlash {
+  0%, 100% { box-shadow: var(--shadow); border-color: var(--border); }
+  30%, 70% { box-shadow: 0 0 0 2px var(--accent), 0 0 28px var(--accent-glow-strong); border-color: var(--accent); }
+}
+.exp-flash {
+  animation: expFlash 1.8s ease-in-out 1;
+}

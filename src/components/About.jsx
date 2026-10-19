@@ -1,5 +1,12 @@
 import ScrollReveal from './ScrollReveal'
 
+// Ask the Experience section to reveal the role that backs a stat
+const showEvidence = (evidence) => {
+  if (evidence?.experience) {
+    window.dispatchEvent(new CustomEvent('show-experience', { detail: { company: evidence.experience } }))
+  }
+}
+
 export default function About({ config }) {
   const { profile } = config
 
@@ -26,13 +33,26 @@ export default function About({ config }) {
               }}>
                 {profile.bio}
               </p>
-              <p className="about-text" style={{
+              {/* Desktop: full second paragraph */}
+              <p className="about-text about-desktop-only" style={{
                 color: 'var(--text-secondary)',
                 lineHeight: 1.8,
                 textAlign: 'justify',
               }}>
                 {profile.bioExtended}
               </p>
+
+              {/* Mobile: the same story as three short pillars */}
+              {profile.pillars?.length > 0 && (
+                <div className="about-pillars about-mobile-only">
+                  {profile.pillars.map((pillar) => (
+                    <div key={pillar.label} className="about-pillar">
+                      <span className="about-pillar-label">{pillar.label}</span>
+                      <span className="about-pillar-text">{pillar.text}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </ScrollReveal>
 
@@ -63,7 +83,14 @@ export default function About({ config }) {
               ]).map((stat) => (
                 <div
                   key={stat.label}
-                  className="glass-card stat-card"
+                  className={`glass-card stat-card${stat.evidence ? ' stat-card-link' : ''}`}
+                  {...(stat.evidence && {
+                    role: 'button',
+                    tabIndex: 0,
+                    'aria-label': `${stat.label}: view supporting experience`,
+                    onClick: () => showEvidence(stat.evidence),
+                    onKeyDown: (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), showEvidence(stat.evidence)),
+                  })}
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -83,6 +110,9 @@ export default function About({ config }) {
                     <div className="stat-context">
                       {stat.context}
                     </div>
+                  )}
+                  {stat.evidence && (
+                    <div className="stat-proof">View proof →</div>
                   )}
                 </div>
               ))}
@@ -134,6 +164,61 @@ export default function About({ config }) {
           font-family: var(--font-heading);
           letter-spacing: -0.01em;
           line-height: 1.3;
+        }
+        .about-mobile-only {
+          display: none;
+        }
+        @media (max-width: 767px) {
+          .about-desktop-only {
+            display: none;
+          }
+          .about-mobile-only {
+            display: block;
+          }
+        }
+        .about-pillars {
+          border-top: 1px solid var(--border);
+          padding-top: 0.25rem;
+        }
+        .about-pillar {
+          display: grid;
+          grid-template-columns: 5.25rem 1fr;
+          gap: 0.75rem;
+          padding: 0.7rem 0;
+          border-bottom: 1px solid var(--border);
+        }
+        .about-pillar:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+        .about-pillar-label {
+          font-family: var(--font-mono);
+          font-size: 0.72rem;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--accent);
+          padding-top: 0.15rem;
+        }
+        .about-pillar-text {
+          font-size: 0.88rem;
+          line-height: 1.55;
+          color: var(--text-secondary);
+        }
+        .stat-card-link {
+          cursor: pointer;
+        }
+        .stat-card-link:focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 2px;
+        }
+        .stat-proof {
+          margin-top: auto;
+          padding-top: 0.6rem;
+          font-size: 0.7rem;
+          font-family: var(--font-mono);
+          color: var(--accent);
+          opacity: 0.85;
         }
         .stat-context {
           font-size: 0.75rem;
