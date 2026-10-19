@@ -67,7 +67,7 @@ export default function Education({ config }) {
                     {edu.institution}
                   </h3>
 
-                  <div style={{
+                  <div className="edu-degree" style={{
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '0.4rem',
@@ -81,7 +81,7 @@ export default function Education({ config }) {
                     <span style={{ lineHeight: 1.4 }}>{edu.degree}, {edu.field}</span>
                   </div>
 
-                  <div style={{
+                  <div className="edu-years" style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.8rem',
                     color: 'var(--text-muted)',
