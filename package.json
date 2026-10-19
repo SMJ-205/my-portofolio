@@ -9,6 +9,7 @@
     "build": "vite build",
     "download-repos": "node scripts/download-repos.js",
     "images:mobile": "node scripts/mobile-images.js",
+    "resume:pdf": "node scripts/resume-pdf.js",
     "download-repos:force": "node scripts/download-repos.js --force",
     "lint": "eslint .",
     "preview": "vite preview"

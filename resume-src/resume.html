@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sarif Mubdi Jantika | Resume</title>
+<!--
+  Source for public/assets/resume_sarif_mubdi_jantika.pdf.
+  Edit this file, then run: npm run resume:pdf
+  Must stay on a single A4 page (the script checks).
+-->
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #111827;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --accent: #0f9b83;
+    --rule: #0f9b83;
+    --line: #e5e7eb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body {
+    width: 210mm;
+    padding: 8mm 11mm 6mm;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 8.15pt;
+    line-height: 1.32;
+    color: var(--text);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .mono { font-family: Menlo, Consolas, monospace; }
+  a { color: inherit; text-decoration: none; }
+
+  /* Header */
+  h1 { font-size: 24pt; line-height: 1.1; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+  h1 span { color: var(--accent); }
+  .headline { margin-top: 3pt; font-size: 10.5pt; font-weight: 700; color: var(--accent); }
+  .tagline { margin-top: 2pt; font-size: 7.8pt; color: var(--accent); }
+  .contact { margin-top: 3pt; font-size: 7.8pt; color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: 0 6pt; }
+  .contact .sep { color: #9ca3af; }
+  .contact a { color: var(--accent); }
+  .contact svg { width: 7.5pt; height: 7.5pt; vertical-align: -1pt; margin-right: 2pt; stroke: var(--muted); fill: none; stroke-width: 2; }
+
+  /* Sections */
+  h2 {
+    margin-top: 7pt;
+    padding-bottom: 2pt;
+    border-bottom: 0.8pt solid var(--rule);
+    font-size: 9.6pt;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  h2 .num { color: var(--accent); font-weight: 400; margin-right: 3pt; }
+  .summary p { margin-top: 4pt; }
+
+  /* Stats */
+  .stats {
+    margin-top: 6pt;
+    padding: 5pt 0 4pt;
+    border-top: 0.6pt solid var(--line);
+    border-bottom: 0.6pt solid var(--line);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    text-align: center;
+  }
+  .stat-num { font-size: 12pt; font-weight: 700; color: var(--accent); }
+  .stat-label { margin-top: 1pt; font-size: 6.6pt; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+
+  /* Experience */
+  .job { margin-top: 4pt; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8pt; }
+  .job-title { font-size: 9.4pt; font-weight: 700; color: var(--ink); }
+  .job-title .role { color: var(--accent); }
+  .job-meta { font-size: 6.9pt; color: var(--muted); white-space: nowrap; }
+  .job-sub { font-size: 6.9pt; color: var(--muted); }
+  ul { margin-top: 1.5pt; padding-left: 9pt; }
+  li { margin-top: 0.6pt; padding-left: 1pt; }
+  li::marker { color: var(--accent); font-size: 7pt; }
+  li strong { color: var(--ink); }
+
+  /* Skills */
+  .skills { margin-top: 4pt; display: grid; grid-template-columns: 38mm 1fr; row-gap: 1.2pt; column-gap: 6pt; }
+  .skills dt { font-weight: 700; color: var(--ink); }
+
+  /* Education + Certifications */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; column-gap: 7mm; }
+  .edu-item, .cert-item { margin-top: 4pt; }
+  .edu-item strong, .cert-item strong { color: var(--ink); }
+  .years { font-size: 7pt; color: var(--muted); }
+  .cert-item { margin-top: 2pt; }
+  .cert-list { margin-top: 2pt; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Sarif Mubdi <span>Jantika</span></h1>
+    <div class="headline">Senior Data Analyst | Analytics Engineering · Data Modeling · Governance</div>
+    <div class="tagline mono">&gt; Building clean, reliable data infrastructure and growing a healthy data culture and environment</div>
+    <div class="contact">
+      <span><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Bandung, West Java, Indonesia</span>
+      <span class="sep">|</span>
+      <span><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a href="mailto:sarif.mj@gmail.com">sarif.mj@gmail.com</a></span>
+      <span class="sep">|</span>
+      <span><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><a href="https://wa.me/6282218246688">+62 822 1824 6688</a></span>
+      <span class="sep">|</span>
+      <span><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg><a href="https://linkedin.com/in/sarifmj">linkedin.com/in/sarifmj</a></span>
+      <span class="sep">|</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><a href="https://www.sarifmj.my.id/">sarifmj.my.id</a></span>
+    </div>
+  </header>
+
+  <section class="summary">
+    <h2><span class="num mono">01.</span>Summary</h2>
+    <p>I bring 12+ years of accounting and finance experience into analytics engineering, so the data models I build are audit-ready and speak the language of the business. As a Senior Data Analyst at Evermos I work with data engineers and cross-functional teams across the modern data stack (Snowflake, dbt, Airflow, SQL and Python).</p>
+    <p>My work spans dbt models and pipelines, a central warehouse and a trusted single source of truth (SSOT) for finance. I replace manual, error-prone processes with automation for journals, invoicing and audit data while setting the standards that make data reliable and teams faster. Beyond building the data, I turn analysis into clear recommendations at Evermos, from distributor and outlet tiering with forecasting to cash conversion cycle (CCC) analysis and targeted actions for top users in key segments. I also lead small data projects and have mentored 100+ aspiring analysts, an experience that shaped how I help people and teams grow.</p>
+    <div class="stats">
+      <div><div class="stat-num mono">7 → 3–4 days</div><div class="stat-label">Month-end closing (est.)</div></div>
+      <div><div class="stat-num mono">3–4 days → 1</div><div class="stat-label">Postpaid invoice cycle</div></div>
+      <div><div class="stat-num mono">4</div><div class="stat-label">Domains covered by BI</div></div>
+      <div><div class="stat-num mono">100+</div><div class="stat-label">Students mentored</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num mono">02.</span>Experience</h2>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Evermos <span class="role">| Senior Data Analyst</span></div>
+        <div class="job-meta mono">Bandung, Hybrid | Apr 2026 – Present</div>
+      </div>
+      <div class="job-sub mono">Promoted from Data Analyst, Oct 2023 – Mar 2026</div>
+      <ul>
+        <li><strong>Data warehouse &amp; modeling:</strong> led migration of Finops data into the central data warehouse and built dbt models for the shipping, Ads Service, product sourcing and non-apps ledgers, used for both external audit and Finops.</li>
+        <li><strong>Governance &amp; data quality:</strong> authored the Enterprise Bus Matrix proposal for the General Trade stream, with data-improvement opportunities; maintain Google Sheet conventions via Apps Script for manual stakeholder data sources, keeping ingestion stable with minimal errors.</li>
+        <li><strong>Closing automation:</strong> built a multi-stream journal automation that transforms salesbook data into submit-ready draft ledgers, estimated to cut month-end closing from 7 days to 3–4 days.</li>
+        <li><strong>Process automation:</strong> replaced the manual postpaid shipping-invoice process with an automation script, cutting each cycle from 3–4 days to 1 day, run by a single Finance PIC.</li>
+        <li><strong>Finance SSOT:</strong> built the trusted single source of truth for finance operations, unifying the reporting used by top management.</li>
+        <li><strong>BI delivery:</strong> delivered dashboards, analytics and reports for stakeholders and top management across Finance, General Trade, Ads Service and Shipping, covering account receivable tracking, outlet tiering, sell-in/sell-out, cash conversion cycle, margin tiering and winning products.</li>
+        <li><strong>AI enablement:</strong> enabled stakeholders from various departments to implement AI in their daily workflow; most recently presented at a company-wide AI Academy on context engineering.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">RevoU <span class="role">| Data Analytics Mentor &amp; Team Lead</span></div>
+        <div class="job-meta mono">Remote, Part-time | Aug 2022 – Feb 2025</div>
+      </div>
+      <ul>
+        <li><strong>Team Lead, Full Stack Data Analytics Program</strong> (Aug 2022 – Feb 2025): guided cohorts of 12–20 students through simulations and 1-on-1 coaching on data cleaning, analysis and visualization; reviewed capstone projects and gave actionable feedback.</li>
+        <li><strong>Vertical Mentor, RevoU x AWS Kampus Merdeka (CendekiAwan)</strong> (Jan – Jun 2024) and <strong>Data Analytics Mentor, RevoU x Kampus Merdeka</strong> (Aug – Dec 2023): mentored students on cloud-based analytics solutions with AWS.</li>
+        <li><strong>Data Analyst Associate, Virtual Labs</strong> (Sep – Dec 2022): feature prioritization, customer segmentation, churn analysis and KPI monitoring for a stealth startup.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">PT Murakabi Talenta Cala <span class="role">| Accounting Supervisor</span></div>
+        <div class="job-meta mono">Remote, Part-time | Mar 2018 – Present</div>
+      </div>
+      <ul>
+        <li>Supervise financial reporting, tax compliance and payroll; advise the Director on financial strategy and build operational dashboards for leadership decisions.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Koperasi Pegawai Indosat <span class="role">| Senior Accountant</span></div>
+        <div class="job-meta mono">Bandung, On-site | Jan 2012 – Feb 2022</div>
+      </div>
+      <ul>
+        <li>Managed financial reporting and reconciliation for the West Java region and advised regional leaders.</li>
+        <li>Led migration of financial data from a local database to open-source ERP (Odoo), resolving complex accounting discrepancies.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Satgas Covid-19 Nasional <span class="role">| Data Administrator</span></div>
+        <div class="job-meta mono">Jakarta, Contract | Oct 2020 – Mar 2021</div>
+      </div>
+      <ul>
+        <li>Cleaned the user database of the BLC (Bersatu Lawan Covid) application; produced budget-realization reports, SOPs and flowcharts; supervised the field team.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num mono">03.</span>Skills</h2>
+    <dl class="skills">
+      <dt>Data Eng. &amp; Modeling</dt><dd>Python, SQL, dbt, Apache Airflow, Snowflake, Docker, GitHub, AWS, PostgreSQL, MySQL, BigQuery, Dimensional Modeling (Bus Matrix)</dd>
+      <dt>BI &amp; Automation</dt><dd>Metabase, Looker, Tableau, Excel, Power Query/Pivot, AppScript, n8n</dd>
+      <dt>Leadership &amp; Governance</dt><dd>Data Governance, Stakeholder Management, Prioritization &amp; Roadmapping, Mentoring, Project Leadership</dd>
+      <dt>Finance &amp; Accounting</dt><dd>Financial Reporting, Closing &amp; Journals, Audit Readiness, Tax, Budgeting &amp; Forecasting, ERP Migration (Odoo)</dd>
+      <dt>AI Tools</dt><dd>ChatGPT, Claude, Gemini, NotebookLM</dd>
+    </dl>
+  </section>
+
+  <div class="two-col">
+    <section>
+      <h2><span class="num mono">04.</span>Education</h2>
+      <div class="edu-item">
+        <strong>Institut Teknologi Bandung</strong><br />
+        Master's, Industrial Engineering &amp; Management (Enterprise Systems) <span class="years mono">(2013–2017)</span>
+      </div>
+      <div class="edu-item">
+        <strong>Universitas Padjadjaran</strong><br />
+        Bachelor's, Accounting <span class="years mono">(2004–2009)</span>
+      </div>
+    </section>
+    <section>
+      <h2><span class="num mono">05.</span>Certifications</h2>
+      <div class="cert-list">
+        <div class="cert-item"><strong>SnowPro Associate</strong>: Platform Certification, Snowflake (2025)</div>
+        <div class="cert-item"><strong>Full Stack Data Analyst</strong>: RevoU (2022)</div>
+        <div class="cert-item"><strong>Fundamental SQL</strong>: DQLab (2022)</div>
+        <div class="cert-item"><strong>Brevet Pajak A &amp; B</strong>: Tax Center Universitas Padjadjaran (2009)</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
