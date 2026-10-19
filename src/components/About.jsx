@@ -87,7 +87,7 @@ export default function About({ config }) {
                   {...(stat.evidence && {
                     role: 'button',
                     tabIndex: 0,
-                    'aria-label': `${stat.label}: view supporting experience`,
+                    'aria-label': `${stat.label}: view related experience`,
                     onClick: () => showEvidence(stat.evidence),
                     onKeyDown: (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), showEvidence(stat.evidence)),
                   })}
@@ -112,7 +112,7 @@ export default function About({ config }) {
                     </div>
                   )}
                   {stat.evidence && (
-                    <div className="stat-proof">View proof →</div>
+                    <div className="stat-proof">View reference →</div>
                   )}
                 </div>
               ))}
