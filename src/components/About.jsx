@@ -177,30 +177,33 @@ export default function About({ config }) {
           }
         }
         .about-pillars {
-          border-top: 1px solid var(--border);
-          padding-top: 0.25rem;
+          margin-top: 0.25rem;
         }
         .about-pillar {
-          display: grid;
-          grid-template-columns: 5.25rem 1fr;
-          gap: 0.75rem;
-          padding: 0.7rem 0;
-          border-bottom: 1px solid var(--border);
+          padding: 0.35rem 0 0.4rem;
         }
-        .about-pillar:last-child {
-          border-bottom: none;
-          padding-bottom: 0;
-        }
+        /* Label sits in the middle of a thin divider: ──── MODEL ──── */
         .about-pillar-label {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-bottom: 0.35rem;
           font-family: var(--font-mono);
           font-size: 0.72rem;
           font-weight: 700;
           letter-spacing: 0.06em;
           text-transform: uppercase;
           color: var(--accent);
-          padding-top: 0.15rem;
+        }
+        .about-pillar-label::before,
+        .about-pillar-label::after {
+          content: '';
+          flex: 1;
+          height: 1px;
+          background: var(--border);
         }
         .about-pillar-text {
+          display: block;
           font-size: 0.88rem;
           line-height: 1.55;
           color: var(--text-secondary);
