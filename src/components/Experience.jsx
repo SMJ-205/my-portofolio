@@ -170,7 +170,7 @@ function MobileCompanyCard({ company, onOpen }) {
   return (
     <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
-        <h4 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.3 }}>
+        <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.3 }}>
           {latest.title}
         </h4>
         {extraRoles > 0 && (
@@ -207,7 +207,7 @@ function MobileCompanyCard({ company, onOpen }) {
 function MobileEarlierCareerCard({ companies, onOpen }) {
   return (
     <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
-      <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-sans)' }}>
+      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-sans)' }}>
         Earlier career
       </h3>
       {companies.map(company => {
