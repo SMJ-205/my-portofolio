@@ -902,7 +902,7 @@ export default function Projects({ config, theme }) {
                         </div>
 
                         <h3 style={{
-                          fontSize: '1.2rem',
+                          fontSize: isDesktop ? '1.2rem' : '1.1rem',
                           fontWeight: 700,
                           color: 'var(--text-primary)',
                           marginBottom: '0.75rem',
