@@ -221,7 +221,6 @@ export default function About({ config }) {
           font-size: 0.7rem;
           font-family: var(--font-mono);
           color: var(--accent);
-          opacity: 0.85;
         }
         .stat-context {
           font-size: 0.75rem;

@@ -21,7 +21,6 @@ export default function Footer({ config }) {
         fontFamily: 'var(--font-mono)',
         fontSize: '0.68rem',
         color: 'var(--text-muted)',
-        opacity: 0.5,
         marginTop: '0.3rem',
       }}>
         Built with React, Framer Motion and Morning Coffee

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiMail, FiDownload } from 'react-icons/fi'
 
 const BASE = import.meta.env.BASE_URL
@@ -9,6 +9,11 @@ const MOBILE_PHOTO = Object.keys(import.meta.glob('/public/assets/m/profile.webp
 
 export default function Hero({ config }) {
   const { profile } = config
+  const prefersReducedMotion = useReducedMotion()
+  // Opacity loops are not covered by MotionConfig, so stop them explicitly
+  const blink = prefersReducedMotion
+    ? { animate: { opacity: 1 } }
+    : { animate: { opacity: [1, 0] }, transition: { duration: 0.8, repeat: Infinity, repeatType: 'reverse' } }
 
   const containerVariants = {
     hidden: {},
@@ -101,8 +106,7 @@ export default function Hero({ config }) {
               <span style={{ color: 'var(--accent)' }}>{'>'}</span>
               {profile.tagline}
               <motion.span
-                animate={{ opacity: [1, 0] }}
-                transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+                {...blink}
                 style={{ color: 'var(--accent)', fontWeight: 700 }}
               >
                 _
@@ -325,8 +329,7 @@ export default function Hero({ config }) {
             <span style={{ color: 'var(--accent)' }}>{'>'}</span>
             {profile.mobileTagline || profile.tagline}
             <motion.span
-              animate={{ opacity: [1, 0] }}
-              transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
+              {...blink}
               style={{ color: 'var(--accent)', fontWeight: 700 }}
             >
               _

@@ -113,7 +113,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
                   backgroundColor: 'var(--accent-glow)',
                 }}
               >
-                <span style={{ color: 'var(--accent)', opacity: 0.5, marginRight: '2px' }}>
+                <span style={{ color: 'var(--accent-muted)', marginRight: '2px' }}>
                   {String(i + 1).padStart(2, '0')}.
                 </span>
                 {nav.label}
@@ -276,7 +276,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
                   fontWeight: activeSection === nav.id ? 700 : 400,
                 }}
               >
-                <span style={{ color: 'var(--accent)', opacity: 0.5, marginRight: '6px', fontSize: '1rem' }}>
+                <span style={{ color: 'var(--accent-muted)', marginRight: '6px', fontSize: '1rem' }}>
                   {String(i + 1).padStart(2, '0')}.
                 </span>
                 {nav.label}

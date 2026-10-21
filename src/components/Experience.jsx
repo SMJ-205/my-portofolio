@@ -161,6 +161,21 @@ function companySpan(roles) {
 
 const uniqueSkills = (roles) => [...new Set(roles.flatMap(r => r.skills))]
 
+// Makes a clickable card reachable and operable from the keyboard
+const cardButtonProps = (label, onOpen) => ({
+  role: 'button',
+  tabIndex: 0,
+  'aria-label': label,
+  'aria-haspopup': 'dialog',
+  onClick: onOpen,
+  onKeyDown: (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      onOpen()
+    }
+  },
+})
+
 function MobileCompanyCard({ company, onOpen }) {
   const latest = company.roles[0]
   const { start, end } = companySpan(company.roles)
@@ -168,7 +183,7 @@ function MobileCompanyCard({ company, onOpen }) {
   const extraRoles = company.roles.length - 1
 
   return (
-    <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
+    <motion.div className="glass-card" {...cardButtonProps(`${latest.title} at ${company.company}: view details`, onOpen)} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
         <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.3 }}>
           {latest.title}
@@ -206,7 +221,7 @@ function MobileCompanyCard({ company, onOpen }) {
 
 function MobileEarlierCareerCard({ companies, onOpen }) {
   return (
-    <motion.div className="glass-card" onClick={onOpen} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
+    <motion.div className="glass-card" {...cardButtonProps('Earlier career: view details', onOpen)} whileTap={{ scale: 0.98 }} style={{ cursor: 'pointer', padding: '1.1rem 1.15rem' }}>
       <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.75rem', fontFamily: 'var(--font-sans)' }}>
         Earlier career
       </h3>
@@ -231,6 +246,13 @@ function MobileEarlierCareerCard({ companies, onOpen }) {
 }
 
 function ExperiencePopup({ companies, onClose }) {
+  // Escape closes the popup like the close button does
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && onClose()
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
+
   // Mirrors the mobile project modal: centered card with a 1rem gutter
   return (
     <motion.div
@@ -257,6 +279,9 @@ function ExperiencePopup({ companies, onClose }) {
         exit={{ opacity: 0, scale: 0.96, y: 12 }}
         transition={{ duration: 0.25, ease: 'easeOut' }}
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={companies.map(c => c.company).join(', ')}
         style={{
           width: '100%',
           maxHeight: '90vh',
@@ -275,6 +300,7 @@ function ExperiencePopup({ companies, onClose }) {
           className="project-modal-close-btn absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer z-50 text-base"
           aria-label="Close experience details"
           title="Close"
+          autoFocus
         >
           <FiX />
         </button>

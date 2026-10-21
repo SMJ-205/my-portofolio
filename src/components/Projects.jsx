@@ -543,6 +543,15 @@ export default function Projects({ config, theme }) {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  // Escape closes the project modal
+  useEffect(() => {
+    if (!selectedProject) return
+    const onKey = (e) => e.key === 'Escape' && closeProject()
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedProject])
+
   // Freeze background scrolling when modal is open
   useEffect(() => {
     if (selectedProject) {
@@ -880,7 +889,18 @@ export default function Projects({ config, theme }) {
                     <ScrollReveal delay={isDesktop ? (idx % 2) * 0.1 : 0} viewport={{ once: false, amount: 0 }} style={{ height: '100%' }}>
                       <motion.div
                         className="glass-card"
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Open project details: ${project.title}`}
                         onClick={() => openProjectFromCard(project)}
+                        onKeyDown={(e) => {
+                          // Ignore keys from nested links (GitHub, live demo)
+                          if (e.target !== e.currentTarget) return
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            openProjectFromCard(project)
+                          }
+                        }}
                         style={{
                           display: 'flex',
                           flexDirection: 'column',
@@ -894,8 +914,7 @@ export default function Projects({ config, theme }) {
                         <div style={{
                           fontFamily: 'var(--font-mono)',
                           fontSize: '0.75rem',
-                          color: 'var(--accent)',
-                          opacity: 0.5,
+                          color: 'var(--accent-muted)',
                           marginBottom: '0.5rem',
                         }}>
                           {'// project-'}{String(idx + 1).padStart(2, '0')}
@@ -1072,7 +1091,6 @@ export default function Projects({ config, theme }) {
               fontFamily: 'var(--font-mono)',
               fontSize: '0.8rem',
               color: 'var(--text-muted)',
-              opacity: 0.5,
             }}>
               {'// More projects coming soon...'}
             </p>
@@ -1102,6 +1120,9 @@ export default function Projects({ config, theme }) {
           >
             <motion.div
               onClick={(e) => e.stopPropagation()} // Stop bubbling so click doesn't close modal
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedProject.title}
               style={{
                 background: isDesktop ? 'var(--bg-secondary)' : 'var(--bg-primary)',
                 border: '1px solid var(--border)',
@@ -1123,6 +1144,7 @@ export default function Projects({ config, theme }) {
                 className="project-modal-close-btn absolute top-3 right-3 md:top-6 md:right-6 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center cursor-pointer z-50 text-base md:text-xl"
                 aria-label="Close project modal"
                 title="Close"
+                autoFocus
                 whileHover={{
                   scale: 1.15,
                   rotate: 90,

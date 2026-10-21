@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { MotionConfig } from 'framer-motion'
 import config from './config/portfolio.json'
 import MatrixBackground from './components/MatrixBackground'
 import Navbar from './components/Navbar'
@@ -23,7 +24,9 @@ function App() {
   const [matrixEnabled, setMatrixEnabled] = useState(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('matrixEnabled')
-      return saved !== null ? saved === 'true' : true
+      if (saved !== null) return saved === 'true'
+      // Matrix rain is continuous motion: off by default for reduced-motion visitors
+      return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     }
     return true
   })
@@ -46,7 +49,8 @@ function App() {
   }
 
   return (
-    <>
+    // reducedMotion="user" makes Framer Motion drop transform animations for visitors who ask for less motion
+    <MotionConfig reducedMotion="user">
       <MatrixBackground theme={theme} enabled={matrixEnabled} />
       <ScrollProgress />
       <Navbar
@@ -66,7 +70,7 @@ function App() {
         <Contact config={config} />
       </main>
       <Footer config={config} />
-    </>
+    </MotionConfig>
   )
 }
 
