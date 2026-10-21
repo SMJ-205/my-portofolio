@@ -589,3 +589,13 @@ a:hover {
   outline-offset: 2px;
   border-radius: 16px;
 }
+
+/* Shared size for project titles, experience roles and university names */
+.card-title {
+  font-size: 1.1rem;
+}
+@media (min-width: 768px) {
+  .card-title {
+    font-size: 18.2px;
+  }
+}

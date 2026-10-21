@@ -58,8 +58,7 @@ export default function Education({ config }) {
 
                 <div className="edu-body" style={{ flex: 1 }}>
                   <div className="edu-header">
-                  <h3 style={{
-                    fontSize: '1.1rem',
+                  <h3 className="card-title" style={{
                     fontWeight: 700,
                     color: 'var(--text-primary)',
                     marginBottom: '0.25rem',

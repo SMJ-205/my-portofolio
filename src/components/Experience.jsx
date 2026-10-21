@@ -52,8 +52,7 @@ function RoleCard({ role, roleIdx, totalRoles }) {
       }}
     >
       {/* Role title + type */}
-      <h4 style={{
-        fontSize: '1.1rem',
+      <h4 className="card-title" style={{
         fontWeight: 700,
         color: 'var(--text-primary)',
         marginBottom: '0.4rem',
