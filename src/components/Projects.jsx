@@ -920,8 +920,7 @@ export default function Projects({ config, theme }) {
                           {'// project-'}{String(idx + 1).padStart(2, '0')}
                         </div>
 
-                        <h3 style={{
-                          fontSize: '1.1rem',
+                        <h3 className="card-title" style={{
                           fontWeight: 700,
                           color: 'var(--text-primary)',
                           marginBottom: '0.75rem',
