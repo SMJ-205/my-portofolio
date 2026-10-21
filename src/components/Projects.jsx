@@ -65,11 +65,15 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
   }, [images])
 
   return (
-    <div className={
-      (isMobileFullBlock || isDesktopHero)
-        ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden bg-black"
-        : "flex relative w-full h-[260px] md:h-[480px] justify-center overflow-hidden bg-black"
-    }>
+    <div
+      className={
+        (isMobileFullBlock || isDesktopHero)
+          ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden"
+          : "flex relative w-full h-[260px] md:h-[480px] justify-center overflow-hidden"
+      }
+      // Paper behind the crossfade in light mode, so slide changes never flash black
+      style={{ background: theme === 'light' ? 'var(--bg-secondary)' : '#000' }}
+    >
       <AnimatePresence>
         <motion.img
           key={images[currentIndex]}
@@ -92,7 +96,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
           inset: 0,
           // Lighter at the top so the screenshot shows, darker lower where body text sits
           background: theme === 'light'
-            ? 'linear-gradient(to bottom, rgba(241, 245, 249, 0.55) 0%, rgba(241, 245, 249, 0.78) 40%, rgba(241, 245, 249, 0.9) 65%, rgba(241, 245, 249, 0.92) 100%)'
+            ? 'linear-gradient(to bottom, rgba(239, 234, 224, 0.55) 0%, rgba(239, 234, 224, 0.78) 40%, rgba(239, 234, 224, 0.9) 65%, rgba(239, 234, 224, 0.92) 100%)'
             : 'linear-gradient(to bottom, rgba(10, 14, 20, 0.5) 0%, rgba(10, 14, 20, 0.75) 40%, rgba(10, 14, 20, 0.88) 65%, rgba(10, 14, 20, 0.9) 100%)',
           zIndex: 1
         }} />
@@ -101,7 +105,8 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
           position: 'absolute',
           inset: 0,
           background: theme === 'light'
-            ? 'linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.02) 36%, rgba(255, 255, 255, 0.28) 56%, rgba(255, 255, 255, 0.65) 75%, rgba(255, 255, 255, 0.90) 89%, rgba(255, 255, 255, 0.98) 96%, var(--bg-secondary) 100%)'
+            // Light: reach a solid paper surface before the title block so it never sits on the screenshot
+            ? 'linear-gradient(to bottom, rgba(247, 244, 236, 0) 0%, rgba(247, 244, 236, 0.05) 26%, rgba(247, 244, 236, 0.45) 40%, rgba(247, 244, 236, 0.85) 50%, var(--bg-secondary) 56%, var(--bg-secondary) 100%)'
             : 'linear-gradient(to bottom, rgba(17, 25, 39, 0) 0%, rgba(17, 25, 39, 0.02) 36%, rgba(17, 25, 39, 0.28) 56%, rgba(17, 25, 39, 0.65) 75%, rgba(17, 25, 39, 0.90) 89%, rgba(17, 25, 39, 0.98) 96%, var(--bg-secondary) 100%)',
           zIndex: 1
         }} />
@@ -123,7 +128,7 @@ const TagButton = ({ tag, activeTag, setActiveTag, compact = false }) => (
       border: '1px solid',
       borderColor: activeTag === tag ? 'var(--accent)' : 'var(--border)',
       background: activeTag === tag ? 'var(--accent-glow)' : 'transparent',
-      color: activeTag === tag ? 'var(--accent)' : 'var(--text-muted)',
+      color: activeTag === tag ? 'var(--accent-on-glow)' : 'var(--text-muted)',
       fontSize: '0.75rem',
       fontFamily: 'var(--font-mono)',
       cursor: 'pointer',
@@ -726,11 +731,12 @@ export default function Projects({ config, theme }) {
             fontSize: isDesktop ? '1.85rem' : '1.4rem',
             fontWeight: 800,
             color: 'var(--text-primary)',
-            WebkitTextStroke: '1px var(--accent)',
+            // Light mode sits on a solid scrim, so it needs no outline or halo; dark keeps its treatment
+            WebkitTextStroke: theme === 'light' ? undefined : '1px var(--accent)',
             paintOrder: 'stroke fill',
             marginBottom: '0.45rem',
             lineHeight: 1.2,
-            textShadow: theme === 'light' ? '0 1px 3px rgba(255, 255, 255, 0.9)' : '0 2px 10px rgba(0, 0, 0, 0.85)'
+            textShadow: theme === 'light' ? 'none' : '0 2px 10px rgba(0, 0, 0, 0.85)'
           }}>
             {selectedProject.title}
           </h2>
@@ -743,7 +749,7 @@ export default function Projects({ config, theme }) {
                   fontSize: isDesktop ? '0.72rem' : '0.65rem',
                   padding: isDesktop ? '0.2rem 0.65rem' : '0.2rem 0.6rem',
                   backdropFilter: 'blur(6px)',
-                  background: theme === 'light' ? 'rgba(255, 255, 255, 0.8)' : 'rgba(17, 25, 39, 0.75)'
+                  background: theme === 'light' ? 'rgba(247, 244, 236, 0.8)' : 'rgba(17, 25, 39, 0.75)'
                 }}
               >
                 {tag}
@@ -762,7 +768,7 @@ export default function Projects({ config, theme }) {
                 border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
                 borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
                 fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
-                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                background: theme === 'light' ? 'rgba(247, 244, 236, 0.85)' : 'rgba(17, 25, 39, 0.8)',
                 backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
               }}
               whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -778,7 +784,7 @@ export default function Projects({ config, theme }) {
                 border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
                 borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
                 fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
-                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                background: theme === 'light' ? 'rgba(247, 244, 236, 0.85)' : 'rgba(17, 25, 39, 0.8)',
                 backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
               }}
               whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -794,7 +800,7 @@ export default function Projects({ config, theme }) {
                 border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
                 borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
                 fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
-                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                background: theme === 'light' ? 'rgba(247, 244, 236, 0.85)' : 'rgba(17, 25, 39, 0.8)',
                 backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
               }}
               whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -810,7 +816,7 @@ export default function Projects({ config, theme }) {
                 border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
                 borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
                 fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
-                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                background: theme === 'light' ? 'rgba(247, 244, 236, 0.85)' : 'rgba(17, 25, 39, 0.8)',
                 backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
               }}
               whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -826,7 +832,7 @@ export default function Projects({ config, theme }) {
                 border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
                 borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
                 fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
-                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                background: theme === 'light' ? 'rgba(247, 244, 236, 0.85)' : 'rgba(17, 25, 39, 0.8)',
                 backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
               }}
               whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}
@@ -842,7 +848,7 @@ export default function Projects({ config, theme }) {
                 border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
                 borderRadius: '8px', color: 'var(--accent)', fontFamily: 'var(--font-mono)',
                 fontSize: isDesktop ? '0.82rem' : '0.75rem', textDecoration: 'none',
-                background: theme === 'light' ? 'rgba(255, 255, 255, 0.85)' : 'rgba(17, 25, 39, 0.8)',
+                background: theme === 'light' ? 'rgba(247, 244, 236, 0.85)' : 'rgba(17, 25, 39, 0.8)',
                 backdropFilter: 'blur(8px)', boxShadow: '0 2px 8px rgba(0,0,0,0.25)', marginRight: '0.15rem'
               }}
               whileHover={{ background: 'var(--accent)', color: 'var(--bg-primary)' }}

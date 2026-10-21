@@ -491,7 +491,7 @@ export default function Hero({ config }) {
                 height="36" 
                 rx="4" 
                 ry="4" 
-                stroke="#2dd4bf" 
+                stroke="var(--accent)" 
                 strokeWidth="2" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
@@ -499,7 +499,7 @@ export default function Hero({ config }) {
               />
 
               {/* Central Scroll Indicators (Up, Dash, Down) */}
-              <g stroke="#2dd4bf" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" filter="url(#cyan-glow)" className="indicator-arrows">
+              <g stroke="var(--accent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" filter="url(#cyan-glow)" className="indicator-arrows">
                 <path d="M 14 22 L 20 16 L 26 22" className="arrow-up" />
                 <path d="M 20 25 V 31" className="center-dash" />
                 <path d="M 14 34 L 20 40 L 26 34" className="arrow-down" />
@@ -684,6 +684,13 @@ export default function Hero({ config }) {
           border: 3px solid rgba(45, 212, 191, 0.25);
           mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
           -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
+        }
+
+        [data-theme="light"] .neon-scroll-icon {
+          filter: drop-shadow(0 0 4px rgba(15, 110, 102, 0.25));
+        }
+        [data-theme="light"] .neon-scroll-icon:hover {
+          filter: drop-shadow(0 0 8px rgba(15, 110, 102, 0.4));
         }
 
         [data-theme="light"] .orbit-path::before {
