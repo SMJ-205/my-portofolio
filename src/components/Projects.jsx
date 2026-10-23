@@ -81,7 +81,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
           src={isMobileFullBlock ? toMobileImage(images[currentIndex]) : images[currentIndex]}
           alt={`${title} - slide ${currentIndex + 1}`}
           initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: isDesktopBackdrop ? 0.45 : isMobileFullBlock ? 0.7 : 0.9, scale: 1.05 }}
+          animate={{ opacity: isDesktopBackdrop ? 0.55 : isMobileFullBlock ? 0.7 : 0.9, scale: 1.05 }}
           exit={{ opacity: 0 }}
           transition={{
             opacity: { duration: 1.5, ease: 'easeInOut' },
@@ -95,8 +95,9 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
         <div style={{
           position: 'absolute',
           inset: 0,
-          // Thin veil: the screenshot reads as texture behind the title, then fades under body text
-          background: 'linear-gradient(to bottom, rgba(247, 244, 236, 0.8) 0%, rgba(247, 244, 236, 0.86) 35%, rgba(247, 244, 236, 0.9) 60%, rgba(247, 244, 236, 0.92) 100%)',
+          // Stepped veil: screenshot shows most in the empty space above the title (~25%), then
+          // thins to <=9% under body text so small text keeps >=4.5:1 even over dark screenshots
+          background: 'linear-gradient(to bottom, rgba(247, 244, 236, 0.55) 0%, rgba(247, 244, 236, 0.72) 25%, rgba(247, 244, 236, 0.84) 40%, rgba(247, 244, 236, 0.9) 100%)',
           zIndex: 1
         }} />
       ) : isMobileFullBlock ? (
