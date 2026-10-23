@@ -21,7 +21,8 @@ const toMobileImage = (url) => {
   return mobileImageKeys.has(`/public/assets/m/projects/${name}`) ? `${BASE}assets/m/projects/${name}` : url
 }
 
-const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isDesktopHero = false, theme }) => {
+// isDesktopBackdrop: desktop light mode, the slideshow sits faintly behind the whole modal like on mobile
+const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isDesktopHero = false, isDesktopBackdrop = false, theme }) => {
   const images = useMemo(() => {
     if (!baseImagePath) return [`${BASE}${baseImagePath}`]
     // Clean string dynamically: "demand-planning.jpg" -> "demandplanning"
@@ -67,7 +68,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
   return (
     <div
       className={
-        (isMobileFullBlock || isDesktopHero)
+        (isMobileFullBlock || isDesktopHero || isDesktopBackdrop)
           ? "flex absolute inset-0 w-full h-full justify-center overflow-hidden"
           : "flex relative w-full h-[260px] md:h-[480px] justify-center overflow-hidden"
       }
@@ -80,7 +81,7 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
           src={isMobileFullBlock ? toMobileImage(images[currentIndex]) : images[currentIndex]}
           alt={`${title} - slide ${currentIndex + 1}`}
           initial={{ opacity: 0, scale: 1 }}
-          animate={{ opacity: isMobileFullBlock ? 0.7 : 0.9, scale: 1.05 }}
+          animate={{ opacity: isDesktopBackdrop ? 0.45 : isMobileFullBlock ? 0.7 : 0.9, scale: 1.05 }}
           exit={{ opacity: 0 }}
           transition={{
             opacity: { duration: 1.5, ease: 'easeInOut' },
@@ -90,7 +91,15 @@ const ProjectSlideshow = ({ baseImagePath, title, isMobileFullBlock = false, isD
         />
       </AnimatePresence>
       {/* Dark Gradient Overlay Fade */}
-      {isMobileFullBlock ? (
+      {isDesktopBackdrop ? (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          // Thin veil: the screenshot reads as texture behind the title, then fades under body text
+          background: 'linear-gradient(to bottom, rgba(247, 244, 236, 0.8) 0%, rgba(247, 244, 236, 0.86) 35%, rgba(247, 244, 236, 0.9) 60%, rgba(247, 244, 236, 0.92) 100%)',
+          zIndex: 1
+        }} />
+      ) : isMobileFullBlock ? (
         <div style={{
           position: 'absolute',
           inset: 0,
@@ -1172,6 +1181,11 @@ export default function Projects({ config, theme }) {
                 <ProjectSlideshow theme={theme} baseImagePath={selectedProject.image} title={selectedProject.title} isMobileFullBlock={true} />
               )}
 
+              {/* Desktop light mode: same full-block backdrop, fainter */}
+              {isDesktop && theme === 'light' && selectedProject.image && (
+                <ProjectSlideshow theme={theme} baseImagePath={selectedProject.image} title={selectedProject.title} isDesktopBackdrop={true} />
+              )}
+
               {/* Inner Scrolling Container */}
               <div style={{
                 flex: 1,
@@ -1182,7 +1196,7 @@ export default function Projects({ config, theme }) {
                 flexDirection: 'column'
               }}>
                 {/* Desktop Hero Section: Slideshow background extends down behind Header Row */}
-                {isDesktop && selectedProject.image ? (
+                {isDesktop && selectedProject.image && theme !== 'light' ? (
                   <div
                     className="relative w-full overflow-hidden flex flex-col justify-end"
                     style={{
@@ -1214,16 +1228,16 @@ export default function Projects({ config, theme }) {
                   className="relative z-10"
                   style={{
                     flex: '0 0 auto',
-                    background: isDesktop ? 'var(--bg-secondary)' : 'transparent',
+                    background: isDesktop && theme !== 'light' ? 'var(--bg-secondary)' : 'transparent',
                     borderRadius: '0 0 16px 16px',
-                    paddingTop: (isDesktop && selectedProject.image) ? '0.2rem' : (isDesktop ? '1.5rem' : '4rem'),
+                    paddingTop: (isDesktop && selectedProject.image && theme !== 'light') ? '0.2rem' : (isDesktop ? (theme === 'light' && selectedProject.image ? '3rem' : '1.5rem') : '4rem'),
                     paddingBottom: isDesktop ? (selectedProject.githubRepo ? '1.25rem' : '2.5rem') : 'clamp(2.5rem, 5vw, 4rem)',
                     paddingLeft: 'clamp(1.5rem, 4vw, 3rem)',
                     paddingRight: 'clamp(1.5rem, 4vw, 3rem)'
                   }}
                 >
                   {/* If no desktop hero image or on mobile, render header row here */}
-                  {(!isDesktop || !selectedProject.image) && renderHeaderRow()}
+                  {(!isDesktop || !selectedProject.image || theme === 'light') && renderHeaderRow()}
 
                   {/* Impact */}
                   {selectedProject.impact && (
