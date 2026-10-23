@@ -1228,6 +1228,8 @@ export default function Projects({ config, theme }) {
                   className="relative z-10"
                   style={{
                     flex: '0 0 auto',
+                    // Desktop light backdrop has no hero to fill the height: anchor content to the bottom instead
+                    marginTop: isDesktop && theme === 'light' && selectedProject.image ? 'auto' : undefined,
                     background: isDesktop && theme !== 'light' ? 'var(--bg-secondary)' : 'transparent',
                     borderRadius: '0 0 16px 16px',
                     paddingTop: (isDesktop && selectedProject.image && theme !== 'light') ? '0.2rem' : (isDesktop ? (theme === 'light' && selectedProject.image ? '3rem' : '1.5rem') : '4rem'),
