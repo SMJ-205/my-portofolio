@@ -686,11 +686,48 @@ export default function Hero({ config }) {
           -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 95%);
         }
 
+        /* Light mode "ink" scroll cue: crisp strokes on a paper chip with a soft
+           offset shadow instead of the dark-mode neon blur and halo */
         [data-theme="light"] .neon-scroll-icon {
-          filter: drop-shadow(0 0 4px rgba(15, 110, 102, 0.25));
+          filter: drop-shadow(0 2px 3px rgba(60, 45, 20, 0.14));
         }
         [data-theme="light"] .neon-scroll-icon:hover {
-          filter: drop-shadow(0 0 8px rgba(15, 110, 102, 0.4));
+          filter: drop-shadow(0 4px 8px rgba(60, 45, 20, 0.18));
+        }
+        [data-theme="light"] .neon-scroll-icon rect,
+        [data-theme="light"] .neon-scroll-icon .indicator-arrows {
+          filter: none;
+        }
+        [data-theme="light"] .neon-scroll-icon rect {
+          fill: var(--bg-secondary);
+          stroke-width: 2;
+        }
+        [data-theme="light"] .neon-scroll-icon .indicator-arrows {
+          stroke-width: 2.2;
+        }
+        [data-theme="light"] .arrow-up,
+        [data-theme="light"] .center-dash {
+          animation-name: arrowInk;
+        }
+        [data-theme="light"] .arrow-down {
+          animation-name: arrowInkDown;
+          transform-box: fill-box;
+        }
+        @keyframes arrowInk {
+          0%, 100% { opacity: 0.45; }
+          50% { opacity: 1; }
+        }
+        @keyframes arrowInkDown {
+          0%, 100% { opacity: 0.45; transform: translateY(0); }
+          50% { opacity: 1; transform: translateY(3px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [data-theme="light"] .arrow-up,
+          [data-theme="light"] .center-dash,
+          [data-theme="light"] .arrow-down {
+            animation: none;
+            opacity: 1;
+          }
         }
 
         [data-theme="light"] .orbit-path::before {
