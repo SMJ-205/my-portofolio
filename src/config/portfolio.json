@@ -370,6 +370,27 @@
       "githubRepo": "SMJ-205/data-infra-template"
     },
     {
+      "title": "Cost Control Analysis & Inventory Forecasting",
+      "description": "A cost control and inventory forecasting analysis for a 3-outlet F&B business across 14 months (Aug 2025 to Sep 2026), built on the BigQuery marts of the F&B Data Platform. Compares actual vs recipe food cost (25.63% vs 25.42% of sales, well inside the 1–1.5 point industry tolerance), applies Kasavana-Smith menu engineering to show the best seller Kopi Susu Aren earns a below-average margin (+Rp 1,000 per portion is worth about Rp 7.4M per month) and backtests demand forecasts for class-A ingredients over 8 weeks. Holt-Winters with weekly seasonality, run in Python (statsmodels) on GitHub Actions, lowers forecast error from 18.8% to 14.2% MAPE.",
+      "impact": "Showed actual food cost stays within 0.21 points of recipe cost and cut ingredient forecast error from 19% to 14% with weekly-seasonal Holt-Winters.",
+      "tags": [
+        "BigQuery",
+        "SQL",
+        "Python",
+        "Forecasting",
+        "Cost Control",
+        "Menu Engineering",
+        "Data Analysis"
+      ],
+      "link": "https://github.com/SMJ-205/data-infra-template/tree/main/analysis/cost_inventory",
+      "linkLabel": "View Repository",
+      "deckLink": "https://docs.google.com/presentation/d/1FN4y_Ef5a5DmcZL8xc9BEMnYSX1oFnzZpPv4S-KnsoY/preview?slide=id.p1",
+      "image": "assets/projects/cost-inventory.webp",
+      "sneakPeekLabel": "Sneak Peek of Cost Control & Forecasting Deck",
+      "githubRepo": "SMJ-205/data-infra-template",
+      "githubPath": "analysis/cost_inventory"
+    },
+    {
       "title": "Tokped E-Commerce Pricing & Promo Analytics",
       "description": "An end-to-end e-commerce pricing and promotion intelligence engine analyzing 20,976 cleaned Tokopedia listings across 14 categories. Engineered with DuckDB, dbt Core and Python with a Medallion architecture (staging, intermediate, mart) and statistical hypothesis testing (H1–H6). Uncovers empirical discount saturation points (1–10% discount doubles high-velocity products while >20% erodes margins), models Official Store pricing power (+55.4% aggregate premium, 2.25x sales volume) and delivers an interactive Unit Economics & Margin Simulator web dashboard.",
       "impact": "Showed that 1–10% discounts double sales on high-velocity products while >20% erodes margin. Official Stores also carry a +55.4% price premium.",

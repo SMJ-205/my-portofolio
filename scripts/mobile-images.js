@@ -9,10 +9,10 @@ const OUT_DIR = 'public/assets/m';
 const JOBS = [
   { src: 'public/assets/profile.png', out: `${OUT_DIR}/profile.webp`, width: 480 },
   ...fs.readdirSync('public/assets/projects')
-    .filter(name => /\.(png|jpe?g)$/i.test(name) && !name.startsWith('exclude'))
+    .filter(name => /\.(png|jpe?g|webp)$/i.test(name) && !name.startsWith('exclude'))
     .map(name => ({
       src: `public/assets/projects/${name}`,
-      out: `${OUT_DIR}/projects/${name.replace(/\.(png|jpe?g)$/i, '.webp')}`,
+      out: `${OUT_DIR}/projects/${name.replace(/\.(png|jpe?g|webp)$/i, '.webp')}`,
       width: 800,
     })),
 ];

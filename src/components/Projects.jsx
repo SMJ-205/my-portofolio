@@ -12,12 +12,18 @@ const BASE = import.meta.env.BASE_URL
 const projectSlug = (title) =>
   title.toLowerCase().replace(/&/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
+// Optional githubPath scopes a project's explorer and Source Code link to one subfolder
+const repoRoot = (project) => project?.githubPath || ''
+const repoWebUrl = (project) => project.githubPath
+  ? `https://github.com/${project.githubRepo}/tree/main/${project.githubPath}`
+  : `https://github.com/${project.githubRepo}`
+
 const projectImageMapGlob = import.meta.glob('/public/assets/projects/*')
 const availableImageKeys = Object.keys(projectImageMapGlob)
 // Downscaled WebP copies (npm run images:mobile), used only by the mobile modal
 const mobileImageKeys = new Set(Object.keys(import.meta.glob('/public/assets/m/projects/*')))
 const toMobileImage = (url) => {
-  const name = url.split('/').pop().replace(/\.(png|jpe?g)$/i, '.webp')
+  const name = url.split('/').pop().replace(/\.(png|jpe?g|webp)$/i, '.webp')
   return mobileImageKeys.has(`/public/assets/m/projects/${name}`) ? `${BASE}assets/m/projects/${name}` : url
 }
 
@@ -634,7 +640,7 @@ export default function Projects({ config, theme }) {
   const openProject = async (project) => {
     setSelectedProject(project)
     if (project.githubRepo) {
-      setRepoPath('')
+      setRepoPath(repoRoot(project))
       setActiveFile(null)
       setRepoLoading(true)
       setRepoError(null)
@@ -649,7 +655,7 @@ export default function Projects({ config, theme }) {
         if (response.ok) {
           const data = await response.json()
           setCachedRepoData(data)
-          setRepoFiles(data.tree[''] || [])
+          setRepoFiles(data.tree[repoRoot(project)] || [])
           setRepoLoading(false)
           return
         }
@@ -658,7 +664,7 @@ export default function Projects({ config, theme }) {
       }
 
       // Fallback to Live GitHub API
-      fetchRepoContents(project.githubRepo, '')
+      fetchRepoContents(project.githubRepo, repoRoot(project))
     }
   }
 
@@ -717,6 +723,7 @@ export default function Projects({ config, theme }) {
   }
 
   const navigateUp = (githubRepo) => {
+    if (repoPath === repoRoot(selectedProject)) return
     const parts = repoPath.split('/')
     parts.pop()
     const newPath = parts.join('/')
@@ -770,7 +777,7 @@ export default function Projects({ config, theme }) {
 
         {/* External Action Links */}
         <div style={{ display: 'flex', gap: '0.55rem', flexWrap: 'wrap', marginTop: '0.1rem' }}>
-          {selectedProject.link && (selectedProject.link !== `https://github.com/${selectedProject.githubRepo}`) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
+          {selectedProject.link && (!selectedProject.githubRepo || selectedProject.link !== repoWebUrl(selectedProject)) && (!selectedProject.tableauLink || selectedProject.link !== selectedProject.tableauLink) && (
             <motion.a
               href={selectedProject.link} target="_blank" rel="noopener noreferrer"
               style={{
@@ -852,7 +859,7 @@ export default function Projects({ config, theme }) {
           )}
           {selectedProject.githubRepo && (
             <motion.a
-              href={`https://github.com/${selectedProject.githubRepo}`} target="_blank" rel="noopener noreferrer"
+              href={repoWebUrl(selectedProject)} target="_blank" rel="noopener noreferrer"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
                 border: '1px solid var(--accent)', padding: isDesktop ? '0.5rem 1.1rem' : '0.45rem 1rem',
@@ -986,7 +993,7 @@ export default function Projects({ config, theme }) {
                           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                             {project.githubRepo && (
                               <a
-                                href={`https://github.com/${project.githubRepo}`}
+                                href={repoWebUrl(project)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
@@ -1269,30 +1276,31 @@ export default function Projects({ config, theme }) {
                       {/* IDE Header */}
                       <div style={{ padding: '0.55rem 1rem', background: 'var(--bg-primary)', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)', flexWrap: 'wrap' }}>
                         <span
-                          onClick={() => (repoPath || activeFile) && navigateToDir(selectedProject.githubRepo, '')}
-                          title={(repoPath || activeFile) ? "Return to root directory" : undefined}
+                          onClick={() => (repoPath !== repoRoot(selectedProject) || activeFile) && navigateToDir(selectedProject.githubRepo, repoRoot(selectedProject))}
+                          title={(repoPath !== repoRoot(selectedProject) || activeFile) ? "Return to root directory" : undefined}
                           style={{
-                            cursor: (repoPath || activeFile) ? 'pointer' : 'default',
+                            cursor: (repoPath !== repoRoot(selectedProject) || activeFile) ? 'pointer' : 'default',
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '0.45rem',
-                            color: (repoPath || activeFile) ? 'var(--text-secondary)' : 'var(--text-primary)',
+                            color: (repoPath !== repoRoot(selectedProject) || activeFile) ? 'var(--text-secondary)' : 'var(--text-primary)',
                             transition: 'color var(--transition-fast)'
                           }}
                           onMouseEnter={(e) => {
-                            if (repoPath || activeFile) e.currentTarget.style.color = 'var(--accent)'
+                            if (repoPath !== repoRoot(selectedProject) || activeFile) e.currentTarget.style.color = 'var(--accent)'
                           }}
                           onMouseLeave={(e) => {
-                            if (repoPath || activeFile) e.currentTarget.style.color = (repoPath || activeFile) ? 'var(--text-secondary)' : 'var(--text-primary)'
+                            if (repoPath !== repoRoot(selectedProject) || activeFile) e.currentTarget.style.color = 'var(--text-secondary)'
                           }}
                         >
                           <FiCode color="var(--accent)" />
-                          <span>{selectedProject.githubRepo}</span>
+                          <span>{selectedProject.githubPath ? `${selectedProject.githubRepo}/${selectedProject.githubPath}` : selectedProject.githubRepo}</span>
                         </span>
 
-                        {repoPath && repoPath.split('/').map((segment, idx, arr) => {
+                        {repoPath !== repoRoot(selectedProject) && repoPath.slice(repoRoot(selectedProject) ? repoRoot(selectedProject).length + 1 : 0).split('/').map((segment, idx, arr) => {
                           const isLast = idx === arr.length - 1 && !activeFile
-                          const targetPath = arr.slice(0, idx + 1).join('/')
+                          const relative = arr.slice(0, idx + 1).join('/')
+                          const targetPath = repoRoot(selectedProject) ? `${repoRoot(selectedProject)}/${relative}` : relative
                           return (
                             <span key={targetPath} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}>
                               <span style={{ color: 'var(--text-muted)' }}>/</span>
@@ -1360,7 +1368,7 @@ export default function Projects({ config, theme }) {
                           </div>
                         ) : (
                           <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-                            {repoPath && (
+                            {repoPath !== repoRoot(selectedProject) && (
                               <li
                                 onClick={() => navigateUp(selectedProject.githubRepo)}
                                 style={{ padding: '0.6rem 1.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-primary)', fontSize: '0.9rem' }}

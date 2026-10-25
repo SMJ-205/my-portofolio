@@ -143,9 +143,10 @@ async function main() {
   }
 
   // Find all githubRepo fields
-  const repos = portfolio.projects
+  // Several projects can point at one repo (scoped via githubPath); crawl each repo once
+  const repos = [...new Set(portfolio.projects
     .map(p => p.githubRepo)
-    .filter(Boolean);
+    .filter(Boolean))];
 
   if (repos.length === 0) {
     console.log('No GitHub repositories configured to pre-generate.');
