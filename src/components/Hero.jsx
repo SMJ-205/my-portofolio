@@ -721,6 +721,12 @@ export default function Hero({ config }) {
           0%, 100% { opacity: 0.45; transform: translateY(0); }
           50% { opacity: 1; transform: translateY(3px); }
         }
+        /* Mobile light: keep the opacity cascade but drop the 3px nudge */
+        @media (max-width: 767px) {
+          [data-theme="light"] .arrow-down {
+            animation-name: arrowInk;
+          }
+        }
         @media (prefers-reduced-motion: reduce) {
           [data-theme="light"] .arrow-up,
           [data-theme="light"] .center-dash,
