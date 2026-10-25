@@ -4,6 +4,7 @@ import { HiMenu, HiX } from 'react-icons/hi'
 import { FiSun, FiMoon } from 'react-icons/fi'
 import { HiSparkles } from 'react-icons/hi'
 import useScrollSpy from '../hooks/useScrollSpy'
+import scrollToSection from '../utils/scrollToSection'
 
 export default function Navbar({ config, theme, toggleTheme, matrixEnabled, toggleMatrix }) {
   const [scrolled, setScrolled] = useState(false)
@@ -28,7 +29,7 @@ export default function Navbar({ config, theme, toggleTheme, matrixEnabled, togg
 
   const handleNavClick = (id) => {
     setMobileOpen(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    scrollToSection(id)
   }
 
   return (

@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiMail, FiDownload } from 'react-icons/fi'
+import scrollToSection from '../utils/scrollToSection'
 
 const BASE = import.meta.env.BASE_URL
 const RESUME_VERSION = import.meta.env.VITE_RESUME_VERSION
@@ -143,7 +144,7 @@ export default function Hero({ config }) {
                 <FiDownload /> View Resume
               </motion.a>
               <motion.button
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => scrollToSection('contact')}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -373,7 +374,7 @@ export default function Hero({ config }) {
               <FiDownload /> Resume
             </motion.a>
             <motion.button
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => scrollToSection('contact')}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -459,7 +460,7 @@ export default function Hero({ config }) {
             zIndex: 10,
             cursor: 'pointer',
           }}
-          onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => scrollToSection('about')}
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}
@@ -706,26 +707,13 @@ export default function Hero({ config }) {
           stroke-width: 2.2;
         }
         [data-theme="light"] .arrow-up,
-        [data-theme="light"] .center-dash {
-          animation-name: arrowInk;
-        }
+        [data-theme="light"] .center-dash,
         [data-theme="light"] .arrow-down {
-          animation-name: arrowInkDown;
-          transform-box: fill-box;
+          animation-name: arrowInk;
         }
         @keyframes arrowInk {
           0%, 100% { opacity: 0.45; }
           50% { opacity: 1; }
-        }
-        @keyframes arrowInkDown {
-          0%, 100% { opacity: 0.45; transform: translateY(0); }
-          50% { opacity: 1; transform: translateY(3px); }
-        }
-        /* Mobile light: keep the opacity cascade but drop the 3px nudge */
-        @media (max-width: 767px) {
-          [data-theme="light"] .arrow-down {
-            animation-name: arrowInk;
-          }
         }
         @media (prefers-reduced-motion: reduce) {
           [data-theme="light"] .arrow-up,
