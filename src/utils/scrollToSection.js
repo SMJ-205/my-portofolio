@@ -2,7 +2,7 @@
 // section's own top padding (scrollIntoView would leave that padding as a gap).
 // Breathing room between the navbar and the section title (desktop / mobile)
 const GAP_BELOW_NAV_DESKTOP = 84
-const GAP_BELOW_NAV_MOBILE = 56
+const GAP_BELOW_NAV_MOBILE = 30
 
 export default function scrollToSection(id) {
   const section = document.getElementById(id)
