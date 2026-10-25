@@ -365,7 +365,7 @@
       "financeLinkLabel": "Finance Dashboard",
       "dwhLink": "https://console.cloud.google.com/bigquery?p=fnb-data-platform&d=marts&page=dataset",
       "dwhLinkLabel": "BigQuery Marts",
-      "image": "assets/projects/fnb-data-platform.png",
+      "image": "assets/projects/fnb-data-platform.webp",
       "sneakPeekLabel": "Sneak Peek of F&B Data Platform",
       "githubRepo": "SMJ-205/data-infra-template"
     },
