@@ -884,7 +884,7 @@ export default function Projects({ config, theme }) {
         <div className="container">
           <ScrollReveal>
             <h2 className="section-title">Projects</h2>
-            <p className="section-subtitle" style={isDesktop ? undefined : { marginBottom: '0.75rem' }}>Data projects and tools I have built.</p>
+            <p className="section-subtitle" style={isDesktop ? undefined : { marginBottom: '0.75rem' }}>Data portfolio projects and tools I have built.</p>
           </ScrollReveal>
 
           {/* Tag Filters */}
